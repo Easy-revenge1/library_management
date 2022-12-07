@@ -138,22 +138,35 @@ body {
     background-color:#000;
   }
 }
+.idx{
+  margin-left:210px;
+  margin-top:10px;
+  width:1120px;
+}
+.idx2{
+  margin-left:780px;
+  float:left;
+  height:850px;
+  width:560px;
+}
+.htext{
+  color:#fff;
+  font-size:50px;
+  text-align:center;
+  text-decoration:none;
+}
 .rcm{
-  background-image:url('pic/pyh.jpg');
-  height:300px;
-  width:1149px;
+  background-color:#bf00ff;
+  height:200px;
+  width:50%;
+  margin-top:10px;
   transition:0.4s;
-  filter: grayscale(90%);;
-  background-position:center;
-  background-repeat: no-repeat;
-  background-size:cover;
-  margin-left:200px;
-  margin-top:1px;
-  border-radius:0px;
+  filter: grayscale(70%);
+  border-radius:10px;
   transform: scale(0, 0);
   animation: zoom-in-zoom-out 1s ease;
   animation-fill-mode: forwards;
-  animation-delay:2s;
+  animation-delay:1.5s;
 }
 @keyframes zoom-in-zoom-out {
   0% {
@@ -163,31 +176,22 @@ body {
     transform: scale(1.0, 1.0);
   }
 }
-.htext{
-  color:#000;
-  font-size:50px;
-  text-decoration:none;
-
-}
 .rcm:hover{
   filter: grayscale(0%);
 }
 .rcm2{
-  background-image:url('pic/pys5.jpg');
-  height:300px;
-  width:1149px;
-  transition:0.7s;
-  filter: grayscale(90%);;
-  background-position:center;
-  background-repeat: no-repeat;
-  background-size:cover;
-  margin-left:200px;
-  margin-top:1px;
-  border-radius:0px;
+  background-color:#1a1aff;
+  height:200px;
+  width:50%;
+  
+  margin-top:10px;
+  transition:0.4s;
+  filter: grayscale(70%);
+  border-radius:10px;
   transform: scale(0, 0);
   animation: zoom-in-zoom-out2 1s ease;
   animation-fill-mode: forwards;
-  animation-delay:2.1s;
+  animation-delay:1.6s;
 }
 @keyframes zoom-in-zoom-out2 {
   0% {
@@ -197,30 +201,21 @@ body {
     transform: scale(1.0, 1.0);
   }
 }
-.htext{
-  color:#000;
-  font-size:50px;
-  text-decoration:none;
-}
 .rcm2:hover{
   filter: grayscale(0%);
 }
 .rcm3{
-  background-image:url('pic/sce.jpg');
-  height:300px;
-  width:1149px;
+  background-color:#ff5050;
+  height:200px;
+  width:50%;
+  margin-top:10px;
   transition:0.7s;
-  filter: grayscale(90%);;
-  background-position:center;
-  background-repeat: no-repeat;
-  background-size:cover;
-  margin-left:200px;
-  margin-top:1px;
-  border-radius:0px;
+  filter: grayscale(70%);;
+  border-radius:10px;
   transform: scale(0, 0);
   animation: zoom-in-zoom-out3 1s ease;
   animation-fill-mode: forwards;
-  animation-delay:2.2s;
+  animation-delay:1.7s;
 }
 @keyframes zoom-in-zoom-out3 {
   0% {
@@ -231,6 +226,78 @@ body {
   }
 }
 .rcm3:hover{
+  filter: grayscale(0%);
+}
+.rcm4{
+  background-color:#e6e600;
+  height:200px;
+  width:50%;
+  margin-top:10px;
+  transition:0.7s;
+  filter: grayscale(70%);;
+  border-radius:10px;
+  transform: scale(0, 0);
+  animation: zoom-in-zoom-out3 1s ease;
+  animation-fill-mode: forwards;
+  animation-delay:1.8s;
+}
+@keyframes zoom-in-zoom-out3 {
+  0% {
+    transform: scale(0, 0);
+  }
+  100% {
+    transform: scale(1.0, 1.0);
+  }
+}
+.rcm4:hover{
+  filter: grayscale(0%);
+}
+.rcm5{
+  background-color:#248f24;
+  height:410px;
+  width:100%;
+  margin-top:10px;
+  transition:0.7s;
+  filter: grayscale(70%);;
+  border-radius:10px;
+  transform: scale(0, 0);
+  animation: zoom-in-zoom-out3 1s ease;
+  animation-fill-mode: forwards;
+  animation-delay:1.9s;
+}
+@keyframes zoom-in-zoom-out3 {
+  0% {
+    transform: scale(0, 0);
+  }
+  100% {
+    transform: scale(1.0, 1.0);
+  }
+}
+.rcm5:hover{
+  filter: grayscale(0%);
+}
+.rcm6{
+  background-color:#248f24;
+  height:413px;
+  width:100%;
+  margin-top:10px;
+  transition:0.7s;
+  filter: grayscale(70%);;
+  border-radius:10px;
+  transform: scale(0, 0);
+  animation: zoom-in-zoom-out3 1s ease;
+  animation-fill-mode: forwards;
+  animation-delay:2s;
+}
+@keyframes zoom-in-zoom-out3 {
+  0% {
+    transform: scale(0, 0);
+  }
+  100% {
+    transform: scale(1.0, 1.0);
+  }
+}
+.rcm6:hover{
   filter: grayscale(0%);
 }
 .sidebar {
@@ -320,12 +387,21 @@ div.content {
   <a href="">ABOUT</a>
 </div>
  <div style="height:57px;"></div>
+ <div class="idx2">
+ <div class="rcm5">
+   </div>
+   <div class="rcm5">
+   </div>
+</div>
 <div class="idx">
    <div class="rcm">
-     <a href="" class="htext"></a>
    </div>
    <div class="rcm2">
    </div>
    <div class="rcm3">
    </div>
+   <div class="rcm4">
+   </div>
 </div>
+</body>
+</html>

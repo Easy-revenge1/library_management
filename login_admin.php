@@ -6,7 +6,7 @@ if(isset($_POST['submit'])){
     $admin_name=$_POST['admin_name'];
     $admin_pass=$_POST['admin_pass'];
 
-    echo $Query="SELECT * FROM `admin` WHERE admin_name='".$admin_name."' AND admin_pass='".$admin_pass."'";
+    $Query="SELECT * FROM `admin` WHERE admin_name='".$admin_name."' AND admin_pass='".$admin_pass."'";
     $result=mysqli_query($conn,$Query);
     $rows=mysqli_num_rows($result);
     $row=mysqli_fetch_array($result);
@@ -286,9 +286,7 @@ hr{
        <p class="logintext">LOGIN</p>
         <input class="logininput" type="text" name="admin_name" placeholder="Enter Your Username">
         <input class="logininput" type='password' name='admin_pass' placeholder="Enter Your Password">
-         
           <a href="" class="loginOP">Forget Password</a>
-  
         <hr>
         <button type='submit' name='submit' value='submit' class='submit'>DONE</button>
         <div class="na_op">
