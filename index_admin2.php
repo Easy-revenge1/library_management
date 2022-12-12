@@ -23,13 +23,6 @@ body {
     height:58px;
     width:100%;
     z-index: 9999;
-    filter:opacity(0%);
-    animation: topnav1A 2s;
-    animation-fill-mode: forwards;
-}
-@keyframes topnav1A{
-    0%{filter:opacity(0%);}
-    100%{filter:opacity(100%);}
 }
 .toptext{
     text-align:;
@@ -178,7 +171,7 @@ body {
   transform: scale(0, 0);
   animation: zoom-in-zoom-out 1s ease;
   animation-fill-mode: forwards;
-  animation-delay:1.5s;
+  animation-delay:0.2s;
 }
 @keyframes zoom-in-zoom-out {
   0% {
@@ -203,7 +196,7 @@ body {
   transform: scale(0, 0);
   animation: zoom-in-zoom-out2 1s ease;
   animation-fill-mode: forwards;
-  animation-delay:1.6s;
+  animation-delay:0.3s;
 }
 @keyframes zoom-in-zoom-out2 {
   0% {
@@ -227,7 +220,7 @@ body {
   transform: scale(0, 0);
   animation: zoom-in-zoom-out3 1s ease;
   animation-fill-mode: forwards;
-  animation-delay:1.7s;
+  animation-delay:0.4s;
 }
 @keyframes zoom-in-zoom-out3 {
   0% {
@@ -251,7 +244,7 @@ body {
   transform: scale(0, 0);
   animation: zoom-in-zoom-out3 1s ease;
   animation-fill-mode: forwards;
-  animation-delay:1.8s;
+  animation-delay:0.5s;
 }
 @keyframes zoom-in-zoom-out3 {
   0% {
@@ -275,7 +268,7 @@ body {
   transform: scale(0, 0);
   animation: zoom-in-zoom-out3 1s ease;
   animation-fill-mode: forwards;
-  animation-delay:1.9s;
+  animation-delay:0.6s;
 }
 @keyframes zoom-in-zoom-out3 {
   0% {
@@ -299,7 +292,7 @@ body {
   transform: scale(0, 0);
   animation: zoom-in-zoom-out3 1s ease;
   animation-fill-mode: forwards;
-  animation-delay:2s;
+  animation-delay:0.7s;
 }
 @keyframes zoom-in-zoom-out3 {
   0% {
@@ -317,20 +310,10 @@ body {
   padding: 0;
   width: 200px;
   margin-top:58px;
-  position: absolute;
-  left:-200px;
   background-color: #0d0d0d;
   position: fixed;
   height: 100%;
   overflow: auto;
-  animation-name: example;
-  animation-delay:0.8s;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-@keyframes example {
-  0%   {left:-200px; top:0px;}
-  100% {left:0px; top:0px;}
 }
 .sidebar a {
   display: block;

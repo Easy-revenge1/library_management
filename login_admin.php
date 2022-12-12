@@ -96,6 +96,19 @@ body {
     0%{filter:opacity(0%);}
     100%{filter:opacity(100%);}
 }
+.mblogo{
+  font-size:45px;
+  color:#fff;
+  display:none;
+}
+.mblogoT1{
+  color:#fff;
+  letter-spacing: 3px;
+}
+.mblogoT2{
+  color:#999;
+  letter-spacing: 3px;
+}
 .login{
     height:100%;
     width:625px;
@@ -110,8 +123,17 @@ body {
 }
 .logintext{
     text-align:center; 
-    font-size: 25px; 
+    font-size: 20px; 
     color:#fff;
+    font-weight:normal;
+    letter-spacing:1px;
+}
+.logintext2{
+  text-align:center;
+  font-size:20px;
+  color:#fff;
+  font-weight:normal;
+  letter-spacing: 3px;
 }
 .login_box .left{
     width: 41%;
@@ -266,8 +288,58 @@ hr{
     margin-left:5px;
   }
 }
+@media only screen and (max-width: 1005px) {
+  .loginbox{
+    background-color:#;
+    height:300px;
+    width:0%;
+    margin:130px;
+    margin-top:20px;
+    display:flex;
+}
+.login_box {
+    font-family: "arial",sans-serif;
+    width: 100%;
+    height: 100%;
+    margin:auto;
+    border-radius: 10px;
+    transition: 0.4s;
+}
+.leftinput{
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  animation:lgb 1s;
+  animation-fill-mode: forwards;
+}
+  .logobox{
+    font-family: system-ui;
+    height:0%;
+    width:0px;
+    border-right:3px solid #4d4d4d;
+  }
+  .logo1{
+    font-size:0px;
+}
+.logo1_2{
+    font-size:0px;
+}
+
+.logo2{
+    font-size:0px;
+}
+.mblogo{
+  margin:60px 280px;
+  display:flex;
+  width:50%;
+}
+}
 </style>
 <body>
+<div class="mblogo">
+  <span class="mblogoT1">DIGITAL</span>
+  <span class="mblogoT2">LIBRARY</span>
+ </div>
 <div class="loginbox">
  <div class="logobox">
   <div class="logo">
@@ -283,7 +355,7 @@ hr{
     <div class="conta ">
      <form action="login_admin.php" method="POST">
       <div class="leftinput">
-       <p class="logintext">LOGIN</p>
+       <p class="logintext">ADMIN LOGIN</p>
         <input class="logininput" type="text" name="admin_name" placeholder="Enter Your Username">
         <input class="logininput" type='password' name='admin_pass' placeholder="Enter Your Password">
           <a href="" class="loginOP">Forget Password</a>
