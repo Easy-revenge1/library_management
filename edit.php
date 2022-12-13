@@ -5,12 +5,13 @@ $SQL = "SELECT * FROM book";
 $query  = mysqli_query($conn,$SQL);
 
 if(isset($_POST['submit']) && isset($_GET['id'])){
+  $book_tittle=$_POST['book_title'];
   $book_name=$_POST['book_name'];
   $book_author=$_POST['book_author'];
   $book_public_date=$_POST['book_public_date'];
   $book_language=$_POST['book_language'];
 
- echo $query = "UPDATE book SET book_name='$book_name',book_author='$book_author',book_public_date='$book_public_date',book_language='$book_language' WHERE book_id='".$_GET['id']."'";
+ echo $query = "UPDATE book SET book_title='$book_title',book_name='$book_name',book_author='$book_author',book_public_date='$book_public_date',book_language='$book_language' WHERE book_id='".$_GET['id']."'";
 
   if($result = mysqli_query($conn,$query)){
     echo "<script>alert('Update Success');
@@ -45,7 +46,11 @@ $row = mysqli_fetch_array($sql);
                         <form action="edit.php?id=<?=$_GET['id']?>" method="post">
 
                             <div class="form-group mb-3">
-                                <label for="">Book Name</Title></label>
+                                <label for="">Book Title</label>
+                                <input type="text" name="book_title" value="<?=$row['book_title']?>">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="">Book Name</label>
                                 <input type="text" name="book_name" value="<?=$row['book_name']?>">
                             </div>
                             <div class="form-group mb-3">
