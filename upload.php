@@ -11,8 +11,9 @@ if(isset($_POST['submit'])){
     $book_public_date=$_POST['book_public_date'];
     $book_language=$_POST['book_language'];
     $category_id=$_POST['category_id'];
-
-	$query="INSERT INTO book (book_title,book_name,book_author,book_public_date,book_language,category_id) VALUES ('$book_title','$book_name','$book_author','$book_public_date','$book_language','$category_id')";
+    $date = date("Y/m/d");
+	    
+	$query="INSERT INTO book (book_title,book_name,book_author,book_public_date,book_language,category_id, upload_date) VALUES ('$book_title','$book_name','$book_author','$book_public_date','$book_language','$category_id', '$date')";
 	if($result=mysqli_query($conn,$query)){
 	echo "<script>
 	alert('Successfully Add.');</script>";
