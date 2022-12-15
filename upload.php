@@ -80,8 +80,8 @@ body {
     color: #fff;
     text-decoration: none;
     letter-spacing: 2px;
-    margin:0px 450px;
-    
+    padding:0px 7px;
+    border-left:1px solid #999  ;
 }
 .logo{
   margin-left:0px;
@@ -214,10 +214,14 @@ div.content {
     100%{filter:opacity(100%);}
 }
 .uploadfc:hover{
-    border:4px solid #b366ff;
+    border:4px solid #66ff66;
 }
 .user-details{
     position:fixed;
+    width:38%;
+}
+.details{
+  letter-spacing:2px;
 }
 .title{
     text-align:center;
@@ -233,6 +237,7 @@ div.content {
 .ipt{
     background-color:#1a1a1a;
     font-size:17px;
+    width:98%;
     color:#fff;
     border-radius:4px;
     border:2px solid #333;
@@ -240,16 +245,16 @@ div.content {
 }
 
 .uploadfc .ipt:hover{
-    border:2px solid #b366ff;
+    border:2px solid #66ff66;
 }
 .input-box{
-    margin:40px 35px;
+    margin:30px 35px;
     font-size:17px;
     font-weight:normal;
     letter-spacing: 1px;
 }
 .smb{
-    margin: 35px 0px;
+    margin: 30px 0px;
     width:100%;
     background-color:#000;
     border:0px;
@@ -259,7 +264,7 @@ div.content {
     padding:10px 80px;
 }
 .smb:hover{
-    background-color:#b366ff;
+    background-color:#66ff66;
     color:#000;
 }
 .uppic{
@@ -282,8 +287,8 @@ div.content {
 <body>
 <div class="topnav">
  <div class="toptext">
-  <span class="firstT">DIGITAL</span>
-  <span class="firstT2">LIBRARY</span>
+ <span><a class="firstT" href="index_admin.php">DIGITAL</a></span>
+  <span><a class="firstT2" href="index_admin.php">LIBRARY</a></span>
   <span class="firstT3">UPLOAD </span>
  </div>
  <div class="search-container">
@@ -294,36 +299,37 @@ div.content {
   </div>
 </div>
  <div class="sidebar">
- <a class="" href="index_admin2.php">HOME</a>
+ <a class="" href="index_admin.php">HOME</a>
   <a href="book.php">BOOK</a>
   <a href="upload.php">UPLOAD</a>
+  <a href="user.php">USER</a>
   <a href="">ABOUT</a>
 </div>
     <div class="uploadfc">
         <form action="upload.php" method="POST">
             <div class="user-details">
                 <div class="input-box">
-                    <span class="details">Book Title :</span>
+                    <span class="details">Title :</span>
                     <input class="ipt" type="text" placeholder="Book Title" name="book_title" required>
                 </div>
                 <div class="input-box">
-                    <label for="myfile">Book Name :</label>
+                    <label for="myfile">Name :</label>
                     <input type="file" id="img" name="book_name" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Book Author :</span>
+                    <span class="details">Author :</span>
                     <input class="ipt" type="text" placeholder="Book Author" name="book_author" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Book Public Date :</span>
+                    <span class="details">Public Date :</span>
                     <input class="ipt" type="date" name="book_public_date" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Book Language :</span>
+                    <span class="details">Language :</span>
                     <input class="ipt" type="text" placeholder="Book Language"  name="book_language" required>
                 </div>
                 <div class="input-box">
-                    <label for="category_id">Choose a Category ID :</label>
+                    <label for="category_id">Category :</label>
                     <select name="category_id" class="form-control form-control-lg">
       <?php 
           while ($rows = mysqli_fetch_array($query,MYSQLI_ASSOC)):; 

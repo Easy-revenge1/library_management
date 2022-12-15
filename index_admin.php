@@ -61,8 +61,8 @@ body {
     color: #fff;
     text-decoration: none;
     letter-spacing: 2px;
-    margin:0px 450px;
-    
+    padding:0px 7px;
+    border-left:1px solid #999  ;
 }
 .line{
     width:1%;
@@ -383,8 +383,8 @@ div.content {
 <body>
 <div class="topnav">
  <div class="toptext">
-  <span class="firstT">DIGITAL</span>
-  <span class="firstT2">LIBRARY</span>
+  <span><a class="firstT" href="index_admin.php">DIGITAL</a></span>
+  <span><a class="firstT2" href="index_admin.php">LIBRARY</a></span>
   <span class="firstT3">ADMIN WEBPAGE</span>
  </div>
  <div class="search-container">
@@ -395,9 +395,10 @@ div.content {
   </div>
 </div>
  <div class="sidebar">
-  <a class="" href="index_admin2.php">HOME</a>
+  <a class="" href="index_admin.php">HOME</a>
   <a href="book.php">BOOK</a>
   <a href="upload.php">UPLOAD</a>
+  <a href="user.php">USER</a>
   <a href="">ABOUT</a>
 </div>
  <div style="height:57px;"></div>

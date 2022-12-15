@@ -59,8 +59,8 @@ body {
     color: #fff;
     text-decoration: none;
     letter-spacing: 2px;
-    margin:0px 470px;
-    
+    padding:0px 7px;
+    border-left:1px solid #999  ;
 }
 .line{
     width:1%;
@@ -199,7 +199,7 @@ div.content {
     border-radius:5px;
 }
 .tableshow:hover{
-    border:4px solid #b366ff;
+    border:4px solid #66ff66;
 }
 .table{
     text-align:center;
@@ -223,8 +223,8 @@ tr{
     transition:0.4s;
 }
 tr:hover {
-    background-color: #b366ff;
-    color:#fff;
+    background-color: #66ff66;
+    color:#000;
 }
 .booksearch{
   position:fixed;
@@ -242,7 +242,7 @@ tr:hover {
   border-radius:5px;
 }
 .searchbook:hover{
-    border:2px solid #b366ff;
+    border:2px solid #66ff66;
 }
 .idamt{
     filter:opacity(0%);
@@ -253,13 +253,25 @@ tr:hover {
     0%{filter:opacity(0%);}
     100%{filter:opacity(100%);}
 }
+.edt{
+  background-color:#333;
+  color:#fff;
+  border:0px;
+  border-radius:3px;
+  padding:7px 40px;
+  transition:0.4s;
+}
+.edt:hover{
+  background-color:#e6e6e6;
+  color:#000;
+}
 </style>
  </head>
  <body>
  <div class="topnav">
  <div class="toptext">
-  <span class="firstT">DIGITAL</span>
-  <span class="firstT2">LIBRARY</span>
+ <span><a class="firstT" href="index_admin.php">DIGITAL</a></span>
+  <span><a class="firstT2" href="index_admin.php">LIBRARY</a></span>
   <span class="firstT3">BOOK</span>
  </div>
  <div class="search-container">
@@ -270,9 +282,10 @@ tr:hover {
   </div>
 </div>
  <div class="sidebar">
-  <a class="" href="index_admin2.php">HOME</a>
+ <a class="" href="index_admin.php">HOME</a>
   <a href="book.php">BOOK</a>
   <a href="upload.php">UPLOAD</a>
+  <a href="user.php">USER</a>
   <a href="">ABOUT</a>
 </div>
 <div class="idamt">
@@ -288,6 +301,7 @@ tr:hover {
         <th>Book Public Date</th>
         <th>Book Language</th>
         <th>Category</th>
+        <th></th>
     </tr>
     <div>
     <tr class="tdhv">
@@ -297,7 +311,8 @@ tr:hover {
             <td><?=$row["book_author"]?></td>
             <td><?=$row["book_public_date"]?></td>
             <td><?=$row["book_language"]?></td>
-            <td> <button name="book_class" onclick="window.location.href='book_class.php?id=<?=$row['class_id']?>'" id="book_class" class="btn btn-primary">Booking Class</button></td>
+            <td><?=$row["category_name"]?></td>
+            <td><button class="edt" onclick="window.location.href='edit.php?id=<?=$row['book_id']?>'"><i class="fa fa-pencil"></i></button></td>
     </tr>
  <?php  }?>
     </div>
