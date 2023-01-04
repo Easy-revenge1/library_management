@@ -1,28 +1,28 @@
 <?php 
 include_once("db.php");
 
-$SQL = "SELECT * FROM book";
+$SQL = "SELECT * FROM user";
 $query  = mysqli_query($conn,$SQL);
 
 if(isset($_POST['submit']) && isset($_GET['id'])){
-  $book_tittle=$_POST['book_title'];
-  $book_name=$_POST['book_name'];
-  $book_author=$_POST['book_author'];
-  $book_public_date=$_POST['book_public_date'];
-  $book_language=$_POST['book_language'];
+  $u_name = $_POST['user_name'];
+  $u_email = $_POST['user_email'];
+  $u_password = $_POST['user_password'];
+  $u_contact = $_POST['user_contact'];
+  $u_status = $_POST['user_status'];
 
- echo $query = "UPDATE book SET book_title='$book_title',book_name='$book_name',book_author='$book_author',book_public_date='$book_public_date',book_language='$book_language' WHERE book_id='".$_GET['id']."'";
+ $query = "UPDATE user SET user_name = '$u_name', user_email = '$u_email', user_password = '$u_password', user_contact = '$u_contact', user_status = '$u_status' WHERE user_id='".$_GET['id']."'";
 
   if($result = mysqli_query($conn,$query)){
     echo "<script>alert('Update Success');
-    window.location.href='book.php';
+    window.location.href='user.php';
     </script>";
   }else{
     echo "<script>alert('Update Failed');</script>";
   }
 }
 
-$qry = "SELECT * FROM book WHERE book_id = '".$_GET['id']."'";
+$qry = "SELECT * FROM user WHERE user_id = '".$_GET['id']."'";
 $sql = mysqli_query($conn,$qry);
 $row = mysqli_fetch_array($sql);
 
@@ -213,7 +213,7 @@ div.content {
     transition:0.4s;
     box-shadow:;
     height:500px;
-    width:83%;
+    width:83.4%;
     margin-left:210px;
     margin-top:65px;
     position:fixed;
@@ -225,7 +225,7 @@ div.content {
     0%{filter:opacity(0%);}
     100%{filter:opacity(100%);}
 }
-.uploadfc:hover{
+.uploadfc:hover , .uppic img:hover{
     border:4px solid #66ff66;
 }
 .user-details{
@@ -281,7 +281,7 @@ div.content {
     color:#000;
 }
 .uppic{
-    background-color:#000;
+    background-color:#;
     height:500px;
     width:60%;
     border-radius:6px;
@@ -290,10 +290,19 @@ div.content {
     display:block;
 }
 .uppic img{
-    height:100%;
-    width:100%;
-    border-radius:6px;
+    height:300px;
+    width:300px;
+    border:4px solid #222;
+    margin:95px 190px;
+    border-radius:50%;
     background-size: auto;
+     transition:0.4s;
+}
+#pic.clicked {
+    height:400px;
+    width:400px;
+    margin:45px 140px;
+    border-radius:6px;
 }
 </style>
 </head>
@@ -302,7 +311,7 @@ div.content {
  <div class="toptext">
  <span><a class="firstT" href="index_admin.php">DIGITAL</a></span>
   <span><a class="firstT2" href="index_admin.php">LIBRARY</a></span>
-  <span class="firstT3">BOOK</span>
+  <span class="firstT3">USER</span>
   <span class="firstT4">EDIT</span>
  </div>
  <div class="search-container">
@@ -320,41 +329,44 @@ div.content {
   <a href="">ABOUT</a>
 </div>
     <div class="uploadfc">
-        <form action="edit.php?id=<?=$_GET['id']?>" method="POST">
+    <form action="edit_u.php?id=<?=$_GET['id']?>" method="POST">
             <div class="user-details">
                 <div class="input-box">
-                         <label class="details" for="">Title :</label>
-                         <input class="ipt" type="text" name="book_title" value="<?=$row['book_title']?>">
-                </div>
-                <div class="input-box">
                          <label class="details" for="">Name :</label>
-                         <input class="ipt" type="text" name="book_name" value="<?=$row['book_name']?>">
+                         <input class="ipt" type="text" name="user_name" value="<?=$row['user_name']?>">
                 </div>
                 <div class="input-box">
-                         <label class="details" for="">Author :</label>
-                         <input class="ipt" type="text" name="book_author" value="<?=$row['book_author']?>" >
+                         <label class="details" for="">Email :</label>
+                         <input class="ipt" type="text" name="user_email" value="<?=$row['user_email']?>">
                 </div>
                 <div class="input-box">
-                        <label class="details" for="">Language :</label>
-                        <input class="ipt" type="text" name="book_language"value="<?=$row['book_language']?>" >
+                         <label class="details" for="">Password :</label>
+                         <input class="ipt" type="text" name="user_password" value="<?=$row['user_password']?>" >
                 </div>
                 <div class="input-box">
-                         <label class="details" for="">Public Date :</label>
-                         <input class="ipt" type="date" name="book_public_date" value="<?=$row['book_public_date']?>" >
+                        <label class="details" for="">Contact :</label>
+                        <input class="ipt" type="text" name="user_contact" value="<?=$row['user_contact']?>" >
+                </div>
+                <div class="input-box">
+                         <label class="details" for="">Status :</label>
+                         <input class="ipt" type="text" name="user_status" value="<?=$row['user_status']?>" >
           
                     <div class="button">
                         <button type="submit" value="submit" name="submit" class="smb">DONE</button>
-                        <button type="button" onclick="window.location.href='book.php'" class="smb">BACK</button>
+                        <button type="button" onclick="window.location.href='user.php'" class="smb">BACK</button>
                     </div>
                 </div>
             </div>
             <div class="uppic">
-           <img src="pic/<?=$row['book_name']?>" alt="">
+           <img src="pic/fscat.jpg" alt="" id='pic' onclick="mouseOver()">
         </div>
         </form>
     </div>
   
 </body>
-<script>
+<script type='text/javascript'>   
+$('#pic').on('click', function() {
+    $(this).toggleClass('clicked');
+});
 </script>
 </html>
