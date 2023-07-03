@@ -1,30 +1,90 @@
-<?php 
+<?php
 include_once("db.php");
 
-$SQL = "SELECT * FROM book";
-$query  = mysqli_query($conn,$SQL);
+$bookId = $_GET['id'];
 
-if(isset($_POST['submit']) && isset($_GET['id'])){
-  $book_tittle=$_POST['book_title'];
-  $book_name=$_POST['book_name'];
-  $book_author=$_POST['book_author'];
-  $book_public_date=$_POST['book_public_date'];
-  $book_language=$_POST['book_language'];
+if (isset($_POST['submit'])) {
+  $book_title = mysqli_real_escape_string($conn, $_POST['book_title']);
+  $book_author = mysqli_real_escape_string($conn, $_POST['book_author']);
+  $book_public_date = $_POST['book_public_date'];
+  $book_language = mysqli_real_escape_string($conn, $_POST['book_language']);
+  $category_id = mysqli_real_escape_string($conn, $_POST['category_id']);
 
- echo $query = "UPDATE book SET book_title='$book_title',book_name='$book_name',book_author='$book_author',book_public_date='$book_public_date',book_language='$book_language' WHERE book_id='".$_GET['id']."'";
-
-  if($result = mysqli_query($conn,$query)){
-    echo "<script>alert('Update Success');
-    window.location.href='book.php';
-    </script>";
-  }else{
-    echo "<script>alert('Update Failed');</script>";
+  // Handle uploaded book content
+  if (!empty($_FILES['book_content']['tmp_name'])) {
+    $book_content = $_FILES['book_content']['tmp_name'];
+    $book_content_path = "content/" . $_FILES['book_content']['name'];
+    if (!move_uploaded_file($book_content, $book_content_path)) {
+      die('Failed to move uploaded content');
+    }
+  } else {
+    // Retrieve existing book content path if no new content is uploaded
+    $contentQuery = "SELECT book_content FROM book WHERE book_id = ?";
+    $contentStmt = mysqli_prepare($conn, $contentQuery);
+    if ($contentStmt === false) {
+      die('mysqli_prepare failed: ' . mysqli_error($conn));
+    }
+    mysqli_stmt_bind_param($contentStmt, 'i', $bookId);
+    mysqli_stmt_execute($contentStmt);
+    mysqli_stmt_store_result($contentStmt);
+    mysqli_stmt_bind_result($contentStmt, $existingContentPath);
+    mysqli_stmt_fetch($contentStmt);
+    mysqli_stmt_free_result($contentStmt);
+    $book_content_path = $existingContentPath;
   }
-}
 
-$qry = "SELECT * FROM book WHERE book_id = '".$_GET['id']."'";
-$sql = mysqli_query($conn,$qry);
-$row = mysqli_fetch_array($sql);
+  // Handle uploaded book cover
+  if (!empty($_FILES['book_cover']['tmp_name'])) {
+    $book_cover = $_FILES['book_cover']['tmp_name'];
+    $book_cover_path = "cover/" . $_FILES['book_cover']['name'];
+    move_uploaded_file($book_cover, $book_cover_path);
+  } else {
+    // Retrieve existing book cover if no new cover is uploaded
+    $coverQuery = "SELECT book_cover FROM book WHERE book_id = ?";
+    $coverStmt = mysqli_prepare($conn, $coverQuery);
+    if ($coverStmt === false) {
+      die('mysqli_prepare failed: ' . mysqli_error($conn));
+    }
+    mysqli_stmt_bind_param($coverStmt, 'i', $bookId);
+    mysqli_stmt_execute($coverStmt);
+    mysqli_stmt_store_result($coverStmt);
+    mysqli_stmt_bind_result($coverStmt, $existingCover);
+    mysqli_stmt_fetch($coverStmt);
+    mysqli_stmt_free_result($coverStmt);
+    $book_cover_path = $existingCover;
+  }
+
+  $Update = "UPDATE book SET book_title=?, book_content=?, book_author=?, book_public_date=?, book_language=?, category_id=?, book_cover=? WHERE book_id=?";
+  $stmt = mysqli_prepare($conn, $Update);
+  if ($stmt === false) {
+    die('mysqli_prepare failed: ' . mysqli_error($conn));
+  }
+  mysqli_stmt_bind_param($stmt, 'sssssiss', $book_title, $book_content_path, $book_author, $book_public_date, $book_language, $category_id, $book_cover_path, $bookId);
+  mysqli_stmt_execute($stmt);
+    if (mysqli_stmt_execute($stmt)) {
+      echo "<script>window.location.href='book.php';</script>";
+      exit;
+    } else {
+      echo "<script>alert('Update Failed');</script>";
+    }
+  }
+
+$query = "SELECT book.book_id, book.book_title, book.book_cover, book.book_content, book.book_author, book.book_public_date, book.book_language, category.category_id, category.category_name, language.language_name
+          FROM book
+          INNER JOIN category ON book.category_id = category.category_id
+          INNER JOIN language ON book.book_language = language.language_id
+          WHERE book.book_id = ?";
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, 'i', $bookId);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+
+$categoryQuery = "SELECT category_id, category_name FROM category";
+$categoryResult = mysqli_query($conn, $categoryQuery);
+
+$languageQuery = "SELECT language_id, language_name FROM language";
+$languageResult = mysqli_query($conn, $languageQuery);
 
 ?>
 
@@ -36,201 +96,125 @@ $row = mysqli_fetch_array($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fe.css">
     <title>DIGITAL LIBRARY</title>
+</head>
+<body>
+<div class="topnav2">
+ <div class="toptext">
+ <span><a class="firstT" href="index_admin.php">DIGITAL</a></span>
+  <span><a class="firstT2" href="index_admin.php">LIBRARY</a></span>
+  <span class="firstT3">BOOK</span>
+  <span class="firstT4">EDIT</span>
+ </div>
+ <div class="search-container">
+    <form action="upload.php">
+    <a href=""><i class="fa fa-user-circle-o"></i><?php echo $_SESSION["admin_name"]; ?></a>
+    </form>
+  </div>
+</div>
+ <div class="sidebar2">
+  <a class="" href="index_admin.php">HOME</a>
+  <a href="book.php">BOOK</a>
+  <a href="user.php">USER</a>
+  <a href="">ABOUT</a>
+</div>
+    <div class="uploadfc">
+    <form action="edit.php?id=<?= $bookId ?>" method="POST" enctype="multipart/form-data">
+        <button type="button" onclick="window.location.href='book.php'" class="bck"><i class="fa fa-arrow-left"></i></button>
+            <div class="user-details">
+                <div class="input-box">
+                    <label class="details" for="">Title :</label>
+                    <input class="ipt" type="text" name="book_title" value="<?= htmlspecialchars($row['book_title']) ?>">
+                </div>
+                <div class="input-box">
+                    <label class="details" for="">Author :</label>
+                    <input class="ipt" type="text" name="book_author" value="<?= htmlspecialchars($row['book_author']) ?>">
+                </div>
+                <div class="input-box">
+                    <label class="details" for="">Cover :</label>
+                    <input class="ipt" type="file" name="book_cover">
+                </div>
+                <div class="input-box">
+                  <label class="details" for="">Content :</label>
+                  <input class="ipt" type="file" name="book_content">
+              </div>
+                <div class="input-box">
+                    <label class="details" for="">Language :</label>
+                    <select class="ipt" name="book_language" class="form-control form-control-lg">
+                        <?php while ($languageRow = mysqli_fetch_assoc($languageResult)) { ?>
+                            <option value="<?= $languageRow['language_id'] ?>" <?= ($languageRow['language_id'] == $row['book_language']) ? 'selected' : '' ?>>
+                                <?= $languageRow['language_name'] ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="input-box">
+                <label class="details" for="">Category :</label><br>
+                <select class="ipt" name="category_id">
+                <?php while ($categoryRow = mysqli_fetch_assoc($categoryResult)) { ?>
+                    <option value="<?= $categoryRow['category_id'] ?>" <?= ($categoryRow['category_id'] == $row['category_id']) ? 'selected' : '' ?>>
+                      <?= $categoryRow['category_name'] ?>
+                    </option>
+                  <?php } ?>
+                </select>
+                </div>
+                <div class="input-box">
+                    <label class="details" for="">Public Date :</label>
+                    <input class="ipt" type="date" name="book_public_date" value="<?= $row['book_public_date'] ?>">
+                </div>
+                <div class="button">
+                    <button type="submit" value="submit" name="submit" class="smb">DONE</button>
+                </div>
+            </div>
+            <div class="uppic" >
+              <img src="<?php echo $row['book_cover']; ?>" alt="Failed">
+            </div>
+        </form>
+    </div>
+</body>
 <style>
-body {
-    background-color:#262626;
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    color:#fff;
-}
-.topnav{
-    background-color:#000;#e6e6e6
-    opacity:100%;
-    position:fixed;
-    overflow: hidden;
-    transition: 0.4s;
-    height:58px;
-    width:100%;
-    z-index: 9999;
-}
-.toptext{
-    text-align:;
-    padding:20px ;
-    transition:0.4s;
-}
-.stext{
-    transition:0.5s;
-    color:#737373;
-    padding:35px ;
-    text-decoration:none;
-}
-.stext:hover{
-  color:#fff;
-}
-.firstT{
-    color: #fff;
-    text-decoration: none;
-    letter-spacing: 2px;
-    padding:0px;
-}
-.firstT2{
-    color: #999;
-    text-decoration: none;
-    letter-spacing: 2px;
-    padding:0px;
-}
-.firstT3{
-    color: #fff;
-    text-decoration: none;
-    letter-spacing: 2px;
-    padding:0px 7px;
-    border-left:1px solid #999;
-}
-.firstT4{
-  color:#fff;
-  letter-spacing:2px;
-  padding:0px 7px;
-  margin:0px -7px;
-  border-left:1px solid #999;
-}
-.logo{
-  margin-left:0px;
-}
-.topnav .search-container {
-  position: absolute;
-  top:17px;
-  left:1080px;
-}
-.topnav input[type=text] {
-  padding: 0px;
-  transition:0.4s;
-  margin-top: 0px;
-  font-size: 17px;
-  border: none;
-  background-color:#000; 
-  border:0px; 
-  border-bottom:2px solid #737373; 
-  color:#fff;
-}
-.topnav input[type=text]:hover{
-  border-bottom:2px solid #fff;
-}
-.topnav .search-container button {
-  float: right;
-  transition:0.3s;
-  padding: 3px 10px;
-  margin-top: 0px;
-  margin-right: 16px;
-  background: #000;
-  color:#999;
-  font-size: px;
-  border: none;
-  cursor: pointer;
-}
-
-.topnav .search-container button:hover {
-  color:#fff;
-}
-@media screen and (max-width: 600px) {
-  .topnav .search-container {
-    float: none;
-  }
-  .topnav a, .topnav input[type=text], .topnav .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .topnav input[type=text] {
-    background-color:#000;
-  }
-}
-.idx{
-  margin-left:210px;
-  margin-top:10px;
-  width:1120px;
-}
-.idx2{
-  margin-left:780px;
-  float:left;
-  height:850px;
-  width:560px;
-}
-.htext{
-  color:#fff;
-  font-size:50px;
-  text-align:center;
-  text-decoration:none;
-}
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  margin-top:58px;
+.uploadfc {
   background-color: #0d0d0d;
+  border: 4px solid #0d0d0d;
+  border-radius: 10px;
+  transition: 0.4s;
+  width: 83%;
+  height: 600px;
+  margin-left: 210px;
+  margin-top: 65px;
   position: fixed;
-  height: 100%;
-  overflow: auto;
-}
-
-.sidebar a {
-  display: block;
-  font-size:20px;
-  transition:0.4s;
-  color: #737373;
-  padding: 20px;
-  text-decoration: none;
-}
-
-
-.sidebar a:hover:not(.active) {
-  color: #fff;
-}
-
-div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-}
-
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidebar a {float: left;}
-  div.content {margin-left: 0;}
-}
-.uploadfc{
-    background-color:#0d0d0d;
-    border:4px solid #0d0d0d;
-    border-radius:10px;
-    transition:0.4s;
-    box-shadow:;
-    height:500px;
-    width:83%;
-    margin-left:210px;
-    margin-top:65px;
-    position:fixed;
-    filter:opacity(0%);
-    animation: uploadfcA 1s;
-    animation-fill-mode: forwards;
+  filter: opacity(0%);
+  animation: uploadfcA 1s;
+  animation-fill-mode: forwards;
 }
 @keyframes uploadfcA{
-    0%{filter:opacity(0%);}
-    100%{filter:opacity(100%);}
+  0%{filter:opacity(0%);}
+  100%{filter:opacity(100%);}
 }
 .uploadfc:hover{
-    border:4px solid #66ff66;
+  border:4px solid #66ff66;
+}
+.input-box{
+  margin:10px 35px;
+  font-size:17px;
+  font-weight:normal;
+  letter-spacing: 1px;
 }
 .user-details{
     position:fixed;
-    width:40%;
+    width:38%;
+    margin:45px 0px;
+}
+.details{
+  letter-spacing:2px;
+  color:#fff;
+}
+.input-box label{
+    color:#fff;
+}
+.input-box input{
+    color:#fff;
 }
 .title{
     text-align:center;
@@ -245,26 +229,24 @@ div.content {
 }
 .ipt{
     background-color:#1a1a1a;
-    font-size:17px;
-    width:99%;
     color:#fff;
+    font-size:17px;
+    width:98%;
     border-radius:4px;
-    border:2px solid #333;
+    border:2px solid #1a1a1a;
     transition:0.4s;
 }
-
 .uploadfc .ipt:hover{
     border:2px solid #66ff66;
 }
 .input-box{
-    margin:25px 35px;
+    margin:35px 35px;
     font-size:17px;
     font-weight:normal;
     letter-spacing: 1px;
 }
 .button{
-  margin:30px 0px;
-  width:100%;
+  margin:20px 0px;
 }
 .smb{
     margin: 5px 0px;
@@ -280,81 +262,27 @@ div.content {
     background-color:#66ff66;
     color:#000;
 }
-.uppic{
-    background-color:#000;
-    height:500px;
-    width:60%;
-    border-radius:6px;
-    float:right;
-    margin-left:5px;
-    display:block;
+.bck{
+    background-color:#0d0d0d;
+    color:#777;
+    border:0px;
+    font-size:20px;
+    margin:20px 20px;
+    position:fixed;
+    transition:0.4s;
 }
-.uppic img{
-    height:100%;
-    width:100%;
-    border-radius:6px;
-    background-size: auto;
+.bck:hover{
+    color:#fff;
 }
+.sidebar a:hover:not(.active) {
+  color: #fff;
+}
+
+div.content {
+  margin-left: 200px; 
+  padding: 1px 16px;
+  height: 1000px;
+}
+
 </style>
-</head>
-<body>
-<div class="topnav">
- <div class="toptext">
- <span><a class="firstT" href="index_admin.php">DIGITAL</a></span>
-  <span><a class="firstT2" href="index_admin.php">LIBRARY</a></span>
-  <span class="firstT3">BOOK</span>
-  <span class="firstT4">EDIT</span>
- </div>
- <div class="search-container">
-    <form action="upload.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-  </div>
-</div>
- <div class="sidebar">
- <a class="" href="index_admin.php">HOME</a>
-  <a href="book.php">BOOK</a>
-  <a href="upload.php">UPLOAD</a>
-  <a href="user.php">USER</a>
-  <a href="">ABOUT</a>
-</div>
-    <div class="uploadfc">
-        <form action="edit.php?id=<?=$_GET['id']?>" method="POST">
-            <div class="user-details">
-                <div class="input-box">
-                         <label class="details" for="">Title :</label>
-                         <input class="ipt" type="text" name="book_title" value="<?=$row['book_title']?>">
-                </div>
-                <div class="input-box">
-                         <label class="details" for="">Name :</label>
-                         <input class="ipt" type="text" name="book_name" value="<?=$row['book_name']?>">
-                </div>
-                <div class="input-box">
-                         <label class="details" for="">Author :</label>
-                         <input class="ipt" type="text" name="book_author" value="<?=$row['book_author']?>" >
-                </div>
-                <div class="input-box">
-                        <label class="details" for="">Language :</label>
-                        <input class="ipt" type="text" name="book_language"value="<?=$row['book_language']?>" >
-                </div>
-                <div class="input-box">
-                         <label class="details" for="">Public Date :</label>
-                         <input class="ipt" type="date" name="book_public_date" value="<?=$row['book_public_date']?>" >
-          
-                    <div class="button">
-                        <button type="submit" value="submit" name="submit" class="smb">DONE</button>
-                        <button type="button" onclick="window.location.href='book.php'" class="smb">BACK</button>
-                    </div>
-                </div>
-            </div>
-            <div class="uppic">
-           <img src="pic/<?=$row['book_name']?>" alt="">
-        </div>
-        </form>
-    </div>
-  
-</body>
-<script>
-</script>
 </html>

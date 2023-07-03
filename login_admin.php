@@ -1,45 +1,47 @@
-<?php 
+<?php
 include_once('db.php');
 
-if(isset($_POST['submit'])){
-  if(!empty($_POST['admin_name']) && !empty($_POST['admin_pass'])){
-    $admin_name=$_POST['admin_name'];
-    $admin_pass=$_POST['admin_pass'];
+if (isset($_POST['submit'])) {
+  if (!empty($_POST['admin_name']) && !empty($_POST['admin_pass'])) {
+    $admin_name = $_POST['admin_name'];
+    $admin_pass = $_POST['admin_pass'];
 
-    $Query="SELECT * FROM `admin` WHERE admin_name='".$admin_name."' AND admin_pass='".$admin_pass."'";
-    $result=mysqli_query($conn,$Query);
-    $rows=mysqli_num_rows($result);
-    $row=mysqli_fetch_array($result);
-  
-    if($rows==1){
-      $_SESSION['admin_name']=$admin_name;
-      $_SESSION['admin_pass']=$admin_pass;
-      $_SESSION["id"]=$row[0];
-      echo "<script>window.location.href='index_admin.php';
-           alert('Hi! $admin_name, Welcome to DIGITAL Library');</script>";
-    }else{      
-      echo "<script>alert('Wrong Username or Password, Please try again :(');</script>";
+    // Use prepared statements to prevent SQL injection
+    $query = "SELECT * FROM `admin` WHERE admin_name=? AND admin_pass=?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "ss", $admin_name, $admin_pass);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_array($result);
+
+    if (mysqli_num_rows($result) == 1) {
+      $_SESSION['admin_name'] = $admin_name;
+      $_SESSION['admin_pass'] = $admin_pass;
+      $_SESSION["id"] = $row[0];
+      echo "<script>window.location.href='index_admin.php';</script>";
+      exit(); // Add exit() after redirecting to prevent further execution
+    } else {
+      echo "<script>alert('Wrong Username or Password, Please try again');</script>";
     }
-  }else{
-    echo "<script>alert('Please Insert Username or Password ):');</script>";
   }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIGITAL LIBRARY</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIGITAL LIBRARY</title>
 </head>
+
 <style>
 body {
     background-color:#262626;
     font-family: Arial, Helvetica, sans-serif;
 }
 .loginbox{
-    background-color:#;
     height:500px;
     width:100%;
     max-width:100%;
@@ -137,7 +139,6 @@ body {
 }
 .login_box .left{
     width: 41%;
-    height: %;
     padding: 25px 25px;
   
 }
@@ -146,7 +147,7 @@ body {
     height: 100%  
 }
 .left .top_link a {
-    color: #452A5A
+    color: #452A5A;
     font-weight: 400;
 }
 .left .top_link{
@@ -181,7 +182,6 @@ body {
     padding: 10px 0px;
     width: 100%;
     overflow: hidden;
-    font-weight: ;
     font-size: 14px;
     transition:0.4s;
 }
@@ -290,7 +290,6 @@ hr{
 }
 @media only screen and (max-width: 1005px) {
   .loginbox{
-    background-color:#;
     height:300px;
     width:0%;
     margin:130px;
@@ -335,42 +334,38 @@ hr{
 }
 }
 </style>
+
 <body>
-<div class="mblogo">
-  <span class="mblogoT1">DIGITAL</span>
-  <span class="mblogoT2">LIBRARY</span>
- </div>
-<div class="loginbox">
- <div class="logobox">
-  <div class="logo">
-   <span class="logo1">WELCOME</span>
-   <span class="logo1_2">TO</span>
-   <br>
-   <span class="logo2">DIGITAL LIBRARY</span>
-  </div>
- </div>
- <div class="login">
-  <div class="login">
-   <div class="login_box">
-    <div class="conta ">
-     <form action="login_admin.php" method="POST">
-      <div class="leftinput">
-       <p class="logintext">ADMIN LOGIN</p>
-        <input class="logininput" type="text" name="admin_name" placeholder="Enter Your Username">
-        <input class="logininput" type='password' name='admin_pass' placeholder="Enter Your Password">
-          <a href="" class="loginOP">Forget Password</a>
-        <hr>
-        <button type='submit' name='submit' value='submit' class='submit'>DONE</button>
-        <div class="na_op">
-         <span class="noacc" >Don't have account yet?</span>
-         <span><a class="signup" href="">Sign Up</a></span>
+  <div class="loginbox">
+    <div class="logobox">
+      <div class="logo">
+        <span class="logo1">WELCOME</span>
+        <span class="logo1_2">TO</span>
+        <br>
+        <span class="logo2">DIGITAL LIBRARY</span>
+      </div>
+    </div>
+    <div class="login">
+      <div class="login_box">
+        <div class="conta ">
+          <form action="login_admin.php" method="POST">
+            <div class="leftinput">
+              <p class="logintext">ADMIN LOGIN</p>
+              <input class="logininput" type="text" name="admin_name" placeholder="Enter Your Username" required>
+              <input class="logininput" type='password' name='admin_pass' placeholder="Enter Your Password" required>
+              <a href="#" class="loginOP">Forgot Password</a>
+              <hr>
+              <button type='submit' name='submit' value='submit' class='submit'>DONE</button>
+              <div class="na_op">
+                <span class="noacc">Don't have an account yet?</span>
+                <span><a class="signup" href="">Sign Up</a></span>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-     </form>
     </div>
-   </div>
   </div>
- </div>
-</div>
 </body>
+
 </html>
