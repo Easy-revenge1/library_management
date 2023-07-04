@@ -9,6 +9,7 @@ if (isset($_POST['submit'])) {
   $book_public_date = $_POST['book_public_date'];
   $book_language = mysqli_real_escape_string($conn, $_POST['book_language']);
   $category_id = mysqli_real_escape_string($conn, $_POST['category_id']);
+  $book_status = mysqli_real_escape_string($conn, $_POST['book_status']);
 
   // Handle uploaded book content
   if (!empty($_FILES['book_content']['tmp_name'])) {
@@ -54,12 +55,12 @@ if (isset($_POST['submit'])) {
     $book_cover_path = $existingCover;
   }
 
-  $Update = "UPDATE book SET book_title=?, book_content=?, book_author=?, book_public_date=?, book_language=?, category_id=?, book_cover=? WHERE book_id=?";
+  echo $Update = "UPDATE book SET book_title=?, book_content=?, book_author=?, book_public_date=?, book_language=?, category_id=?, book_cover=?, Status=? WHERE book_id=?";
   $stmt = mysqli_prepare($conn, $Update);
   if ($stmt === false) {
     die('mysqli_prepare failed: ' . mysqli_error($conn));
   }
-  mysqli_stmt_bind_param($stmt, 'sssssiss', $book_title, $book_content_path, $book_author, $book_public_date, $book_language, $category_id, $book_cover_path, $bookId);
+  mysqli_stmt_bind_param($stmt, 'sssssssis', $book_title, $book_content_path, $book_author, $book_public_date, $book_language, $category_id, $book_cover_path, $book_status, $bookId);
   mysqli_stmt_execute($stmt);
     if (mysqli_stmt_execute($stmt)) {
       echo "<script>window.location.href='book.php';</script>";
@@ -69,22 +70,26 @@ if (isset($_POST['submit'])) {
     }
   }
 
-$query = "SELECT book.book_id, book.book_title, book.book_cover, book.book_content, book.book_author, book.book_public_date, book.book_language, category.category_id, category.category_name, language.language_name
-          FROM book
-          INNER JOIN category ON book.category_id = category.category_id
-          INNER JOIN language ON book.book_language = language.language_id
-          WHERE book.book_id = ?";
+  $query = "SELECT book.*, category.category_name, language.language_name, bookstatus.BookStatus
+            FROM book
+            INNER JOIN category ON book.category_id = category.category_id
+            INNER JOIN language ON book.book_language = language.language_id
+            INNER JOIN bookstatus ON book.Status = bookstatus.BookStatusId
+            WHERE book.book_id = ?";
 $stmt = mysqli_prepare($conn, $query);
 mysqli_stmt_bind_param($stmt, 'i', $bookId);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
-$categoryQuery = "SELECT category_id, category_name FROM category";
+$categoryQuery = "SELECT *FROM category";
 $categoryResult = mysqli_query($conn, $categoryQuery);
 
-$languageQuery = "SELECT language_id, language_name FROM language";
+$languageQuery = "SELECT * FROM language";
 $languageResult = mysqli_query($conn, $languageQuery);
+
+$statusQuery = "SELECT * FROM bookstatus";
+$statusResult = mysqli_query($conn, $statusQuery);
 
 ?>
 
@@ -138,7 +143,7 @@ $languageResult = mysqli_query($conn, $languageQuery);
                 <div class="input-box">
                   <label class="details" for="">Content :</label>
                   <input class="ipt" type="file" name="book_content">
-              </div>
+                </div>
                 <div class="input-box">
                     <label class="details" for="">Language :</label>
                     <select class="ipt" name="book_language" class="form-control form-control-lg">
@@ -163,6 +168,16 @@ $languageResult = mysqli_query($conn, $languageQuery);
                     <label class="details" for="">Public Date :</label>
                     <input class="ipt" type="date" name="book_public_date" value="<?= $row['book_public_date'] ?>">
                 </div>
+                <div class="input-box">
+                  <label class="details" for="">Status :</label>
+                  <select class="ipt" name="book_status" class="form-control form-control-lg">
+                    <?php while ($statusRow = mysqli_fetch_assoc($statusResult)) { ?>
+                        <option value="<?= $statusRow['BookStatusId'] ?>" <?= ($statusRow['BookStatusId'] == $row['Status']) ? 'selected' : '' ?>>
+                            <?= $statusRow['BookStatus'] ?>
+                        </option>
+                    <?php } ?>
+                  </select>
+              </div>
                 <div class="button">
                     <button type="submit" value="submit" name="submit" class="smb">DONE</button>
                 </div>

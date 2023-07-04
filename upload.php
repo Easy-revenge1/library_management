@@ -29,8 +29,8 @@ if (isset($_FILES["book_cover"]) && isset($_FILES["PDF"])) {
     $book_language = mysqli_real_escape_string($conn, $book_language);
     $category_id = mysqli_real_escape_string($conn, $category_id);
 
-    $query = "INSERT INTO `book` (book_title, book_cover, book_content, book_author, book_public_date, book_language, category_id, upload_date) 
-              VALUES ('$book_title', '$newFilePath1', '$newFilePath2', '$book_author', '$book_public_date', '$book_language', '$category_id', '$date')";
+    $query = "INSERT INTO `book` (book_title, book_cover, book_content, book_author, book_public_date, book_language, category_id, upload_date, Status) 
+              VALUES ('$book_title', '$newFilePath1', '$newFilePath2', '$book_author', '$book_public_date', '$book_language', '$category_id', '$date', '1')";
 
     if (mysqli_query($conn, $query)) {
       echo "<script>window.location.href='book.php';</script>";
@@ -45,6 +45,7 @@ if (isset($_FILES["book_cover"]) && isset($_FILES["PDF"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,6 +55,7 @@ if (isset($_FILES["book_cover"]) && isset($_FILES["PDF"])) {
   <link rel="stylesheet" href="fe.css">
   <title>DIGITAL LIBRARY</title>
 </head>
+
 <body>
   <div class="topnav2">
     <div class="toptext">
@@ -126,6 +128,7 @@ if (isset($_FILES["book_cover"]) && isset($_FILES["PDF"])) {
     <div class="uppic" id="selectedBanner"></div>
   </div>
 </body>
+</html>
 
 <style>
  .uploadfc{
