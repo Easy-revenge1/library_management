@@ -70,6 +70,15 @@ if (mysqli_num_rows($languageResult) > 0) {
     text-decoration: none;
     color: #8c8c8c;
   }
+  .sort-link.asc::after {
+  content: '\25b2'; /* Up arrow icon */
+  margin-left: 5px;
+}
+
+.sort-link.desc::after {
+  content: '\25bc'; /* Down arrow icon */
+  margin-left: 5px;
+}
 </style>
 
 <body>
@@ -131,10 +140,10 @@ if (mysqli_num_rows($languageResult) > 0) {
       <thead class="trh">
         <th>#</th>
         <th><a href="#" class="sort-link" data-column="1">Title</a></th>
-        <th>Author</th>
+        <th><a href="#" class="sort-link" data-column="2">Author</a></th>
         <th><a href="#" class="sort-link" data-column="3">Public Date</a></th>
-        <th>Language</th>
-        <th>Category</th>
+        <th><a href="#" class="sort-link" data-column="4">Language</a></th>
+        <th><a href="#" class="sort-link" data-column="5">Category</a></th>
         <th>Status</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -244,7 +253,8 @@ $('.sort-link').on('click', function(e) {
   e.preventDefault();
   var column = $(this).data('column');
   var order = $(this).hasClass('asc') ? 'desc' : 'asc';
-  $(this).toggleClass('asc desc');
+  $('.sort-link').removeClass('asc desc arrow-up arrow-down');
+  $(this).addClass(order).addClass(order === 'asc' ? 'arrow-down' : 'arrow-up');
   sortTable(column, order);
 });
 
@@ -265,8 +275,15 @@ function sortTable(column, order) {
     return 0;
   });
 
+  $('#book-table-body').empty(); // Clear table body
+
   $.each(rows, function(index, row) {
     $('#book-table-body').append(row);
   });
 }
+
+$('th:first-child').on('click', function() {
+  $('.sort-link').removeClass('asc desc arrow-up arrow-down');
+  sortTable(0, 'asc');
+});
 </script>
