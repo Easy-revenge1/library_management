@@ -16,7 +16,7 @@ $languageResult = mysqli_query($conn, $languageSearch);
 // Category Row Function
 if (mysqli_num_rows($categoryResult) > 0) {
     // Generate options for the category select element
-    $categoryOptions = "";
+    $categoryOptions = '<option value="">Select a category</option>';
     while ($row = mysqli_fetch_assoc($categoryResult)) {
         $categoryOptions .= '<option value="' . $row["category_id"] . '|' . $row["category_name"] . '">' . $row["category_name"] . '</option>';
     }
@@ -28,7 +28,7 @@ if (mysqli_num_rows($categoryResult) > 0) {
   // Language Row Function
 if (mysqli_num_rows($languageResult) > 0) {
     // Generate options for the language select element
-    $languageOptions = "";
+    $languageOptions = '<option value="">Select a language</option>';
     while ($row = mysqli_fetch_assoc($languageResult)) {
       $languageOptions .= '<option value="' . $row["language_id"] . '|' . $row["language_name"] . '">' . $row["language_name"] . '</option>';
     }
@@ -138,11 +138,11 @@ if (mysqli_num_rows($languageResult) > 0) {
               <button class="dltbtn"><i class="fa fa-trash-o"></i></button>
             </td>
           </tr>
-          <div id="no-books" style="display: none; color:red">No books are found</div>
         <?php } ?>
       </tbody>
     </div>
  </table>
+ <div id="no-books" style="display: none; color:red">No books are found</div>
  <button class="uplbtn" onclick="window.location.href='upload.php'" style="margin-left: 10px;">
     <i class="fa fa-plus"></i> ADD
   </button>
@@ -152,52 +152,47 @@ if (mysqli_num_rows($languageResult) > 0) {
  
  <script>
     function clearSearchInputs() {
-    // hide all search boxes
     $('.searchbook').hide();
-    // reset all input fields
     $('input[name="title"], input[name="author"]').val('');
-    // set all select fields back to the first option
     $('select[name="category"], select[name="language"]').prop('selectedIndex', 0).change();
-    // make all books visible
     $('#book-table-body tr').show();
 }
 
-  $(document).ready(function(){
+  function handleSearchButtonClick(inputElementId) {
+      clearSearchInputs();
+      $(`#${inputElementId}`).show();
+    }
+
     $('#title-btn').on('click', function() {
-      $('.searchbook').hide();
-      $('#title-div').show();
+      handleSearchButtonClick('title-div');
     });
 
     $('#category-btn').on('click', function() {
-      $('.searchbook').hide();
-      $('#category-div').show();
+      handleSearchButtonClick('category-div');
     });
 
     $('#public-date-btn').on('click', function() {
-      $('.searchbook').hide();
-      $('#public-date-div').show();
+      handleSearchButtonClick('public-date-div');
     });
 
     $('#language-btn').on('click', function() {
-      $('.searchbook').hide();
-      $('#language-div').show();
+      handleSearchButtonClick('language-div');
     });
 
     $('#author-btn').on('click', function() {
-      $('.searchbook').hide();
-      $('#author-div').show();
+      handleSearchButtonClick('author-div');
     });
 
     // Initialize datepicker
     $("#datepicker").datepicker();
 
-  // Live search for title, author, category, and language
-  $('input[name="title"], input[name="author"], select[name="category"], select[name="language"]').on('change keyup', function() {
-    var titleValue = $('input[name="title"]').val().toLowerCase();
-    var authorValue = $('input[name="author"]').val().toLowerCase();
-    var categoryValue = $('select[name="category"]').val() ? $('select[name="category"]').val().split('|')[1].toLowerCase() : '';
-    var languageValue = $('select[name="language"]').val() ? $('select[name="language"]').val().split('|')[1].toLowerCase() : '';
-    var visibleRowCount = 0;
+$(document).ready(function(){
+
+$('input[name="title"], input[name="author"], select[name="category"], select[name="language"]').on('keyup change', function() {
+    var titleSearchValue = $('input[name="title"]').val().toLowerCase();
+    var authorSearchValue = $('input[name="author"]').val().toLowerCase();
+    var categorySearchValue = $('select[name="category"]').val() ? $('select[name="category"]').val().split('|')[1].toLowerCase() : '';
+    var languageSearchValue = $('select[name="language"]').val() ? $('select[name="language"]').val().split('|')[1].toLowerCase() : '';
 
     $('#book-table-body tr').each(function() {
       var title = $(this).find('td:eq(1)').text().toLowerCase();
@@ -205,25 +200,29 @@ if (mysqli_num_rows($languageResult) > 0) {
       var category = $(this).find('td:eq(5)').text().toLowerCase();
       var language = $(this).find('td:eq(4)').text().toLowerCase();
 
-      var isTitleMatch = title.includes(titleValue);
-      var isAuthorMatch = author.includes(authorValue);
-      var isCategoryMatch = (categoryValue === '') || category === categoryValue;
-      var isLanguageMatch = (languageValue === '') || language === languageValue;
+      var titleMatches = title.includes(titleSearchValue);
+      var authorMatches = author.includes(authorSearchValue);
+      var categoryMatches = categorySearchValue ? category === categorySearchValue : true; 
+      var languageMatches = languageSearchValue ? language === languageSearchValue : true; 
 
-      if (isTitleMatch && isAuthorMatch && isCategoryMatch && isLanguageMatch) {
+      console.log('titleSearchValue:', titleSearchValue);
+      console.log('authorSearchValue:', authorSearchValue);
+      console.log('categorySearchValue:', categorySearchValue);
+      console.log('languageSearchValue:', languageSearchValue);
+      
+      if (titleMatches && authorMatches && categoryMatches && languageMatches) {
         $(this).show();
-        visibleRowCount++;
       } else {
         $(this).hide();
       }
     });
-
-    if (visibleRowCount === 0) {
-      $('#no-books').show();
-    } else {
-      $('#no-books').hide();
-    }
+    
+      if ($('#book-table-body tr:visible').length === 0) {
+        $('#no-books').show();
+      } else {
+        $('#no-books').hide();
+      }
+    });
   });
-});
 
   </script>
