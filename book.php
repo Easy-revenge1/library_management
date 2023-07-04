@@ -13,6 +13,16 @@ $categoryResult = mysqli_query($conn, $categorySearch);
 $languageSearch = "SELECT * FROM language";
 $languageResult = mysqli_query($conn, $languageSearch);
 
+//Delete Book
+if(isset($_GET['id']) &&isset($_GET['action']) && $_GET['action'] == 'delete'){
+  $id=$_GET['id'];
+  $Query="DELETE FROM book WHERE book_id='$id'";
+  if($result=mysqli_query($conn,$Query)){
+      echo "<script>window.location.href = 'book.php'</script>";
+  }else{
+      echo "<script>alert('Record Fails to Delete')</script>";
+  }
+}
 // Category Row Function
 if (mysqli_num_rows($categoryResult) > 0) {
     // Generate options for the category select element
@@ -135,7 +145,7 @@ if (mysqli_num_rows($languageResult) > 0) {
               <a href="edit.php?id=<?=$row['book_id']?>" class="edt"><i class="fa fa-pencil"></i></a>
             </td>
             <td>
-              <button class="dltbtn"><i class="fa fa-trash-o"></i></button>
+            <a href="book.php?id=<?=$row['book_id']?>&action=delete" class="dltbtn" onclick="return confirm('Are you sure you want to Delete Book ID <?= $row['book_id'] ?>?');"><i class="fa fa-trash-o"></i></a>
             </td>
           </tr>
         <?php } ?>
