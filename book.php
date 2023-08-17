@@ -1,307 +1,277 @@
-<?php 
+<?php
 include_once("db.php");
 
-$query = "SELECT book.book_id, book.book_title, book.book_name, book.book_author, book.book_public_date, book.book_language, book.category_id, category.category_id, category.category_name FROM book
-INNER JOIN category ON book.category_id = category.category_id";
-$SQL   = mysqli_query($conn,$query);
+//Queries
+$query = "SELECT book.*, category.category_name, language.language_name, bookstatus.BookStatus
+          FROM book
+          INNER JOIN category ON book.category_id = category.category_id
+          INNER JOIN language ON book.book_language = language.language_id
+          INNER JOIN bookstatus ON book.Status = bookstatus.BookStatusId";
+$SQL = mysqli_query($conn, $query);
 
+$categorySearch = "SELECT * FROM category";
+$categoryResult = mysqli_query($conn, $categorySearch);
+
+$languageSearch = "SELECT * FROM language";
+$languageResult = mysqli_query($conn, $languageSearch);
+
+// Delete Book
+if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'delete') {
+  $id = $_GET['id'];
+  $Query = "DELETE FROM book WHERE book_id='$id'";
+  if ($result = mysqli_query($conn, $Query)) {
+    echo "<script>window.location.href = 'book.php'</script>";
+  } else {
+    echo "<script>alert('Record Fails to Delete')</script>";
+  }
+}
+
+// Category Row Function
+if (mysqli_num_rows($categoryResult) > 0) {
+  // Generate options for the category select element
+  $categoryOptions = '<option value="">Select a category</option>';
+  while ($row = mysqli_fetch_assoc($categoryResult)) {
+    $categoryOptions .= '<option value="' . $row["category_id"] . '|' . $row["category_name"] . '">' . $row["category_name"] . '</option>';
+  }
+} else {
+  // Handle the case when no categories exist
+  $categoryOptions = '<option value="">No categories found</option>';
+}
+
+// Language Row Function
+if (mysqli_num_rows($languageResult) > 0) {
+  // Generate options for the language select element
+  $languageOptions = '<option value="">Select a language</option>';
+  while ($row = mysqli_fetch_assoc($languageResult)) {
+    $languageOptions .= '<option value="' . $row["language_id"] . '|' . $row["language_name"] . '">' . $row["language_name"] . '</option>';
+  }
+} else {
+  // Handle the case when no languages exist
+  $languageOptions = '<option value="">No languages found</option>';
+}
 ?>
 
- <!DOCTYPE html>
- <html>
- <head>
-    <title>DIGITAL LIBRARY</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>DIGITAL LIBRARY</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="fe.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+
 <style>
-body {
-    background-color:#262626;
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.topnav{
-    background-color:#000;#e6e6e6
-    opacity:100%;
-    position:fixed;
-    overflow: hidden;
-    transition: 0.4s;
-    height:58px;
-    width:100%;
-    z-index: 9999;
-}
-.toptext{
-    text-align:;
-    padding:20px ;
-    transition:0.4s;
-}
-.stext{
-    transition:0.5s;
-    color:#737373;
-    padding:35px ;
-    text-decoration:none;
-}
-.stext:hover{
-  color:#fff;
-}
-.firstT{
-    color: #fff;
+  .searchbook {
+    display: none;
+  }
+  a {
     text-decoration: none;
-    letter-spacing: 2px;
-    padding:0px;
-}
-.firstT2{
-    color: #999;
-    text-decoration: none;
-    letter-spacing: 2px;
-    padding:0px;
-}
-.firstT3{
-    color: #fff;
-    text-decoration: none;
-    letter-spacing: 2px;
-    margin:0px 470px;
-    
-}
-.line{
-    width:1%;
-    background-color:#999;
-}
-.textc{
-    margin-left:115px;
-}
-.rainbow {
-  text-align: ;
-  font-size: px;
-  text-decoration: none;
-  letter-spacing: 1px;
-  animation: colorRotate 8s linear 0s infinite;
+    color: #8c8c8c;
+  }
+  .sort-link.asc::after {
+  content: '\25b2'; /* Up arrow icon */
+  margin-left: 5px;
 }
 
-@keyframes colorRotate {
-  from {
-    color: #6666ff;
-  }
-  10% {
-    color: #0099ff;
-  }
-  50% {
-    color: #00ff00;
-  }
-  75% {
-    color: #ff3399;
-  }
-  100% {
-    color: #6666ff;
-  }
-}
-.logo{
-  margin-left:0px;
-}
-.topnav .search-container {
-  position: absolute;
-  top:17px;
-  left:1080px;
-}
-.topnav input[type=text] {
-  padding: 0px;
-  transition:0.4s;
-  margin-top: 0px;
-  font-size: 17px;
-  border: none;
-  background-color:#000; 
-  border:0px; 
-  border-bottom:2px solid #737373; 
-  color:#fff;
-}
-.topnav input[type=text]:hover{
-  border-bottom:2px solid #fff;
-}
-.topnav .search-container button {
-  float: right;
-  transition:0.3s;
-  padding: 3px 10px;
-  margin-top: 0px;
-  margin-right: 16px;
-  background: #000;
-  color:#999;
-  font-size: px;
-  border: none;
-  cursor: pointer;
-}
-
-.topnav .search-container button:hover {
-  color:#fff;
-}
-@media screen and (max-width: 600px) {
-  .topnav .search-container {
-    float: none;
-  }
-  .topnav a, .topnav input[type=text], .topnav .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .topnav input[type=text] {
-    background-color:#000;
-  }
-}
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  margin-top:58px;
-  background-color: #0d0d0d;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-}
-.sidebar a {
-  display: block;
-  font-size:20px;
-  transition:0.4s;
-  color: #737373;
-  padding: 20px;
-  text-decoration: none;
-}
-
-
-.sidebar a:hover:not(.active) {
-  color: #fff;
-}
-
-div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-}
-
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidebar a {float: left;}
-  div.content {margin-left: 0;}
-}
-.tableshow{
-    background-color:#1a1a1a;
-    position:fixed;
-    border:4px solid #1a1a1a;
-    border-radius:10px;
-    transition:0.4s;
-    margin-top:110px;
-    margin-left:210px;
-    width:83%;
-    border-radius:5px;
-}
-.tableshow:hover{
-    border:4px solid #b366ff;
-}
-.table{
-    text-align:center;
-    margin:5px 10px;
-    width:98%;
-    color:#fff;
-}
-table{
-    border-collapse: collapse;
-}
-th{
-    padding: 8px;
-    text-align: center;
-    border-bottom:1px solid #999;
-    border-collapse: collapse;
-}
-td{
-    padding:5px 0px;
-}
-tr{
-    transition:0.4s;
-}
-tr:hover {
-    background-color: #b366ff;
-    color:#fff;
-}
-.booksearch{
-  position:fixed;
-  width:81.8%;
-  margin-top:65px;
-  margin-left:210px;
-}
-.searchbook{
-  background-color:#1a1a1a;
-  color:#fff;
-  transition:0.4s;
-  width: 100%;
-  padding:10px;
-  border:2px solid #1a1a1a;
-  border-radius:5px;
-}
-.searchbook:hover{
-    border:2px solid #b366ff;
-}
-.idamt{
-    filter:opacity(0%);
-    animation: indexA1 1s;
-    animation-fill-mode: forwards;
-}
-@keyframes indexA1{
-    0%{filter:opacity(0%);}
-    100%{filter:opacity(100%);}
+.sort-link.desc::after {
+  content: '\25bc'; /* Down arrow icon */
+  margin-left: 5px;
 }
 </style>
- </head>
- <body>
- <div class="topnav">
- <div class="toptext">
-  <span class="firstT">DIGITAL</span>
-  <span class="firstT2">LIBRARY</span>
-  <span class="firstT3">BOOK</span>
- </div>
- <div class="search-container">
-    <form action="index_admin.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-  </div>
-</div>
- <div class="sidebar">
-  <a class="" href="index_admin2.php">HOME</a>
-  <a href="book.php">BOOK</a>
-  <a href="upload.php">UPLOAD</a>
-  <a href="">ABOUT</a>
-</div>
-<div class="idamt">
-<div class="booksearch">
-    <input type="text" placeholder="What book you looking for..." class="searchbook" name="">
-</div>
-<div class="tableshow">
-<table class="table"> 
-    <tr>
-        <th>Book ID</th>
-        <th>Book Title</th>
-        <th>Book Author</th>
-        <th>Book Public Date</th>
-        <th>Book Language</th>
-        <th>Category</th>
-    </tr>
-    <div>
-    <tr class="tdhv">
-        <?php while($row = mysqli_fetch_array($SQL))  {?>
-            <td><?=$row["book_id"]?></td>
-            <td><?=$row["book_title"]?></td>
-            <td><?=$row["book_author"]?></td>
-            <td><?=$row["book_public_date"]?></td>
-            <td><?=$row["book_language"]?></td>
-            <td> <button name="book_class" onclick="window.location.href='book_class.php?id=<?=$row['class_id']?>'" id="book_class" class="btn btn-primary">Booking Class</button></td>
-    </tr>
- <?php  }?>
+
+<body>
+  <div class="topnav2">
+    <div class="toptext">
+      <span><a class="firstT" href="index_admin.php">DIGITAL</a></span>
+      <span><a class="firstT2" href="index_admin.php">LIBRARY</a></span>
+      <span class="firstT3">BOOK</span>
     </div>
- </table>
-</div>
-</div>
- </html>
+    <div class="search-container">
+      <a href="logout.php"><i class="fa fa-user-circle-o"></i>Logout</a>
+    </div>
+  </div>
+  <div class="sidebar2">
+    <a class="" href="index_admin.php">HOME</a>
+    <a href="book.php">BOOK</a>
+    <a href="user.php">USER</a>
+    <a href="">ABOUT</a>
+  </div>
+  <div class="idamt">
+
+    <!-- Search Book Function -->
+    <div class="booksearch">
+      <button class="search-button" id="title-btn">Title</button>
+      <button class="search-button" id="category-btn">Category</button>
+      <button class="search-button" id="language-btn">Language</button>
+      <button class="search-button" id="author-btn">Author</button>
+      <button class="search-button" id="refresh-btn" onclick="clearSearchInputs()">Refresh</button>
+
+      <div id="title-div" class="searchbook">
+        <input type="text" class="search-input" placeholder="Enter the title to search" name="title">
+      </div>
+
+      <div id="category-div" class="searchbook">
+        <select class="search-input" name="category" >
+          <?php echo $categoryOptions; ?>
+        </select>
+      </div>
+
+      <div id="language-div" class="searchbook">
+        <select class="search-input" name="language">
+          <?php echo $languageOptions; ?>
+        </select>
+      </div>
+
+      <div id="author-div" class="searchbook">
+        <input type="text" class="search-input" placeholder="Enter the author name to search" name="author">
+      </div>
+      <!-- End of Search Function -->
+    </div>
+  </div>
+  <div class="tableshow">
+    <table class="table">
+      <thead class="trh">
+        <th>#</th>
+        <th><a href="#" class="sort-link" data-column="1">Title</a></th>
+        <th><a href="#" class="sort-link" data-column="2">Author</a></th>
+        <th><a href="#" class="sort-link" data-column="3">Public Date</a></th>
+        <th><a href="#" class="sort-link" data-column="4">Language</a></th>
+        <th><a href="#" class="sort-link" data-column="5">Category</a></th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </thead>
+      <div>
+        <tbody id="book-table-body">
+          <?php while ($row = mysqli_fetch_array($SQL)) { ?>
+            <tr class="tdhv">
+              <td><?= $row["book_id"] ?></td>
+              <td><?= $row["book_title"] ?></td>
+              <td><?= $row["book_author"] ?></td>
+              <td><?= $row["book_public_date"] ?></td>
+              <td><?= $row["language_name"] ?></td>
+              <td><?= $row["category_name"] ?></td>
+              <td><?= $row["BookStatus"] ?></td>
+              <td>
+                <a href="edit.php?id=<?= $row['book_id'] ?>" class="edt"><i class="fa fa-pencil"></i></a>
+              </td>
+              <td>
+                <a href="book.php?id=<?= $row['book_id'] ?>&action=delete" class="dltbtn" onclick="return confirm('Are you sure you want to Delete Book ID <?= $row['book_id'] ?>?');"><i class="fa fa-trash-o"></i></a>
+              </td>
+            </tr>
+          <?php } ?>
+        </tbody>
+      </div>
+    </table>
+    <div id="no-books" style="display: none; color:red">No books are found</div>
+    <button class="uplbtn" onclick="window.location.href='upload.php'" style="margin-left: 10px;">
+      <i class="fa fa-plus"></i> ADD
+    </button>
+  </div>
+</html>
+
+
+<script>
+  function clearSearchInputs() {
+    $('.searchbook').hide();
+    $('input[name="title"], input[name="author"]').val('');
+    $('select[name="category"], select[name="language"]').prop('selectedIndex', 0).change();
+    $('#book-table-body tr').show();
+  }
+
+  function handleSearchButtonClick(inputElementId) {
+    clearSearchInputs();
+    $(`#${inputElementId}`).show();
+  }
+
+  $('#title-btn').on('click', function() {
+    handleSearchButtonClick('title-div');
+  });
+
+  $('#category-btn').on('click', function() {
+    handleSearchButtonClick('category-div');
+  });
+
+  $('#language-btn').on('click', function() {
+    handleSearchButtonClick('language-div');
+  });
+
+  $('#author-btn').on('click', function() {
+    handleSearchButtonClick('author-div');
+  });
+
+  $(document).ready(function() {
+
+    $('input[name="title"], input[name="author"], select[name="category"], select[name="language"]').on('keyup change', function() {
+      var titleSearchValue = $('input[name="title"]').val().toLowerCase();
+      var authorSearchValue = $('input[name="author"]').val().toLowerCase();
+      var categorySearchValue = $('select[name="category"]').val() ? $('select[name="category"]').val().split('|')[1].toLowerCase() : '';
+      var languageSearchValue = $('select[name="language"]').val() ? $('select[name="language"]').val().split('|')[1].toLowerCase() : '';
+
+      $('#book-table-body tr').each(function() {
+        var title = $(this).find('td:eq(1)').text().toLowerCase();
+        var author = $(this).find('td:eq(2)').text().toLowerCase();
+        var category = $(this).find('td:eq(5)').text().toLowerCase();
+        var language = $(this).find('td:eq(4)').text().toLowerCase();
+
+        var titleMatches = title.includes(titleSearchValue);
+        var authorMatches = author.includes(authorSearchValue);
+        var categoryMatches = categorySearchValue ? category === categorySearchValue : true;
+        var languageMatches = languageSearchValue ? language === languageSearchValue : true;
+
+        if (titleMatches && authorMatches && categoryMatches && languageMatches) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+
+      if ($('#book-table-body tr:visible').length === 0) {
+        $('#no-books').show();
+      } else {
+        $('#no-books').hide();
+      }
+    });
+  });
+
+// Sort Table Function
+$('.sort-link').on('click', function(e) {
+  e.preventDefault();
+  var column = $(this).data('column');
+  var order = $(this).hasClass('asc') ? 'desc' : 'asc';
+  $('.sort-link').removeClass('asc desc arrow-up arrow-down');
+  $(this).addClass(order).addClass(order === 'asc' ? 'arrow-down' : 'arrow-up');
+  sortTable(column, order);
+});
+
+function sortTable(column, order) {
+  var rows = $('#book-table-body tr').get();
+
+  rows.sort(function(a, b) {
+    var A = $(a).find('td:eq(' + column + ')').text().toUpperCase();
+    var B = $(b).find('td:eq(' + column + ')').text().toUpperCase();
+
+    if (A < B) {
+      return order === 'asc' ? -1 : 1;
+    }
+    if (A > B) {
+      return order === 'asc' ? 1 : -1;
+    }
+
+    return 0;
+  });
+
+  $('#book-table-body').empty(); // Clear table body
+
+  $.each(rows, function(index, row) {
+    $('#book-table-body').append(row);
+  });
+}
+
+$('th:first-child').on('click', function() {
+  $('.sort-link').removeClass('asc desc arrow-up arrow-down');
+  sortTable(0, 'asc');
+});
+</script>
