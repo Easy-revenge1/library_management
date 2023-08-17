@@ -84,7 +84,7 @@ $SQL   = mysqli_query($conn,$query);
             <td><?= $row["user_contact"] ?></td>
             <td><?= $row["user_status"] ?></td>
             <td>
-              <a href="edit_u.php?id=<?= $row['user_id'] ?>" class="edt"><i class="fa fa-pencil"></i></a>
+              <a href="EditUser.php?id=<?= $row['user_id'] ?>" class="edt"><i class="fa fa-pencil"></i></a>
             </td>
           </tr>
         <?php } ?>
