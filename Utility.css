@@ -1,0 +1,136 @@
+/* Chiew HelperClass */
+:root {
+    --margin-auto: auto;
+    --margin-xs: 4px;
+    --margin-sm: 8px;
+    --margin-md: 16px;
+    --margin-lg: 24px;
+    --margin-xl: 32px;
+  }
+  
+  [class^="q-mt-"],
+  [class^="q-mb-"],
+  [class^="q-ml-"],
+  [class^="q-mr-"],
+  [class^="q-mx-"] {
+    margin-top: var(--margin-md);
+    margin-bottom: var(--margin-md);
+    margin-left: var(--margin-md);
+    margin-right: var(--margin-md);
+  }
+  
+  /* Apply specific margin values based on class names */
+  [class*="q-mt-auto"] { margin-top: var(--margin-auto); }
+  [class*="q-mt-xs"] { margin-top: var(--margin-xs); }
+  [class*="q-mt-sm"] { margin-top: var(--margin-sm); }
+  [class*="q-mt-md"] { margin-top: var(--margin-md); }
+  [class*="q-mt-lg"] { margin-top: var(--margin-lg); }
+  [class*="q-mt-xl"] { margin-top: var(--margin-xl); }
+  
+  [class*="q-mb-auto"] { margin-bottom: var(--margin-auto); }
+  [class*="q-mb-xs"] { margin-bottom: var(--margin-xs); }
+  [class*="q-mb-sm"] { margin-bottom: var(--margin-sm); }
+  [class*="q-mb-md"] { margin-bottom: var(--margin-md); }
+  [class*="q-mb-lg"] { margin-bottom: var(--margin-lg); }
+  [class*="q-mb-xl"] { margin-bottom: var(--margin-xl); }
+  
+  [class*="q-ml-auto"] { margin-left: var(--margin-auto); }
+  [class*="q-ml-xs"] { margin-left: var(--margin-xs); }
+  [class*="q-ml-sm"] { margin-left: var(--margin-sm); }
+  [class*="q-ml-md"] { margin-left: var(--margin-md); }
+  [class*="q-ml-lg"] { margin-left: var(--margin-lg); }
+  [class*="q-ml-xl"] { margin-left: var(--margin-xl); }
+  
+  [class*="q-mr-auto"] { margin-right: var(--margin-auto); }
+  [class*="q-mr-xs"] { margin-right: var(--margin-xs); }
+  [class*="q-mr-sm"] { margin-right: var(--margin-sm); }
+  [class*="q-mr-md"] { margin-right: var(--margin-md); }
+  [class*="q-mr-lg"] { margin-right: var(--margin-lg); }
+  [class*="q-mr-xl"] { margin-right: var(--margin-xl); }
+  
+  [class*="q-mx-auto"] {
+    margin-left: var(--margin-auto);
+    margin-right: var(--margin-auto);
+  }
+  
+  [class*="q-mx-xs"] {
+    margin-left: var(--margin-xs);
+    margin-right: var(--margin-xs);
+  }
+  
+  [class*="q-mx-sm"] {
+    margin-left: var(--margin-sm);
+    margin-right: var(--margin-sm);
+  }
+  
+  [class*="q-mx-md"] {
+    margin-left: var(--margin-md);
+    margin-right: var(--margin-md);
+  }
+  
+  [class*="q-mx-lg"] {
+    margin-left: var(--margin-lg);
+    margin-right: var(--margin-lg);
+  }
+  
+  [class*="q-mx-xl"] {
+    margin-left: var(--margin-xl);
+    margin-right: var(--margin-xl);
+  }
+  
+  /* Text Color Utilities */
+  .text-red { color: red; }
+  .text-blue { color: blue; }
+  .text-green { color: green; }
+  
+  /* Background Color Utilities */
+  .bg-red { background-color: red; }
+  .bg-blue { background-color: blue; }
+  .bg-green { background-color: green; }
+  
+  /* Font Size Utilities */
+  .text-xs { font-size: 12px; }
+  .text-sm { font-size: 14px; }
+  .text-md { font-size: 16px; }
+  .text-lg { font-size: 18px; }
+  .text-xl { font-size: 24px; }
+  
+  /* Font Weight Utilities */
+  .font-bold { font-weight: bold; }
+  .font-normal { font-weight: normal; }
+  
+  /* Text Alignment Utilities */
+  .text-left { text-align: left; }
+  .text-center { text-align: center; }
+  .text-right { text-align: right; }
+  
+  /* Flexbox Display Utility */
+  .flex { display: flex; }
+  
+  /* Flex Direction Utilities */
+  .flex-row { flex-direction: row; }
+  .flex-column { flex-direction: column; }
+  .flex-row-reverse { flex-direction: row-reverse; }
+  .flex-column-reverse { flex-direction: column-reverse; }
+  
+  /* Justify Content Utilities */
+  .justify-start { justify-content: flex-start; }
+  .justify-center { justify-content: center; }
+  .justify-end { justify-content: flex; }
+
+  /* Row Display Utility */
+.row { display: flex; flex-wrap: wrap; }
+
+/* Row Alignment Utilities */
+.row-align-start { align-items: flex-start; }
+.row-align-center { align-items: center; }
+.row-align-end { align-items: flex-end; }
+.row-align-stretch { align-items: stretch; }
+
+/* Row Justify Utilities */
+.row-justify-start { justify-content: flex-start; }
+.row-justify-center { justify-content: center; }
+.row-justify-end { justify-content: flex-end; }
+.row-justify-between { justify-content: space-between; }
+.row-justify-around { justify-content: space-around; }
+.row-justify-evenly { justify-content: space-evenly; }
