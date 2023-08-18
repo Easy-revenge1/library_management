@@ -53,12 +53,12 @@ $SQL   = mysqli_query($conn,$query);
             <div class="col-12">
 
               <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-gradient-primary">
                   <h3 class="card-title">User List</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="Userlist" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                       <th>#</th>
@@ -66,7 +66,7 @@ $SQL   = mysqli_query($conn,$query);
                       <th>Email</th>
                       <th>Contact</th>
                       <th>Status</th>
-                      <th></th>
+                      <th>Manage</th>
                       </tr>
                     </thead>
                     <tbody id="user-table-body">
@@ -78,7 +78,11 @@ $SQL   = mysqli_query($conn,$query);
                         <td><?= $row["user_contact"] ?></td>
                         <td><?= $row["user_status"] ?></td>
                         <td>
-                          <a href="EditUser.php?id=<?= $row['user_id'] ?>" class="edt"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-primary btn-sm" href="UserMaintenance.php?id=<?= $row['user_id'] ?>">
+                              <i class="fas fa-edit">
+                              </i>
+                              Manage
+                          </a>
                         </td>
                       </tr>
                     <?php } ?>
@@ -125,7 +129,7 @@ $SQL   = mysqli_query($conn,$query);
   <!-- AdminLTE for demo purposes -->
   <script>
     $(function() {
-  $("#example1").DataTable({
+  $("#Userlist").DataTable({
     "responsive": true,
     "lengthChange": false,
     "autoWidth": false,
@@ -143,7 +147,7 @@ $SQL   = mysqli_query($conn,$query);
         columns: ':gt(0)' // Exclude the first column (checkbox column)
       }
     ]
-  }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  }).buttons().container().appendTo('#Userlist_wrapper .col-md-6:eq(0)');
 });
 
   </script>

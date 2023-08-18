@@ -1,5 +1,5 @@
 <?php
-include_once('db.php');
+include_once('../db.php');
 
 $query1 = "SELECT * FROM category";
 $result1 = mysqli_query($conn, $query1);
@@ -9,10 +9,10 @@ $result2 = mysqli_query($conn, $query2);
 
 if (isset($_FILES["book_cover"]) && isset($_FILES["PDF"])) {
   $tmpFilePath1 = $_FILES["book_cover"]["tmp_name"];
-  $newFilePath1 = "cover/" . $_FILES["book_cover"]["name"];
+  $newFilePath1 = "../" . "cover/" . $_FILES["book_cover"]["name"];
 
   $tmpFilePath2 = $_FILES["PDF"]["tmp_name"];
-  $newFilePath2 = "content/" . $_FILES["PDF"]["name"];
+  $newFilePath2 = "../" . "content/" . $_FILES["PDF"]["name"];
 
   $book_title = $_POST['book_title'];
   $book_author = $_POST['book_author'];

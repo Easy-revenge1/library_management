@@ -23,10 +23,14 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'delete')
   $id = $_GET['id'];
   $Query = "DELETE FROM book WHERE book_id='$id'";
   if ($result = mysqli_query($conn, $Query)) {
-    echo "<script>window.location.href = 'book.php'</script>";
-  } else {
-    echo "<script>alert('Record Fails to Delete')</script>";
-  }
+    echo "<script>
+    toastr.success('Book deleted successfully.');
+  </script>";
+} else {
+echo "<script>
+    toastr.error('Failed to delete the book.');
+  </script>";
+}
 }
 
 // Category Row Function
@@ -101,12 +105,12 @@ if (mysqli_num_rows($languageResult) > 0) {
             <div class="col-12">
 
               <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-gradient-primary">
                   <h3 class="card-title">Book List</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="BookList" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>#</th>
@@ -131,10 +135,18 @@ if (mysqli_num_rows($languageResult) > 0) {
                           <td><?= $row["category_name"] ?></td>
                           <td><?= $row["BookStatus"] ?></td>
                           <td>
-                            <a href="BookMaintenance.php?id=<?= $row['book_id'] ?>" class="edt"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-primary btn-sm" href="BookMaintenance.php?id=<?= $row['book_id'] ?>">
+                              <i class="fas fa-edit">
+                              </i>
+                              Manage
+                          </a>
                           </td>
                           <td>
-                            <a href="book.php?id=<?= $row['book_id'] ?>&action=delete" class="dltbtn" onclick="return confirm('Are you sure you want to Delete Book ID <?= $row['book_id'] ?>?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a class="btn btn-danger btn-sm" href="book.php?id=<?= $row['book_id'] ?>&action=delete" onclick="return confirm('Are you sure you want to Delete Book ID <?= $row['book_id'] ?>?');">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
                           </td>
                         </tr>
                       <?php } ?>
@@ -174,12 +186,12 @@ if (mysqli_num_rows($languageResult) > 0) {
   <script src="Assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="Assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="Assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-  <!-- AdminLTE App -->
+  <script src="Assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+  <script src="Assets/plugins/toastr/toastr.min.js"></script>
   <script src="Assets/dist/js/adminlte.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
   <script>
     $(function() {
-  $("#example1").DataTable({
+  $("#BookList").DataTable({
     "responsive": true,
     "lengthChange": false,
     "autoWidth": false,
@@ -197,9 +209,24 @@ if (mysqli_num_rows($languageResult) > 0) {
         columns: ':gt(0)' // Exclude the first column (checkbox column)
       }
     ]
-  }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  }).buttons().container().appendTo('#BookList_wrapper .col-md-6:eq(0)');
 });
+
+  $(function() {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+
+    $('.toastrDefaultSuccess').click(function() {
+      toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.toastrDefaultError').click(function() {
+      toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+  });
 
   </script>
 </body>
-</hAssets
