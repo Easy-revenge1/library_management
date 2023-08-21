@@ -107,6 +107,9 @@ if (mysqli_num_rows($languageResult) > 0) {
               <div class="card">
                 <div class="card-header bg-gradient-primary">
                   <h3 class="card-title">Book List</h3>
+                  <div class="col-12 text-right">
+                  <div><a href="NewBook.php" class="text-white"><i class="fas fa-plus">Add New</i></a></div>
+                </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">

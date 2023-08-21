@@ -3,7 +3,6 @@ include_once("../db.php");
 include_once("../Include/Header.php");
 include_once("../Include/TopNavbar.php");
 include_once("../Include/Sidebar.php");
-include_once("../Include/DatePicker.php");
 
 $bookId = $_GET['id'];
 
@@ -128,12 +127,12 @@ $statusResult = mysqli_query($conn, $statusQuery);
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Project Edit</h1>
+              <h1>Book Maintenance</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Project Edit</li>
+                <li class="breadcrumb-item active">Book Maintenance</li>
               </ol>
             </div>
           </div>
@@ -146,7 +145,7 @@ $statusResult = mysqli_query($conn, $statusQuery);
           <div class="col-md-6">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">General</h3>
+                <h3 class="card-title">Form</h3>
               </div>
               <form action="BookMaintenance.php?id=<?= $bookId ?>" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
@@ -234,7 +233,6 @@ $statusResult = mysqli_query($conn, $statusQuery);
     </div>
   </div>
   <!-- ./wrapper -->
-
 </body>
 
 </html>
@@ -278,7 +276,3 @@ $statusResult = mysqli_query($conn, $statusQuery);
   bsCustomFileInput.init();
 });
 </script>
-
-<?php
-include_once("../Include/Footer.php");
-?>

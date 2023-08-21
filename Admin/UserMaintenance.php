@@ -81,12 +81,12 @@ ob_end_flush();
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Project Edit</h1>
+              <h1>User Maintenance</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Project Edit</li>
+                <li class="breadcrumb-item active">User Maintenance</li>
               </ol>
             </div>
           </div>
@@ -99,7 +99,7 @@ ob_end_flush();
           <div class="col-md-6">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">General</h3>
+                <h3 class="card-title">Form</h3>
               </div>
               <form action="UserMaintenance.php?id=<?=$_GET['id']?>" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
