@@ -3,16 +3,16 @@ include('../db.php');
 include_once("../Include/Header.php");
 include_once("../Include/TopNavbar.php");
 include_once("../Include/Sidebar.php");
+include('../Language/' . $_SESSION['lang'] . '/lang.' . $_SESSION['lang'] . '.php');
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIGITAL LIBRARY</title>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -23,12 +23,11 @@ include_once("../Include/Sidebar.php");
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0"><?php echo $lang['dashboard']?></h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
+                                <li class="breadcrumb-item active"><a href="#">Home</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

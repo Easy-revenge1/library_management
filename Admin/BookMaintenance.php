@@ -218,7 +218,20 @@ $statusResult = mysqli_query($conn, $statusQuery);
 
                 <!-- /.card-body -->
             </div>
+
             <!-- /.card -->
+          </div>
+          <div class="col-md-6">
+            <div class="uppic" id="selectedBanner">
+              <?php
+              if (!empty($row['book_cover'])) {
+                echo '<img src="' . $row['book_cover'] . '" alt="Book Cover">';
+              } else {
+                echo '<span>Image Preview</span>';
+              }
+              ?>
+            </div>
+
           </div>
         </div>
         <div class="row">
@@ -272,7 +285,43 @@ $statusResult = mysqli_query($conn, $statusQuery);
   $('#book_public_date').datetimepicker({
     format: 'L'
   });
-  $(function () {
-  bsCustomFileInput.init();
-});
+  $(function() {
+    bsCustomFileInput.init();
+  });
+
+  var selDiv = "";
+  var storedFiles = [];
+  $(document).ready(function() {
+    selDiv = $("#selectedBanner");
+    handleFileSelect();
+  });
+
+  function handleFileSelect() {
+    var bookCover = "<?= $row['book_cover'] ?>";
+
+    if (bookCover) {
+      var imgHtml = '<img src="' + bookCover + '" alt="Book Cover">';
+      selDiv.html(imgHtml);
+    }
+  }
 </script>
+
+<style>
+  .col-md-6 {
+  padding: 15px; /* Add padding to space out the content */
+}
+
+.uppic {
+  height: 100%; /* Set the height of the div */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0; /* Add a background color for the div */
+}
+
+.uppic img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+</style>

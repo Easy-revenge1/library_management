@@ -165,6 +165,9 @@ if (isset($_POST['submit'])) {
             </div>
             <!-- /.card -->
           </div>
+          <div class="col-md-6">
+            <div class="uppic" id="selectedBanner"><span>Image Preview</span></div>
+          </div>
         </div>
         <div class="row">
           <div class="col-12">
@@ -173,14 +176,11 @@ if (isset($_POST['submit'])) {
             </form>
           </div>
       </section>
-      <!-- <div class="uppic" id="selectedBanner"></div> -->
       <!-- /.content -->
     </div>
   </div>
   <!-- ./wrapper -->
-
 </body>
-
 </html>
 
 <script src="Assets/plugins/jquery/jquery.min.js"></script>
@@ -235,3 +235,23 @@ if (isset($_POST['submit'])) {
     bsCustomFileInput.init();
   });
 </script>
+
+<style>
+  .col-md-6 {
+  padding: 15px; /* Add padding to space out the content */
+}
+
+.uppic {
+  height: 100%; /* Set the height of the div */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0; /* Add a background color for the div */
+}
+
+.uppic img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+</style>

@@ -25,6 +25,9 @@
   <link rel="stylesheet" href="Assets/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="Assets/plugins/summernote/summernote-bs4.min.css">
+  <!-- flag -->
+  <link rel="stylesheet" href="Assets/plugins/flag-icon-css/css/flag-icon.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
