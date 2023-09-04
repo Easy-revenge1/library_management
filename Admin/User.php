@@ -52,8 +52,8 @@ $SQL   = mysqli_query($conn,$query);
           <div class="row">
             <div class="col-12">
 
-              <div class="card card-primary">
-                <div class="card-header">
+              <div class="card">
+                <div class="card-header bg-gradient-primary">
                   <h3 class="card-title">User List</h3>
                 </div>
                 <!-- /.card-header -->
