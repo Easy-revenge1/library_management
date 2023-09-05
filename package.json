@@ -1,12 +1,15 @@
 {
   "name": "library_management",
   "version": "1.0.0",
-  "description": "",
+  "description": "Final Project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Chiew Hao Er",
+  "license": "ISC",
+  "dependencies": {
+    "fomantic-ui": "^2.9.2"
+  }
 }

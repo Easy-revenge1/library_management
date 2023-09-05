@@ -1,8 +1,8 @@
-body {
+/* body {
     background-color:#262626;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-}
+} */
 /* login page */
 
 /* user login page */
@@ -1161,3 +1161,14 @@ margin:60px 280px;
 display:flex;
 width:50%;
 } */
+
+.activate-box {
+  border-radius: 15px;
+  background: #7e7e7e;
+  color: #292929;
+  height: 100px;
+  width: 100px;
+}
+.activate-box {
+  padding: 1rem;
+}
