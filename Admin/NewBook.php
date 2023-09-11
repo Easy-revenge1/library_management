@@ -9,6 +9,9 @@ $result1 = mysqli_query($conn, $query1);
 
 $query2 = "SELECT * FROM language";
 $result2 = mysqli_query($conn, $query2);
+
+$today = date("m.d.y");
+
 if (isset($_POST['submit'])) {
 
   if (isset($_FILES["book_cover"]) && isset($_FILES["PDF"])) {
@@ -40,10 +43,10 @@ if (isset($_POST['submit'])) {
         echo "<script>window.location.href='book.php';</script>";
       } else {
         $error = mysqli_error($conn);
-        echo "<script>alert('Failed to Upload, please try again :( Error: $error');</script>";
+        echo "<script>alert('Failed to Upload, please try again $error');</script>";
       }
     } else {
-      echo "<script>alert('Failed to Upload, please try again :(');</script>";
+      echo "<script>alert('Failed to Upload, please try again');</script>";
     }
   }
 }
@@ -104,30 +107,30 @@ if (isset($_POST['submit'])) {
                 <div class="card-body">
                   <div class="form-group">
                     <label for="inputTitle">Book Title :</label>
-                    <input type="text" id="inputTitle" name="book_title" class="form-control">
+                    <input type="text" id="inputTitle" name="book_title" class="form-control" required>
                   </div>
 
                   <label for="inputCover">Book Cover</label>
                   <div class="custom-file">
-                    <input type="file" name="book_cover" class="custom-file-input" id="book_cover">
+                    <input type="file" name="book_cover" class="custom-file-input" id="book_cover" required>
                     <label class="custom-file-label" for="customFile">Choose file</label>
                   </div>
 
                   <label for="inputContent">Book Content :</label>
                   <div class="custom-file">
-                    <input type="file" name="PDF" class="custom-file-input" id="customFile">
+                    <input type="file" name="PDF" class="custom-file-input" id="customFile" required>
                     <label class="custom-file-label" for="customFile">Choose file</label>
                   </div>
 
                   <div class="form-group">
                     <label for="inputAuthor">Book Author :</label>
-                    <input type="text" id="inputAuthor" name="book_author" class="form-control"></input>
+                    <input type="text" id="inputAuthor" name="book_author" class="form-control" required></input>
                   </div>
 
                   <div class="form-group">
                     <label>Public Date :</label>
                     <div class="input-group date" id="book_public_date" data-target-input="nearest">
-                      <input type="text" name="book_public_date" class="form-control datetimepicker-input" data-target="#book_public_date" />
+                      <input type="text" name="book_public_date" class="form-control datetimepicker-input" data-target="#book_public_date" required/>
                       <div class="input-group-append" data-target="#book_public_date" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
@@ -136,19 +139,20 @@ if (isset($_POST['submit'])) {
 
                   <div class="form-group">
                     <label class="details" for="">Book Language :</label>
-                    <select class="form-control custom-select" name="book_language">
+                    <select class="form-control custom-select" name="book_language" required>
+                    <option value="" selected disabled>Select Language</option>
                       <?php while ($row = mysqli_fetch_array($result2, MYSQLI_ASSOC)) { ?>
                         <option value="<?php echo $row["language_id"]; ?>">
                           <?php echo $row["language_name"]; ?>
                         </option>
                       <?php } ?>
                     </select>
-
                   </div>
 
                   <div class="form-group">
                     <label class="details" for="">Book Category</label>
-                    <select class="form-control custom-select" name="category_id">
+                    <select class="form-control custom-select" name="category_id" required>
+                    <option value="" selected disabled>Select Category</option>
                       <?php while ($row = mysqli_fetch_array($result1, MYSQLI_ASSOC)) { ?>
                         <option value="<?php echo $row["category_id"]; ?>">
                           <?php echo $row["category_name"]; ?>
