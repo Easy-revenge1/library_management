@@ -32,15 +32,30 @@ if(isset($_POST['submit'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="Main.css">
-    <link rel="stylesheet" href="Utility.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/reset.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/site.css">
+
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/container.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/grid.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/header.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/image.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/menu.css">
+
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/divider.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/segment.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/form.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/input.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/button.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/list.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/message.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/components/icon.css">
+    <link rel="stylesheet" type="text/css" href="Fomantic-ui/dist/semantic.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="Main.css"> -->
+    <!-- <link rel="stylesheet" href="Utility.css"> -->
     <title>Digital Library</title>
-<style>
-</style>
 </head>
 <body>
-<div>
+<!-- <div>
   <div class="ui grid padded">
     <div class="sixteen wide column">
       <div class="activate-box q-mt-lg">
@@ -68,9 +83,60 @@ if(isset($_POST['submit'])){
       </div>
      </form>
   </div>
+</div> -->
+
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <img src="assets/images/logo.png" class="image">
+      <div class="content">
+        Log-in to your account
+      </div>
+    </h2>
+    <form class="ui large form">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="email" placeholder="E-mail address">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+        </div>
+        <div class="ui fluid large teal submit button">Login</div>
+      </div>
+
+      <div class="ui error message"></div>
+
+    </form>
+
+    <div class="ui message">
+      New to us? <a href="#">Sign Up</a>
+    </div>
+  </div>
 </div>
+
+
 </body>
 </html>
 
+<style type="text/css">
+    body {
+      background-color: #dadada;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: -100px;
+    }
+    .column {
+      max-width: 450px;
+    }
+  </style>
 
-<script src="semantic/dist/semantic.min.js"></script>
+<script src="Fomantic-ui/dist/semantic.min.js"></script>
