@@ -52,57 +52,9 @@ if(isset($_POST['submit'])){
     <!-- <link rel="stylesheet" type="text/css" href="Main.css"> -->
     <!-- <link rel="stylesheet" href="Utility.css"> -->
     <title>Digital Library</title>
-
-    <!-- <script>
-  $(document)
-    .ready(function() {
-      $('.ui.form')
-        .form({
-          fields: {
-            email: {
-              identifier  : 'email',
-              rules: [
-                {
-                  type   : 'empty',
-                  prompt : 'Please enter your e-mail'
-                },
-                {
-                  type   : 'email',
-                  prompt : 'Please enter a valid e-mail'
-                }
-              ]
-            },
-            password: {
-              identifier  : 'password',
-              rules: [
-                {
-                  type   : 'empty',
-                  prompt : 'Please enter your password'
-                },
-                {
-                  type   : 'length[6]',
-                  prompt : 'Your password must be at least 6 characters'
-                }
-              ]
-            }
-          }
-        })
-      ;
-    })
-  ;
-  </script> -->
 </head>
 <body>
-<div>
-  <div class="ui grid padded">
-    <div class="sixteen wide column">
-      <div class="activate-box q-mt-lg">
-        <div class="test">
-          test
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- <div>
   <div>
   <form action="UserLogin.php" method="POST">
       <div>
@@ -121,31 +73,32 @@ if(isset($_POST['submit'])){
       </div>
      </form>
   </div>
-</div>
+</div> -->
 
-<!-- <div class="ui middle aligned center aligned grid">
+<div class="ui middle aligned center aligned grid">
   <div class="column">
     <h2 class="ui teal image header">
-      <img src="assets/images/logo.png" class="image">
+      <!-- <img src="assets/images/logo.png" class="image"> -->
       <div class="content">
         Log-in to your account
       </div>
     </h2>
-    <form class="ui large form">
+    <form class="ui large form" action="UserLogin.php" method="post">
       <div class="ui stacked segment">
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <input type="text" name="email" placeholder="E-mail address">
+            <input type="text" name="user_name" placeholder="Enter Your Username" value="chiew">
           </div>
         </div>
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <input type="password" name="password" placeholder="Password">
+            <input type='password' name='user_pass' placeholder="Enter Your Password" value="123">
           </div>
         </div>
-        <div class="ui fluid large teal submit button">Login</div>
+        <!-- <div class="ui fluid large teal submit button" name='submit' value='submit'>Login</div> -->
+        <button type='submit' name='submit' value='submit' class="ui fluid large teal button">Login</button>
       </div>
 
       <div class="ui error message"></div>
@@ -156,7 +109,7 @@ if(isset($_POST['submit'])){
       New to us? <a href="#">Sign Up</a>
     </div>
   </div>
-</div> -->
+</div>
 
 
 </body>
