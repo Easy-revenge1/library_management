@@ -1,7 +1,6 @@
 <?php
 include_once("../db.php");
 
-// Define a base URL for your images
 $baseURL = "http://localhost/library_management/";
 
 $mostViewBook = "SELECT * FROM `book` ORDER BY `view` DESC";
@@ -22,7 +21,7 @@ $BookView = mysqli_query($conn, $mostViewBook);
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="Css/Main.css">
   <link rel="stylesheet" href="Sidebar.php">
-  <title>HomePage</title>
+  <title>Dashboard</title>
 </head>
 
 <body style="background-color: lightblue;">
@@ -39,33 +38,44 @@ $BookView = mysqli_query($conn, $mostViewBook);
               $bookCoverPath = str_replace('..', '', $row["book_cover"]);
               $bookCoverUrl = $baseURL . $bookCoverPath;
               ?>
-              <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
+              <div class="blurring dimmable image">
+                <div class="ui dimmer">
+                  <div class="center">
+                    <div class="ui inverted button">Click To Watch</div>
+                  </div>
+                </div>
+                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
+              </div>
               <h3><?= $row["book_title"] ?></h3>
             </div>
           </div>
         <?php } ?>
       </div>
 
-      <h1>Most Related To You</h1>
-
-      <div class="ui bookshelf slider">
-        <?php while ($row = mysqli_fetch_assoc($BookView)) { ?>
-          <div class="ui book">
-            <div class="bookDetail">
-              <?php
-              $bookCoverPath = str_replace('..', '', $row["book_cover"]);
-              $bookCoverUrl = $baseURL . $bookCoverPath;
-              ?>
-              <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
-              <h3><?= $row["book_title"] ?></h3>
-            </div>
-          </div>
-        <?php } ?>
-      </div>
-      
     </div>
   </div>
 
+  <div class="ui vertical footer">
+    <div class="ui container">
+      <div class="ui stackable grid">
+        <h4 class="ui header">Community</h4>
+        <div class="ui link list">
+          <a class="item" target="_blank">
+            <i class="edit icon"></i>
+            Submit an Issue
+          </a>
+          <a class="item" target="_blank">
+            <i class="github icon"></i>
+            GitHub Repository
+          </a>
+          <a class="item" target="_blank">
+            <i class="discord icon"></i>
+            Discord
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
@@ -74,47 +84,38 @@ $BookView = mysqli_query($conn, $mostViewBook);
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 
 <script>
+  $('.bookshelf .image').dimmer({
+    on: 'ontouchstart' in document.documentElement ? 'click' : 'hover'
+  });
   $('.slider').slick({
-    slidesToShow: 6,
-    slidesToScroll: 5,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     autoplay: true,
     arrows: true,
     autoplaySpeed: 1500,
-    responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
-        dots: true
+    responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
       }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-  ]
+    ]
   });
 </script>
-
-<style>
-  .slick-prev {
-    margin-left: 40px;
-  }
-
-  .slick-next {
-    margin-right: 40px;
-
-  }
-</style>

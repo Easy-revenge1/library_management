@@ -1162,14 +1162,43 @@ display:flex;
 width:50%;
 } */
 .bookshelf {
-  height: 300px;
+  height: 350px;
 }
 .bookshelf .bookDetail {
-  margin-left: 50px;
+  margin-left: 35px;
 }
 
 .bookshelf .bookCover {
-  width: 120px;
-  height: 200px;
+  width: 300px;
+  height: 350px;
   object-fit: cover;
+  border-radius: 15px;
+}
+.bookshelf h3 {
+  text-align: center;
+  margin-right: 50px;
+}
+.slick-prev {
+  margin-left: 40px;
+}
+.slick-next {
+  margin-right: 40px;
+}
+.blurring.dimmable.image {
+  width: 300px;
+  border-radius: 15px;
+}
+.footer {
+  background-color: #333333;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.ui.link.list .item,
+.ui.link.list .item a:not(.ui),
+.ui.link.list a.item {
+  color: #FFFFFF;
 }
