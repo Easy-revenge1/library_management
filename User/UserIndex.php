@@ -6,6 +6,9 @@ $baseURL = "http://localhost/library_management/";
 $mostViewBook = "SELECT * FROM `book` ORDER BY `view` DESC";
 $BookView = mysqli_query($conn, $mostViewBook);
 
+$newUpdateBook = "SELECT * FROM `book` ORDER BY `upload_date` DESC";
+$NewestBook = mysqli_query($conn, $newUpdateBook);
+
 ?>
 
 <!DOCTYPE html>
@@ -28,9 +31,42 @@ $BookView = mysqli_query($conn, $mostViewBook);
 
   <div class="ui grid padded">
     <div class="sixteen wide column">
-      <h1>Most View</h1>
 
-      <div class="ui bookshelf slider">
+
+      <div class="ui secondary menu">
+        <a class="active item" href="UserIndex.php">
+          Home
+        </a>
+        <a class="item">
+          Messages
+        </a>
+        <a class="item">
+          Friends
+        </a>
+        <div class="right menu">
+          <div class="item">
+          <div class="ui icon input">
+            <input type="text" placeholder="Search..." fdprocessedid="brlzed">
+              <i class="search link icon"></i>
+            </div>
+          </div>
+          <a class="ui item" href="">
+            Settings
+          </a>
+          <a class="ui item" href="#">
+            Profile
+          </a>
+          <a class="ui item">
+            Logout
+          </a>
+        </div>
+      </div>
+
+
+
+      <h2 class="ui header">Most View</h2>
+
+      <div class="ui bookshelf slider lastdiv">
         <?php while ($row = mysqli_fetch_assoc($BookView)) { ?>
           <div class="ui book">
             <div class="bookDetail">
@@ -41,7 +77,31 @@ $BookView = mysqli_query($conn, $mostViewBook);
               <div class="blurring dimmable image">
                 <div class="ui dimmer">
                   <div class="center">
-                    <div class="ui inverted button">Click To Watch</div>
+                    <div class="ui inverted button">Watch Detail</div>
+                  </div>
+                </div>
+                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
+              </div>
+              <h3><?= $row["book_title"] ?></h3>
+            </div>
+          </div>
+        <?php } ?>
+      </div>
+
+      <h2 class="ui header">Newest Update</h2>
+
+      <div class="ui bookshelf slider">
+        <?php while ($row = mysqli_fetch_assoc($NewestBook)) { ?>
+          <div class="ui book">
+            <div class="bookDetail">
+              <?php
+              $bookCoverPath = str_replace('..', '', $row["book_cover"]);
+              $bookCoverUrl = $baseURL . $bookCoverPath;
+              ?>
+              <div class="blurring dimmable image">
+                <div class="ui dimmer">
+                  <div class="center">
+                    <div class="ui inverted button">Watch Detail</div>
                   </div>
                 </div>
                 <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
@@ -55,27 +115,6 @@ $BookView = mysqli_query($conn, $mostViewBook);
     </div>
   </div>
 
-  <div class="ui vertical footer">
-    <div class="ui container">
-      <div class="ui stackable grid">
-        <h4 class="ui header">Community</h4>
-        <div class="ui link list">
-          <a class="item" target="_blank">
-            <i class="edit icon"></i>
-            Submit an Issue
-          </a>
-          <a class="item" target="_blank">
-            <i class="github icon"></i>
-            GitHub Repository
-          </a>
-          <a class="item" target="_blank">
-            <i class="discord icon"></i>
-            Discord
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
@@ -92,7 +131,7 @@ $BookView = mysqli_query($conn, $mostViewBook);
     slidesToScroll: 4,
     autoplay: true,
     arrows: true,
-    autoplaySpeed: 1500,
+    autoplaySpeed: 3000,
     responsive: [{
         breakpoint: 1024,
         settings: {

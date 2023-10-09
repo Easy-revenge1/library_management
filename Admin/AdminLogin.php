@@ -35,7 +35,8 @@ if (isset($_POST['submit'])) {
 
             include('../Language/' . $_SESSION['lang'] . '/lang.' . $_SESSION['lang'] . '.php');
 
-            echo "<script>window.location.href='AdminIndex.php';</script>";
+            // echo "<script>window.location.href='AdminIndex.php';</script>";
+            header('location: AdminIndex.php');
             exit();
         } else {
             echo "<script>alert('Wrong Username or Password, Please try again');</script>";
@@ -61,7 +62,6 @@ if (isset($_POST['submit'])) {
 
 <body class="hold-transition login-page">
   <div class="login-box">
-    <!-- /.login-logo -->
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
         <h3>Admin Panel Login</h3>
@@ -86,20 +86,15 @@ if (isset($_POST['submit'])) {
             </div>
           </div>
           <div class="row">
-            <!-- /.col -->
             <div class="col-12">
               <button type="submit" name="submit" class="btn btn-primary btn-block">Sign In</button>
             </div>
-            <!-- /.col -->
           </div>
         </form>
 
       </div>
-      <!-- /.card-body -->
     </div>
-    <!-- /.card -->
   </div>
-  <!-- /.login-box -->
 
 </html>
 

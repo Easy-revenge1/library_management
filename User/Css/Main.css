@@ -1202,3 +1202,9 @@ width:50%;
 .ui.link.list a.item {
   color: #FFFFFF;
 }
+.lastdiv {
+  margin-bottom: 100px;
+}
+.ui.secondary.menu .active.item {
+  background:#fff
+}
