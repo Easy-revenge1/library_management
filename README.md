@@ -4,7 +4,7 @@ git branch == open branch
 
 git branch -d  <branch> == delete specific branch
 
-git checkout <branch> == switch to specific branch
+git checkout <branch> == switch to snn
 
 git log --oneline == check log
 
