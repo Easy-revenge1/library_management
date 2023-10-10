@@ -5,22 +5,15 @@ include_once("../Include/Header.php");
 include_once("../Include/TopNavbar.php");
 include_once("../Include/Sidebar.php");
 
-// Check if the form is submitted and the "id" parameter is set
 if(isset($_POST['submit']) && isset($_GET['id'])) {
-  // Retrieve user input from the form
   $u_name = $_POST['user_name'];
   $u_email = $_POST['user_email'];
   $u_password = $_POST['user_password'];
   $u_contact = $_POST['user_contact'];
   $u_status = $_POST['user_status'];
 
-  // Prepare the SQL query with placeholders
   $query = "UPDATE user SET user_name = ?, user_email = ?, user_password = ?, user_contact = ?, user_status = ? WHERE user_id = ?";
-
-  // Create a prepared statement
   $stmt = mysqli_prepare($conn, $query);
-
-  // Bind the parameters to the prepared statement
   mysqli_stmt_bind_param($stmt, "sssssi", $u_name, $u_email, $u_password, $u_contact, $u_status, $_GET['id']);
 
   // Execute the prepared statement
@@ -126,7 +119,7 @@ ob_end_flush();
                   <div class="form-group">
                     <label class="details" for="">Status :</label>
                     <select class="form-control custom-select" name="user_status">
-                      <option value="Online" <?php if ($row['user_status'] === 'Online') echo 'selected'; ?>>Online</option>
+                      <option value="Active" <?php if ($row['user_status'] === 'Active') echo 'selected'; ?>>Active</option>
                       <option value="Blacklisted" <?php if ($row['user_status'] === 'Blacklisted') echo 'selected'; ?>>Blacklisted</option>
                     </select>
                   </div>
