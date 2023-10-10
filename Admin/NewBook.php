@@ -28,26 +28,20 @@ if (isset($_POST['submit'])) {
     $category_id = $_POST['category_id'];
     $date = date("Y/m/d");
 
-    if (move_uploaded_file($tmpFilePath2, $newFilePath2) && move_uploaded_file($tmpFilePath1, $newFilePath1)) {
-      // Sanitize the input values before inserting into the database
-      $book_title = mysqli_real_escape_string($conn, $book_title);
-      $book_author = mysqli_real_escape_string($conn, $book_author);
-      $book_public_date = mysqli_real_escape_string($conn, $book_public_date);
-      $book_language = mysqli_real_escape_string($conn, $book_language);
-      $category_id = mysqli_real_escape_string($conn, $category_id);
+    $query = "INSERT INTO `book` (book_title, book_cover, book_content, book_author, book_public_date, book_language, category_id, upload_date, Status) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, '1')";
 
-      $query = "INSERT INTO `book` (book_title, book_cover, book_content, book_author, book_public_date, book_language, category_id, upload_date, Status) 
-              VALUES ('$book_title', '$newFilePath1', '$newFilePath2', '$book_author', '$book_public_date', '$book_language', '$category_id', '$date', '1')";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "ssssssss", $book_title, $newFilePath1, $newFilePath2, $book_author, $book_public_date, $book_language, $category_id, $date);
 
-      if (mysqli_query($conn, $query)) {
-        echo "<script>window.location.href='book.php';</script>";
-      } else {
-        $error = mysqli_error($conn);
-        echo "<script>alert('Failed to Upload, please try again $error');</script>";
-      }
+    if (mysqli_stmt_execute($stmt)) {
+      echo "<script>window.location.href='book.php';</script>";
     } else {
-      echo "<script>alert('Failed to Upload, please try again');</script>";
+      $error = mysqli_error($conn);
+      echo "<script>alert('Failed to Upload, please try again $error');</script>";
     }
+  } else {
+    echo "<script>alert('Failed to Upload, please try again');</script>";
   }
 }
 ?>
@@ -130,7 +124,7 @@ if (isset($_POST['submit'])) {
                   <div class="form-group">
                     <label>Public Date :</label>
                     <div class="input-group date" id="book_public_date" data-target-input="nearest">
-                      <input type="text" name="book_public_date" class="form-control datetimepicker-input" data-target="#book_public_date" required/>
+                      <input type="text" name="book_public_date" class="form-control datetimepicker-input" data-target="#book_public_date" required />
                       <div class="input-group-append" data-target="#book_public_date" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
@@ -140,7 +134,7 @@ if (isset($_POST['submit'])) {
                   <div class="form-group">
                     <label class="details" for="">Book Language :</label>
                     <select class="form-control custom-select" name="book_language" required>
-                    <option value="" selected disabled>Select Language</option>
+                      <option value="" selected disabled>Select Language</option>
                       <?php while ($row = mysqli_fetch_array($result2, MYSQLI_ASSOC)) { ?>
                         <option value="<?php echo $row["language_id"]; ?>">
                           <?php echo $row["language_name"]; ?>
@@ -152,7 +146,7 @@ if (isset($_POST['submit'])) {
                   <div class="form-group">
                     <label class="details" for="">Book Category</label>
                     <select class="form-control custom-select" name="category_id" required>
-                    <option value="" selected disabled>Select Category</option>
+                      <option value="" selected disabled>Select Category</option>
                       <?php while ($row = mysqli_fetch_array($result1, MYSQLI_ASSOC)) { ?>
                         <option value="<?php echo $row["category_id"]; ?>">
                           <?php echo $row["category_name"]; ?>
@@ -185,6 +179,7 @@ if (isset($_POST['submit'])) {
   </div>
   <!-- ./wrapper -->
 </body>
+
 </html>
 
 <script src="Assets/plugins/jquery/jquery.min.js"></script>
@@ -242,20 +237,22 @@ if (isset($_POST['submit'])) {
 
 <style>
   .col-md-6 {
-  padding: 15px; /* Add padding to space out the content */
-}
+    padding: 15px;
+    /* Add padding to space out the content */
+  }
 
-.uppic {
-  height: 100%; /* Set the height of the div */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f0f0f0; /* Add a background color for the div */
-}
+  .uppic {
+    height: 100%;
+    /* Set the height of the div */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    /* Add a background color for the div */
+  }
 
-.uppic img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
+  .uppic img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 </style>
