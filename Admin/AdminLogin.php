@@ -6,38 +6,40 @@ if (isset($_POST['submit'])) {
         $admin_name = $_POST['admin_name'];
         $admin_pass = $_POST['admin_pass'];
 
-        // Use prepared statements to prevent SQL injection
-        $query = "SELECT * FROM `admin` WHERE admin_name=? AND admin_pass=?";
+        $query = "SELECT * FROM `admin` WHERE admin_name=?";
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "ss", $admin_name, $admin_pass);
+        mysqli_stmt_bind_param($stmt, "s", $admin_name);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $row = mysqli_fetch_array($result);
 
         if (mysqli_num_rows($result) == 1) {
-            $_SESSION['admin_name'] = $admin_name;
-            $_SESSION['admin_pass'] = $admin_pass;
-            $_SESSION["id"] = $row[0];
 
-            // Retrieve user's language preference from the database
-            $userId = $_SESSION["id"];
-            $languageQuery = "SELECT language FROM `admin` WHERE admin_id = ?";
-            $languageStmt = mysqli_prepare($conn, $languageQuery);
-            mysqli_stmt_bind_param($languageStmt, "i", $userId);
-            mysqli_stmt_execute($languageStmt);
-            $languageResult = mysqli_stmt_get_result($languageStmt);
+          if ($admin_pass == $row['admin_pass']) {
+                $_SESSION['admin_name'] = $admin_name;
+                $_SESSION['admin_pass'] = $admin_pass;
+                $_SESSION["id"] = $row[0];
 
-            if ($languageRow = mysqli_fetch_assoc($languageResult)) {
-                $_SESSION['lang'] = $languageRow['language'];
+                $userId = $_SESSION["id"];
+                $languageQuery = "SELECT language FROM `admin` WHERE admin_id = ?";
+                $languageStmt = mysqli_prepare($conn, $languageQuery);
+                mysqli_stmt_bind_param($languageStmt, "i", $userId);
+                mysqli_stmt_execute($languageStmt);
+                $languageResult = mysqli_stmt_get_result($languageStmt);
+
+                if ($languageRow = mysqli_fetch_assoc($languageResult)) {
+                    $_SESSION['lang'] = $languageRow['language'];
+                }
+
+                mysqli_stmt_close($languageStmt);
+
+                include('../Language/' . $_SESSION['lang'] . '/lang.' . $_SESSION['lang'] . '.php');
+
+                header('location: AdminIndex.php');
+                exit();
+            } else {
+                echo "<script>alert('Wrong Password, Please try again');</script>";
             }
-
-            mysqli_stmt_close($languageStmt);
-
-            include('../Language/' . $_SESSION['lang'] . '/lang.' . $_SESSION['lang'] . '.php');
-
-            // echo "<script>window.location.href='AdminIndex.php';</script>";
-            header('location: AdminIndex.php');
-            exit();
         } else {
             echo "<script>alert('Wrong Username or Password, Please try again');</script>";
         }

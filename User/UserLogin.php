@@ -3,27 +3,41 @@ include_once('../db.php');
 
 if(isset($_POST['submit'])){
   if(!empty($_POST['user_name']) && !empty($_POST['user_pass'])){
-    $user_name=$_POST['user_name'];
-    $user_pass=$_POST['user_pass'];
+    $user_name = $_POST['user_name'];
+    $user_pass = $_POST['user_pass'];
 
-    $Query="SELECT * FROM `user` WHERE user_name='".$user_name."' AND user_password='".$user_pass."'";
-    $result=mysqli_query($conn,$Query);
-    $rows=mysqli_num_rows($result);
-    $row=mysqli_fetch_array($result);
-  
-    if($rows==1){
-      $_SESSION['user_name']=$user_name;
-      $_SESSION['user_pass']=$user_pass;
-      $_SESSION["id"]=$row[0];
-      echo "<script>window.location.href='UserIndex.php';</script>";
-    }else{      
-      echo "<script>alert('Wrong Username or Password, Please try again');</script>";
+    $query = "SELECT * FROM `user` WHERE `user_name`=?";
+    
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "s", $user_name);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if (mysqli_num_rows($result) == 1) {
+
+        $row = mysqli_fetch_assoc($result);
+
+        if ($user_pass == $row['user_password']) {
+            $_SESSION['user_name'] = $user_name;
+            $_SESSION['user_pass'] = $user_pass;
+            $_SESSION["id"] = $row['id'];
+
+            header("Location: UserIndex.php");
+            exit();
+        } else {
+            echo "<script>alert('Wrong Password, Please try again');</script>";
+        }
+    } else {
+        echo "<script>alert('User does not exist, Please try again');</script>";
     }
-  }else{
-    echo "<script>alert('Please Insert Username or Password');</script>";
+
+    mysqli_stmt_close($stmt);
+  } else {
+    echo "<script>alert('Please Insert Username and Password');</script>";
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +97,7 @@ if(isset($_POST['submit'])){
         Log-in to your account
       </div>
     </h2>
-    <form class="ui large form" action="UserLogin.php" method="post">
+    <form class="ui large form" action="UserLogin.php" method="POST">
       <div class="ui stacked segment">
         <div class="field">
           <div class="ui left icon input">
