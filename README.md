@@ -17,3 +17,4 @@ git commit -m "<your comment>" = add message, second step
 git push origin <your own branch, dont push master, makesure double check> == last step
 
 git pull == double check first also.
+
