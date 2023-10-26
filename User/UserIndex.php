@@ -53,10 +53,10 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
           <a class="ui item" href="">
             Settings
           </a>
-          <a class="ui item" href="#">
+          <a class="ui item" href="UserProfile.php">
             Profile
           </a>
-          <a class="ui item">
+          <a class="ui item" href="Logout.php">
             Logout
           </a>
         </div>

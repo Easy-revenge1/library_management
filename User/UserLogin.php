@@ -18,9 +18,11 @@ if (isset($_POST['submit'])) {
       $row = mysqli_fetch_assoc($result);
 
       if (password_verify($user_pass, $row['user_password'])) {
-        $_SESSION['user_name'] = $user_name;
-        $_SESSION['user_pass'] = $user_pass;
-        $_SESSION["id"] = $row['id'];
+        $_SESSION['id'] = $row['user_id'];
+        $_SESSION['user_id'] = $row['user_id'];
+        $_SESSION['user_name'] = $row['user_name'];
+        $_SESSION['user_email'] = $row['user_email'];
+        $_SESSION['user_contact'] = $row['user_contact'];
 
         header("Location: UserIndex.php");
         exit();
@@ -70,27 +72,6 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-  <!-- <div>
-  <div>
-  <form action="UserLogin.php" method="POST">
-      <div>
-       <p>LOGIN</p>
-        <input type="text" name="user_name" placeholder="Enter Your Username" value="chiew">
-        <input type='password' name='user_pass' placeholder="Enter Your Password" value="123">
-         
-          <a href="">Forget Password</a>
-  
-        <hr>
-        <button type='submit' name='submit' value='submit'>DONE</button>
-        <div>
-         <span>Don't have account yet?</span>
-         <span><a href="">Sign Up</a></span>
-        </div>
-      </div>
-     </form>
-  </div>
-</div> -->
-
   <div class="ui middle aligned center aligned grid">
     <div class="column">
       <h2 class="ui teal image header">
@@ -104,13 +85,13 @@ if (isset($_POST['submit'])) {
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" name="user_name" placeholder="Enter Your Username" value="chiew">
+              <input type="text" name="user_name" placeholder="Enter Your Username">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input type='password' name='user_pass' placeholder="Enter Your Password" value="123">
+              <input type='password' name='user_pass' placeholder="Enter Your Password">
             </div>
           </div>
           <!-- <div class="ui fluid large teal submit button" name='submit' value='submit'>Login</div> -->
@@ -122,7 +103,7 @@ if (isset($_POST['submit'])) {
       </form>
 
       <div class="ui message">
-        New to us? <a href="SignUp.php">Sign Up</a>
+        New to us? <a href="SignUp.php">Sign Up</a> | <a href="ForgotPassword.php">Forgot Password</a>
       </div>
     </div>
   </div>
