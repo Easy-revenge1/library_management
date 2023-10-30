@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-$server = "localhost";
+$server = "localhost: 3307";
 $name   = "root";
 $pass   ="";
 $db     ="library_management";
