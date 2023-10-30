@@ -1,5 +1,6 @@
 <?php
 include_once("../db.php");
+include_once("nav.php");
 
 $baseURL = "http://localhost/library_management/";
 
@@ -19,52 +20,28 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="Css/Main.css">
-  <link rel="stylesheet" href="Sidebar.php">
-  <title>Dashboard</title>
+  <title>Home</title>
 </head>
 
-<body style="background-color: lightblue;">
+<body style="background-color: #eeeeee;">
 
-  <div class="ui grid padded">
+<div class="intro">
+   <div class="intro-text">
+     <span class="text1">DIGITAL LIBRARY</span><br>
+     <span class="text2">Online Digital Book</span>
+   </div>
+   <div class="intro-design">
+     <div class="intro-elm">
+       <div class="elm1"></div>
+       <!-- <div class="elm2"></div> -->
+     </div>
+   </div>
+</div>
+
+  <div class="ui grid padded" id="bookshelf">
     <div class="sixteen wide column">
 
-
-      <div class="ui secondary menu">
-        <a class="active item" href="UserIndex.php">
-          Home
-        </a>
-        <a class="item">
-          Messages
-        </a>
-        <a class="item">
-          Friends
-        </a>
-        <div class="right menu">
-          <div class="item">
-          <div class="ui icon input">
-            <input type="text" placeholder="Search..." fdprocessedid="brlzed">
-              <i class="search link icon"></i>
-            </div>
-          </div>
-          <a class="ui item" href="">
-            Settings
-          </a>
-          <a class="ui item" href="UserProfile.php">
-            Profile
-          </a>
-          <a class="ui item" href="Logout.php">
-            Logout
-          </a>
-        </div>
-      </div>
-
-
-
-      <h2 class="ui header">Most View</h2>
+      <h2 class="ui header" id="content-title">Most View</h2>
 
       <div class="ui bookshelf slider lastdiv">
         <?php while ($row = mysqli_fetch_assoc($BookView)) { ?>
@@ -88,7 +65,7 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
         <?php } ?>
       </div>
 
-      <h2 class="ui header">Newest Update</h2>
+      <h2 class="ui header" id="content-title">Newest Update</h2>
 
       <div class="ui bookshelf slider">
         <?php while ($row = mysqli_fetch_assoc($NewestBook)) { ?>
@@ -114,6 +91,10 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
 
     </div>
   </div>
+  
+  <!-- <div class="footer" id="footer">
+
+  </div> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
@@ -158,3 +139,62 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
     ]
   });
 </script>
+
+<style>
+
+.intro{
+  height:500px;
+  width:100%;
+  display: flex;
+  margin:150px 0px;
+  
+}
+.intro-text{
+  height:100%;
+  width:100%;
+  padding:220px 100px;
+}
+.intro-text .text1{
+   font-size:60px;
+   font-weight: 900;
+   font-family: 'Jost', sans-serif;
+   letter-spacing:10px;
+}
+.intro-text .text2{
+  font-family: 'Jost', sans-serif;
+  font-size:20px;
+}
+.intro-design{
+  height:100%;
+  width:100%;
+}
+.intro-elm{
+  /* background:#888; */
+  height:100%;
+  width:100%;
+  margin:auto;
+}
+.intro-elm .elm1{
+  background:#333;
+  height:500px;
+  width:500px;
+  border-radius:10px;
+  margin:auto;
+}
+/* .intro-elm .elm2{
+  background:#1a1a1a;
+  height:300px;
+  width:300px;
+  border-radius:10px;
+  position:absolute;
+  margin:200px 10px;
+} */
+#content-title{
+  font-size:30px;
+}
+#bookshelf{
+  width:95%;
+  margin:auto;
+}
+
+</style>
