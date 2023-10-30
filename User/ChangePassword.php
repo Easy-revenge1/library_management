@@ -1,7 +1,7 @@
 <?php
 include_once('../db.php');
 
-if (isset($_POST['change'])) { // Check if the "Change Password" form is submitted
+if (isset($_POST['change'])) {
     $user_id = $_SESSION['id'];
     $old_password = $_POST['old_password'];
     $new_password = $_POST['new_password'];
