@@ -38,6 +38,9 @@
           <a class="ui item" id="nav-a">
             Logout
           </a>
+          <a class="ui item" id="nav-a">
+            Logout
+          </a>
         </div>
       </div>
 
