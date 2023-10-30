@@ -5,20 +5,24 @@ if (isset($_POST['submit'])) {
     $errors = array();
 
     if (empty($_POST['user_name'])) {
-        $errors['user_name'] = 'Username is required.';
+        $errors['user_name'] = "Username is required.";
     }
     if (empty($_POST['user_email'])) {
-        $errors['user_email'] = 'Your Email is required.';
+        $errors['user_email'] = "Your Email is required.";
     }
     if (empty($_POST['user_password'])) {
-        $errors['user_password'] = 'Password is required.';
+        $errors['user_password'] = "Password is required.";
     }
     if ($_POST['user_password'] !== $_POST['confirm_password']) {
-        $errors['confirm_password'] = 'Confirm Password and Password didnt match.';
+        $errors['confirm_password'] = "Confirm Password and Password didn't match.";
     }
     if (empty($_POST['user_contact'])) {
-        $errors['user_contact'] = 'Your Contact is required.';
+        $errors['user_contact'] = "Your Contact is required.";
     }
+    //  elseif (!preg_match('/^(\+?60|0)(\d{9})$/', $_POST['user_contact'])) {
+    //     $errors['user_contact'] = 'Invalid Malaysian phone number format. Please use the format +60xxxxxxxxx or 0xxxxxxxxx.';
+    // }
+    
 
     if (empty($errors)) {
         $user_name = $_POST['user_name'];
@@ -39,7 +43,6 @@ if (isset($_POST['submit'])) {
         mysqli_stmt_bind_param($stmt, "ssssss", $user_name, $user_email, $user_password, $user_contact, $user_signupdate, $user_status);
 
         if (mysqli_stmt_execute($stmt)) {
-            // echo "Thanks for using our services, Now heading you to Login Page";
             header('location: UserLogin.php');
         } else {
             echo "Error: " . mysqli_error($conn);
@@ -112,7 +115,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="field">
             <label>Contact</label>
-            <input type="number" name="user_contact" placeholder="Contact">
+            <input type="number" name="user_contact" placeholder="Contact" pattern="(\+60|0)[0-9]{9}">
             <?php if (isset($errors['user_contact'])) { ?>
                 <div class="ui pointing red basic label"><?php echo $errors['user_contact']; ?></div>
             <?php } ?>
