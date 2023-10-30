@@ -32,10 +32,10 @@
           <a class="ui item" href="" id="nav-a">
             Contact Us
           </a>
-          <a class="ui item" href="#" id="nav-a">
+          <a class="ui item" href="UserProfile.php" id="nav-a">
             Profile
           </a>
-          <a class="ui item" id="nav-a">
+          <a class="ui item" id="nav-a" href="Logout.php">
             Logout
           </a>
         </div>
