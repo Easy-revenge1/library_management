@@ -69,7 +69,8 @@ mysqli_close($conn);
                 <label for="user_contact">Contact</label>
                 <input type="text" name="user_contact" id="user_contact" value="<?php echo $row['user_contact']; ?>">
             </div>
-            <button class="ui button" type="submit" name="submit">Update Profile</button>
+
+            <button class="ui button" type="submit" name="submit" id="updateProfileButton" disabled>Update Profile</button>
 
             <a class="ui button" href="ChangePassword.php?user_id=<?php echo $user_id; ?>">Change Password</a>
 
@@ -82,3 +83,22 @@ mysqli_close($conn);
 </html>
 
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
+<script>
+    // Select the input fields
+    var userNameInput = document.getElementById('user_name');
+    var userEmailInput = document.getElementById('user_email');
+    var userContactInput = document.getElementById('user_contact');
+    
+    // Select the "Update Profile" button
+    var updateProfileButton = document.getElementById('updateProfileButton');
+
+    // Function to enable the button when any input field changes
+    function enableUpdateProfileButton() {
+        updateProfileButton.removeAttribute('disabled');
+    }
+
+    // Add event listeners to the input fields
+    userNameInput.addEventListener('input', enableUpdateProfileButton);
+    userEmailInput.addEventListener('input', enableUpdateProfileButton);
+    userContactInput.addEventListener('input', enableUpdateProfileButton);
+</script>

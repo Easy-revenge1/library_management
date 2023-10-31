@@ -1,6 +1,6 @@
 <?php
 include_once("../db.php");
-include_once("nav.php");
+include_once("NavigationBar.php");
 
 $baseURL = "http://localhost/library_management/";
 
@@ -54,7 +54,7 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
               <div class="blurring dimmable image">
                 <div class="ui dimmer">
                   <div class="center">
-                    <div class="ui inverted button">Watch Detail</div>
+                    <a class="ui inverted button" href="BookDetail.php?id=<?= $row['book_id'] ?>">Watch Details</a>
                   </div>
                 </div>
                 <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
@@ -78,7 +78,7 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
               <div class="blurring dimmable image">
                 <div class="ui dimmer">
                   <div class="center">
-                    <div class="ui inverted button">Watch Detail</div>
+                  <a class="ui inverted button" href="BookDetail.php">Watch Details</a>
                   </div>
                 </div>
                 <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
