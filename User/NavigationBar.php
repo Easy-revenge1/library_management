@@ -26,7 +26,7 @@
           <a class="item" id="nav-a"><i class="book icon"></i>
             Book
           </a>
-          <a class="item" id="nav-a"><i class="bookmark icon"></i>
+          <a class="item" id="nav-a" href="Favorites.php" ><i class="bookmark icon"></i>
             Bookmark
           </a>
           <a class="item" id="nav-a">
