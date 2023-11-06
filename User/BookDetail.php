@@ -57,7 +57,7 @@ if (isset($_POST['favourite'])) {
     if (mysqli_stmt_execute($removestmt)) {
         $book_name = $row['book_name'];
         // echo '<div class="ui success message">' . $book_name . ' has been remove from your bookmark</div>';
-        header("Location: BookDetail.php?id=". $bookId);
+        header("Location: BookDetail.php?id=" . $bookId);
         exit();
     } else {
         $error = mysqli_error($conn);
@@ -65,9 +65,9 @@ if (isset($_POST['favourite'])) {
         error_log("Database Error: $error");
         // echo '<div class="ui error message">Error</div>';
     }
-
 }
 
+$baseURL = "http://localhost/library_management/";
 
 ?>
 
@@ -104,7 +104,11 @@ if (isset($_POST['favourite'])) {
     <div class="ui container">
         <div class="ui grid">
             <div class="four wide column">
-                <img src="<?php echo !empty($row['book_cover']) ? $row['book_cover'] : 'book_cover.jpg'; ?>" alt="Item Image" class="ui fluid image">
+                <?php
+                $bookCoverPath = $row["book_cover"];
+                $bookCoverUrl = $baseURL . $bookCoverPath;
+                ?>
+                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="ui fluid image">
             </div>
             <div class="twelve wide column">
                 <h1 class="ui header">Item Name</h1>

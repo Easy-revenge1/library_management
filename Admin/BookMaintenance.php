@@ -41,7 +41,9 @@ if (isset($_POST['submit'])) {
   if (!empty($_FILES['book_cover']['tmp_name'])) {
     $book_cover = $_FILES['book_cover']['tmp_name'];
     $book_cover_path = "cover/" . $_FILES['book_cover']['name'];
-    move_uploaded_file($book_cover, $book_cover_path);
+    if (!move_uploaded_file($book_cover, "../" . $book_cover_path)) {
+      die('Failed to move uploaded cover image');
+    }
   } else {
     // Retrieve existing book cover if no new cover is uploaded
     $coverQuery = "SELECT book_cover FROM book WHERE book_id = ?";
@@ -308,20 +310,22 @@ $statusResult = mysqli_query($conn, $statusQuery);
 
 <style>
   .col-md-6 {
-  padding: 15px; /* Add padding to space out the content */
-}
+    padding: 15px;
+    /* Add padding to space out the content */
+  }
 
-.uppic {
-  height: 100%; /* Set the height of the div */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f0f0f0; /* Add a background color for the div */
-}
+  .uppic {
+    height: 100%;
+    /* Set the height of the div */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    /* Add a background color for the div */
+  }
 
-.uppic img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
+  .uppic img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 </style>
