@@ -8,6 +8,7 @@ $bookId = $_GET['id'];
 
 if (isset($_POST['submit'])) {
   $book_title = mysqli_real_escape_string($conn, $_POST['book_title']);
+  $book_description = mysqli_real_escape_string($conn, $_POST['book_description']);
   $book_author = mysqli_real_escape_string($conn, $_POST['book_author']);
   $book_public_date = $_POST['book_public_date'];
   $book_language = mysqli_real_escape_string($conn, $_POST['book_language']);
@@ -60,12 +61,12 @@ if (isset($_POST['submit'])) {
     $book_cover_path = $existingCover;
   }
 
-  echo $Update = "UPDATE book SET book_title=?, book_content=?, book_author=?, book_public_date=?, book_language=?, category_id=?, book_cover=?, Status=? WHERE book_id=?";
+  echo $Update = "UPDATE book SET book_title=?, book_description=?,book_content=?, book_author=?, book_public_date=?, book_language=?, category_id=?, book_cover=?, Status=? WHERE book_id=?";
   $stmt = mysqli_prepare($conn, $Update);
   if ($stmt === false) {
     die('mysqli_prepare failed: ' . mysqli_error($conn));
   }
-  mysqli_stmt_bind_param($stmt, 'sssssssis', $book_title, $book_content_path, $book_author, $book_public_date, $book_language, $category_id, $book_cover_path, $book_status, $bookId);
+  mysqli_stmt_bind_param($stmt, 'ssssssssis', $book_title, $book_description, $book_content_path, $book_author, $book_public_date, $book_language, $category_id, $book_cover_path, $book_status, $bookId);
   mysqli_stmt_execute($stmt);
   if (mysqli_stmt_execute($stmt)) {
     echo "<script>window.location.href='book.php';</script>";
@@ -81,6 +82,7 @@ $query = "SELECT book.*, category.category_name, language.language_name, booksta
             INNER JOIN language ON book.book_language = language.language_id
             INNER JOIN bookstatus ON book.Status = bookstatus.BookStatusId
             WHERE book.book_id = ?";
+
 $stmt = mysqli_prepare($conn, $query);
 mysqli_stmt_bind_param($stmt, 'i', $bookId);
 mysqli_stmt_execute($stmt);
@@ -161,6 +163,11 @@ $statusResult = mysqli_query($conn, $statusQuery);
                     <input type="text" id="inputDescription" name="book_author" class="form-control" value="<?= htmlspecialchars($row['book_author']) ?>"></input>
                   </div>
 
+                  <div class="form-group">
+                    <label for="inputDescription">Book Description</label>
+                    <textarea id="book_description" name="book_description" class="form-control"><?= htmlspecialchars($row['book_description']) ?></textarea>
+                  </div>
+
                   <label for="inputCover">Book Cover</label>
                   <div class="custom-file">
                     <input type="file" name="book_cover" class="custom-file-input" id="customFile" value="<?= $row['book_cover'] ?>">
@@ -169,8 +176,8 @@ $statusResult = mysqli_query($conn, $statusQuery);
 
                   <label for="inputCover">Book Content :</label>
                   <div class="custom-file">
-                    <input type="file" name="book_content" class="custom-file-input" id="customFile" value="<?= $row['book_content'] ?>">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <input type="file" name="book_content" class="custom-file-input" id="customFile2" value="<?= $row['book_content'] ?>">
+                    <label class="custom-file-label" for="customFile2">Choose file</label>
                   </div>
 
                   <div class="form-group">
@@ -226,11 +233,10 @@ $statusResult = mysqli_query($conn, $statusQuery);
           <div class="col-md-6">
             <div class="uppic" id="selectedBanner">
               <?php
-              if (!empty($row['book_cover'])) {
-                echo '<img src="' . $row['book_cover'] . '" alt="Book Cover">';
-              } else {
-                echo '<span>Image Preview</span>';
-              }
+              $book_cover_path = $row['book_cover'];
+              echo '<img src="../Cover/' . $book_cover_path . '" alt="Book Cover">';
+              
+
               ?>
             </div>
 
@@ -252,37 +258,26 @@ $statusResult = mysqli_query($conn, $statusQuery);
 
 </html>
 
-<!-- jQuery -->
 <script src="Assets/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
 <script src="Assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Select2 -->
 <script src="Assets/plugins/select2/js/select2.full.min.js"></script>
-<!-- Bootstrap4 Duallistbox -->
 <script src="Assets/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-<!-- InputMask -->
 <script src="Assets/plugins/moment/moment.min.js"></script>
 <script src="Assets/plugins/inputmask/jquery.inputmask.min.js"></script>
-<!-- date-range-picker -->
 <script src="Assets/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap color picker -->
 <script src="Assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
 <script src="Assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Bootstrap Switch -->
 <script src="Assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<!-- BS-Stepper -->
 <script src="Assets/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-<!-- dropzonejs -->
 <script src="Assets/plugins/dropzone/min/dropzone.min.js"></script>
-<!-- AdminLTE App -->
 <script src="Assets/dist/js/adminlte.min.js"></script>
-
 <script src="Assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 
 
 
 <script>
+  // console.log('Image source:', selDiv.find('img').attr('src'));
+
   //Date picker
   $('#book_public_date').datetimepicker({
     format: 'L'

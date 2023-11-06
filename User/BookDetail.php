@@ -111,8 +111,8 @@ $baseURL = "http://localhost/library_management/";
                 <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="ui fluid image">
             </div>
             <div class="twelve wide column">
-                <h1 class="ui header">Item Name</h1>
-                <p>Description of the item goes here.</p>
+                <h1 class="ui header"><?php echo $row['book_title']?></h1>
+                <p><?php echo $row['book_description']?></p>
                 <div class="ui label">$19.99</div>
                 <div class="ui buttons">
                     <form id="watchNowForm" action="watch_now.php" method="post">
