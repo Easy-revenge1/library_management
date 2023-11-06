@@ -28,8 +28,9 @@ if (isset($_POST['submit'])) {
         $updateStmt = $conn->prepare($updateSql);
         $updateStmt->bind_param("sss", $resetToken, $resetTokenExpiration, $email);
         if ($updateStmt->execute()) {
+            $_SESSION['reset_email'] = $email;
             // Send the password reset email
-            $resetLink = "http://localhost/library_management/ResetPassword.php?token=$resetToken";
+            $resetLink = "http://localhost/library_management/User/ResetPassword.php?token=$resetToken";
             $subject = "Password Reset";
             $message = '
             <!DOCTYPE html>
