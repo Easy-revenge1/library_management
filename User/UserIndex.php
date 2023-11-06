@@ -27,7 +27,7 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
 
 <div class="intro">
    <div class="intro-text">
-     <span class="text1">DIGITAL LIBRARY</span><br>
+     <span class="text1">ONE LIBRARY</span><br>
      <span class="text2">Online Digital Book</span>
    </div>
    <div class="intro-design">
@@ -94,6 +94,8 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
     </div>
   </div>
   
+
+  <div class="collection"></div>
   <!-- <div class="footer" id="footer">
 
   </div> -->
@@ -197,6 +199,11 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
 #bookshelf{
   width:95%;
   margin:auto;
+}
+.collection{
+  background:#000;
+  height:200px;
+  width:100%;
 }
 
 </style>

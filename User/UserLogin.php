@@ -74,14 +74,16 @@ if (isset($_POST['submit'])) {
 <body>
   <div class="ui middle aligned center aligned grid">
     <div class="column">
-      <h2 class="ui teal image header">
-        <!-- <img src="assets/images/logo.png" class="image"> -->
-        <div class="content">
-          Log-in to your account
-        </div>
-      </h2>
+      <!-- <h2 class="ui teal image header">
+        <img src="assets/images/logo.png" class="image">
+ 
+      </h2> -->
+      <div class="login-bg">
+
+      </div>
+      
       <form class="ui large form" action="UserLogin.php" method="POST">
-        <div class="ui stacked segment">
+        <div class="ui stacked segment" id="login-form">
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
@@ -94,8 +96,9 @@ if (isset($_POST['submit'])) {
               <input type='password' name='user_pass' placeholder="Enter Your Password">
             </div>
           </div>
+          <a href="ForgotPassword.php">Forgot Password</a>
           <!-- <div class="ui fluid large teal submit button" name='submit' value='submit'>Login</div> -->
-          <button type='submit' name='submit' value='submit' class="ui fluid large teal button">Login</button>
+          <button type='submit' name='submit' value='submit' class="ui inverted secondary button" id="login-button">Login</button>
         </div>
 
         <div class="ui error message"></div>
@@ -103,7 +106,7 @@ if (isset($_POST['submit'])) {
       </form>
 
       <div class="ui message">
-        New to us? <a href="SignUp.php">Sign Up</a> | <a href="ForgotPassword.php">Forgot Password</a>
+        New to us? <a href="SignUp.php">Sign Up</a> |
       </div>
     </div>
   </div>
@@ -115,7 +118,7 @@ if (isset($_POST['submit'])) {
 
 <style type="text/css">
   body {
-    background-color: #dadada;
+    background-color: #eeeeee;
   }
 
   body>.grid {
@@ -128,6 +131,18 @@ if (isset($_POST['submit'])) {
 
   .column {
     max-width: 450px;
+  }
+  #login-form{
+    height:400px;
+  }
+  #login-form a{
+    float:right;
+  }
+  #login-button{
+    width:100%;
+    /* position: absolute; */
+    margin:210px 0px;
+    transition:0.4s;
   }
 </style>
 
