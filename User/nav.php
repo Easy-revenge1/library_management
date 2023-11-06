@@ -16,7 +16,7 @@
         <div class="right menu" id="right-menu">
           <div class="item">
           <div class="ui icon input">
-            <input type="text" placeholder="Search..." fdprocessedid="brlzed">
+            <input class="search-input" type="text" placeholder="Search..." fdprocessedid="brlzed">
               <i class="search link icon"></i>
             </div>
           </div>
@@ -53,6 +53,7 @@
   transition:0.4s;
   z-index:3;
   top:0;
+  backdrop-filter: blur(30px);
 }
 .title{
   font-size:20px;
@@ -75,7 +76,7 @@ window.onscroll = function (event) {
   var scroll = window.pageYOffset;
 
   if (scroll > 5) {
-    nav.style.background = "#fff";
+    nav.style.background = "rgba(255, 255, 255, 0.7)";
     // nav.style.boxShadow = "7px 3px 7px 3px #7D7C7C";
   } else {
     nav.style.background = "transparent";
