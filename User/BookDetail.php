@@ -1,29 +1,28 @@
 <?php
 include('../db.php');
-date_default_timezone_set('Asia/Kuala_Lumpur');
 
 $bookId = $_GET['id'];
+$baseURL = "http://localhost/library_management/";
 
 $BookDetail = "SELECT * FROM `book` WHERE book_id = ?";
-
 $stmt = mysqli_prepare($conn, $BookDetail);
 mysqli_stmt_bind_param($stmt, 'i', $bookId);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
+$ReviewListing = "SELECT reviews.*, `user`.`user_name`, `user`.`user_id` 
+                 FROM `reviews` 
+                 INNER JOIN `user` ON reviews.user_id = user.user_id
+                 WHERE reviews.book_id = ?";
+$reviewStmt = mysqli_prepare($conn, $ReviewListing);
+mysqli_stmt_bind_param($reviewStmt, "i", $bookId);
+mysqli_stmt_execute($reviewStmt);
+$reviewResult = mysqli_stmt_get_result($reviewStmt);
+
 if (isset($_POST['favourite'])) {
     $bookId = $_GET['id'];
     $userId = $_SESSION['user_id'];
-
-    // Check if the combination of user_id and book_id already exists in favorites
-    // $checkFavouriteQuery = "SELECT COUNT(*) FROM favourites WHERE user_id = ? AND book_id = ?";
-    // $checkStmt = mysqli_prepare($conn, $checkFavouriteQuery);
-    // mysqli_stmt_bind_param($checkStmt, "ii", $userId, $bookId);
-    // mysqli_stmt_execute($checkStmt);
-    // mysqli_stmt_bind_result($checkStmt, $favoriteCount);
-    // mysqli_stmt_fetch($checkStmt);
-    // mysqli_stmt_close($checkStmt);
 
     if ($favoriteCount == 0) {
         // The book is not in favorites, so add it
@@ -67,7 +66,34 @@ if (isset($_POST['favourite'])) {
     }
 }
 
-$baseURL = "http://localhost/library_management/";
+if (isset($_POST["submit"])) {
+    $userId  = $_SESSION["user_id"];
+    $rating  = $_POST["rating"];
+    $title   = $_POST["title"];
+    $comment = $_POST["comment"];
+
+    // Check if any of the fields are empty
+    if (empty($rating) || empty($title) || empty($comment)) {
+        echo '<div class="ui error message">Please fill in all the required fields.</div>';
+    } else {
+        // All fields are filled, proceed with inserting the review
+        $submitReviewQuery = "INSERT INTO `reviews`(`book_id`, `user_id`, `rating`, `title`, `comment`) VALUES(?, ?, ?, ?, ?)";
+        $submitReview = mysqli_prepare($conn, $submitReviewQuery);
+
+        if ($submitReview) {
+            mysqli_stmt_bind_param($submitReview, 'iiiss', $bookId, $userId, $rating, $title, $comment);
+
+            if (mysqli_stmt_execute($submitReview)) {
+                echo '<div class="ui success message">Your Review on this book has been submitted</div>';
+                // Optionally, you can redirect the user after a successful submission
+                // header("Location: BookDetail.php?id=" . $bookId);
+                // exit();
+            } else {
+                echo '<div class="ui error message">Failed to submit your review.</div>';
+            }
+        }
+    }
+}
 
 ?>
 
@@ -98,6 +124,7 @@ $baseURL = "http://localhost/library_management/";
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/rating.min.css">
 </head>
 
 <body>
@@ -111,14 +138,14 @@ $baseURL = "http://localhost/library_management/";
                 <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="ui fluid image">
             </div>
             <div class="twelve wide column">
-                <h1 class="ui header"><?php echo $row['book_title']?></h1>
-                <p><?php echo $row['book_description']?></p>
+                <h1 class="ui header"><?php echo $row['book_title'] ?></h1>
+                <p><?php echo $row['book_description'] ?></p>
                 <div class="ui label">$19.99</div>
                 <div class="ui buttons">
                     <form id="watchNowForm" action="watch_now.php" method="post">
                         <button class="ui blue button" type="submit">Watch Now</button>
                     </form>
-                    <form id="favoriteForm" action="BookDetail.php?id=<?php echo $bookId; ?>" method="post">
+                    <form id="favoriteForm" action="BookDetail.php?id=<?php echo $bookId ?>" method="post">
                         <button id="favoriteButton" type="submit" name="favourite" value="favourite">Favorite</button>
                     </form>
                 </div>
@@ -127,29 +154,46 @@ $baseURL = "http://localhost/library_management/";
 
                 <h2 class="ui header">Reviews</h2>
                 <div class="ui items">
-                    <div class="item">
-                        <div class="content">
-                            <div class="header">Review Title 1</div>
-                            <div class="meta">
-                                <span class="rating">Rating: 4/5</span>
-                            </div>
-                            <div class="description">
-                                <p>Review content goes here.</p>
-                            </div>
-                            <div class="extra">
-                                <p>By User123 - 2023-10-31</p>
-                            </div>
-                        </div>
-                    </div>
+    <?php if (mysqli_num_rows($reviewResult) > 0) { // Check if there are reviews
+        while ($rowReview = mysqli_fetch_assoc($reviewResult)) {
+    ?>
+        <div class="item">
+            <div class="content">
+                <div class="header"><?= $rowReview['title'] ?></div>
+                <div class="meta">
+                    <div class="ui yellow disabled rating" data-rating="<?= $rowReview['rating'] ?>" data-max-rating="5"></div>
                 </div>
+                <div class="description">
+                    <p><?= $rowReview['comment'] ?></p>
+                </div>
+                <div class="extra">
+                    <p>By <?= $rowReview['user_name'] ?> - <?php
+                        $datePosted = $rowReview['date_posted'];
+                        $formattedDate = date('Y-m-d H:i', strtotime($datePosted));
+                        echo $formattedDate;
+                        ?></p>
+                </div>
+            </div>
+        </div>
+    <?php
+        }
+    } else {
+    ?>
+        <div class="message">No reviews yet for this book.</div>
+    <?php } ?>
+</div>
+
+
+
+
 
                 <div class="ui divider"></div>
 
                 <h2 class="ui header">Add a Review</h2>
-                <form class="ui form">
+                <form class="ui form" action="BookDetail.php?id=<?php echo $bookId ?>" method="POST">
                     <div class="field">
                         <label>Rating</label>
-                        <select class="ui dropdown">
+                        <select class="ui dropdown" name="rating">
                             <option value="5">5 - Excellent</option>
                             <option value="4">4 - Very Good</option>
                             <option value="3">3 - Good</option>
@@ -159,13 +203,13 @@ $baseURL = "http://localhost/library_management/";
                     </div>
                     <div class="field">
                         <label>Review Title</label>
-                        <input type="text" name="reviewTitle" placeholder="Enter your review title">
+                        <input type="text" name="title" placeholder="Enter your review title">
                     </div>
                     <div class="field">
                         <label>Review Comment</label>
-                        <textarea rows="2" name="reviewComment" placeholder="Enter your review comment"></textarea>
+                        <textarea rows="2" name="comment" placeholder="Enter your review comment"></textarea>
                     </div>
-                    <button class="ui primary button" type="submit">Submit Review</button>
+                    <button class="ui primary button" type="submit" name="submit">Submit Review</button>
                 </form>
 
                 <div class="ui divider"></div>
@@ -179,6 +223,10 @@ $baseURL = "http://localhost/library_management/";
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('.ui.rating').rating({
+                maxRating: 5,
+            });
+
             checkFavoriteStatus();
 
             function checkFavoriteStatus() {
@@ -228,3 +276,10 @@ $baseURL = "http://localhost/library_management/";
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 <script src="../Fomantic-ui/dist/components/form.js"></script>
 <script src="../Fomantic-ui/dist/components/transition.js"></script>
+<script src="../Fomantic-ui/dist/components/rating.js"></script>
+
+<style>
+    .img{
+        background-size: cover;
+    }
+</style>
