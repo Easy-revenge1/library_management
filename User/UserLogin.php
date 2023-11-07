@@ -42,7 +42,6 @@
 
   <!DOCTYPE html>
   <html lang="en">
-
   <head>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
     <meta charset="UTF-8">
@@ -106,7 +105,7 @@
     </label>
 </div>
             
-            <a class="forgot-password" href="ForgotPassword.php">Forgot Password</a>
+            <a class="forgot-password" href="ForgotPassword.php">Forgotten Password</a>
 
             <div class="login-function">
             <button type='submit' name='submit' value='submit' class="ui black button" id="login-button">Login</button>
