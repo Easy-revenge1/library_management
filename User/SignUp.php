@@ -88,7 +88,7 @@ if (isset($_POST['submit'])) {
   <div class="ui login-box">
       <div class="login-form">
       <form action="SignUp.php" method="POST" class="ui">
-        <h1 class="ui header" id="header">Sign Up</h1>
+        <h1 class="ui header" id="header">SIGN UP</h1>
 
         <div class="lboxcss">
             <input type="text" class="lbox-input" name="user_name" autocomplete="off" required >
@@ -221,6 +221,7 @@ if (isset($_POST['submit'])) {
       border-radius:20px;
       display:flex;
     }
+
     .login-bg{
       background-image:url('../pic/pyh.jpg');
       background-size:cover;
@@ -229,39 +230,50 @@ if (isset($_POST['submit'])) {
       border-radius:16px;
       border:4px solid #000;
     }
+
     .login-form{
       width:50%;
       padding:30px 50px;
     }
+
     .login-form #header{
       text-align:center;
+      letter-spacing:10px;
     }
+
     .login-text{
       width:90%;
       margin:auto;
       padding:20px 0px;
     }
+
     .login-text .forgot-password{
       float:right;
       font-weight:900;
     }
+
     .login-text .forgot-password:hover{
       text-decoration: underline;
     }
+
     .login-text .signup{
       font-weight:900;
     }
+
     .login-text .signup:hover{
       text-decoration: underline; 
     }
+
     .logo{
       text-align:center;
     }
+
     .logo p{
       font-size:30px;
       font-weight:900;
       letter-spacing:10px;
     }
+
     .lboxcss {
               width: 100%;
               position: relative;
@@ -362,7 +374,7 @@ if (isset($_POST['submit'])) {
   #signup-button{
       width:100%;
       transition:0.4s;
-      margin:10px 0px;
+      margin:35px 0px;
     }
 
   
