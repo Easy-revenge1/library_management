@@ -56,7 +56,7 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
               <div class="blurring dimmable image">
                 <div class="ui dimmer">
                   <div class="center">
-                    <a class="ui inverted button" href="BookDetail.php?id=<?= $row['book_id'] ?>">Watch Details</a>
+                    <a class="ui inverted button" href="BookDetail.php?id=<?= $row['book_id'] ?>&page=1">Watch Details</a>
                   </div>
                 </div>
                 <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
@@ -80,7 +80,7 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
               <div class="blurring dimmable image">
                 <div class="ui dimmer">
                   <div class="center">
-                  <a class="ui inverted button" href="BookDetail.php?id=<?= $row['book_id'] ?>">Watch Details</a>
+                  <a class="ui inverted button" href="BookDetail.php?id=<?= $row['book_id'] ?>&page=1">Watch Details</a>
                   </div>
                 </div>
                 <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
