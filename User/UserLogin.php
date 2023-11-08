@@ -131,11 +131,11 @@
 
       showPasswordButton.addEventListener("click", function () {
           if (passwordInput.type === "password") {
-              passwordInput.type = "text"; // Show the password
-              showPasswordIcon.className = "eye slash icon"; // Change the icon class
+              passwordInput.type = "text";
+              showPasswordIcon.className = "eye slash icon";
           } else {
-              passwordInput.type = "password"; // Hide the password
-              showPasswordIcon.className = "eye icon"; // Change the icon class
+              passwordInput.type = "password";
+              showPasswordIcon.className = "eye icon";
           }
       });
   </script>
@@ -305,4 +305,4 @@
   <script src="../Fomantic-ui/dist/semantic.min.js"></script>
   <!-- <script src="assets/library/jquery.min.js"></script> -->
   <script src="../Fomantic-ui/dist/components/form.js"></script>
-  <script src="../Formantic-ui/dist/components/transition.js"></script>
+  <script src="../Fomantic-ui/dist/components/transition.js"></script>

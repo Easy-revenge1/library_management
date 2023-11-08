@@ -4,6 +4,17 @@ include('../db.php');
 $bookId = $_GET['id'];
 $baseURL = "http://localhost/library_management/";
 
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else {
+    $page = 1;
+}
+
+$totalReview = "SELECT COUNT(*) as total FROM `reviews` WHERE book_id = $bookId";
+$reviewCountResult = mysqli_query($conn, $totalReview);
+$reviewCountData = mysqli_fetch_assoc($reviewCountResult);
+$totalReviews = $reviewCountData['total'];
+
 $BookDetail = "SELECT * FROM `book` WHERE book_id = ?";
 $stmt = mysqli_prepare($conn, $BookDetail);
 mysqli_stmt_bind_param($stmt, 'i', $bookId);
@@ -11,21 +22,28 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
+$reviewsPerPage = 4;
+
+$offset = ($page - 1) * $reviewsPerPage;
+
 $ReviewListing = "SELECT reviews.*, `user`.`user_name`, `user`.`user_id` 
                  FROM `reviews` 
                  INNER JOIN `user` ON reviews.user_id = user.user_id
-                 WHERE reviews.book_id = ?";
+                 WHERE reviews.book_id = ?
+                 LIMIT ?, ?";
 $reviewStmt = mysqli_prepare($conn, $ReviewListing);
-mysqli_stmt_bind_param($reviewStmt, "i", $bookId);
+mysqli_stmt_bind_param($reviewStmt, "iii", $bookId, $offset, $reviewsPerPage);
 mysqli_stmt_execute($reviewStmt);
 $reviewResult = mysqli_stmt_get_result($reviewStmt);
+
+$totalPages = ceil($totalReviews/$reviewsPerPage);
+
 
 if (isset($_POST['favourite'])) {
     $bookId = $_GET['id'];
     $userId = $_SESSION['user_id'];
 
     if ($favoriteCount == 0) {
-        // The book is not in favorites, so add it
         $addToFavouriteQuery = "INSERT INTO `favourites` (`user_id`, `book_id`) VALUES (?, ?)";
         $addstmt = mysqli_prepare($conn, $addToFavouriteQuery);
         mysqli_stmt_bind_param($addstmt, "ii", $userId, $bookId);
@@ -67,9 +85,9 @@ if (isset($_POST['favourite'])) {
 }
 
 if (isset($_POST["submit"])) {
-    $userId  = $_SESSION["user_id"];
-    $rating  = $_POST["rating"];
-    $title   = $_POST["title"];
+    $userId = $_SESSION["user_id"];
+    $rating = $_POST["rating"];
+    $title = $_POST["title"];
     $comment = $_POST["comment"];
 
     // Check if any of the fields are empty
@@ -138,8 +156,12 @@ if (isset($_POST["submit"])) {
                 <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="ui fluid image">
             </div>
             <div class="twelve wide column">
-                <h1 class="ui header"><?php echo $row['book_title'] ?></h1>
-                <p><?php echo $row['book_description'] ?></p>
+                <h1 class="ui header">
+                    <?php echo $row['book_title'] ?>
+                </h1>
+                <p>
+                    <?php echo $row['book_description'] ?>
+                </p>
                 <div class="ui label">$19.99</div>
                 <div class="ui buttons">
                     <form id="watchNowForm" action="watch_now.php" method="post">
@@ -154,37 +176,53 @@ if (isset($_POST["submit"])) {
 
                 <h2 class="ui header">Reviews</h2>
                 <div class="ui items">
-    <?php if (mysqli_num_rows($reviewResult) > 0) { // Check if there are reviews
-        while ($rowReview = mysqli_fetch_assoc($reviewResult)) {
-    ?>
-        <div class="item">
-            <div class="content">
-                <div class="header"><?= $rowReview['title'] ?></div>
-                <div class="meta">
-                    <div class="ui yellow disabled rating" data-rating="<?= $rowReview['rating'] ?>" data-max-rating="5"></div>
+                    <?php if ($totalReviews > 0) {
+                        while ($rowReview = mysqli_fetch_assoc($reviewResult)) {
+                            ?>
+                            <div class="item">
+                                <div class="content">
+                                    <div class="header">
+                                        <?= $rowReview['title'] ?>
+                                    </div>
+                                    <div class="meta">
+                                        <div class="ui yellow disabled rating" data-rating="<?= $rowReview['rating'] ?>"
+                                            data-max-rating="5"></div>
+                                    </div>
+                                    <div class="description">
+                                        <p>
+                                            <?= $rowReview['comment'] ?>
+                                        </p>
+                                    </div>
+                                    <div class="extra">
+                                        <p>By
+                                            <?= $rowReview['user_name'] ?> -
+                                            <?php
+                                            $datePosted = $rowReview['date_posted'];
+                                            $formattedDate = date('Y-m-d H:i', strtotime($datePosted));
+                                            echo $formattedDate;
+                                            ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <div class="message">No reviews yet for this book.</div>
+                    <?php } ?>
                 </div>
-                <div class="description">
-                    <p><?= $rowReview['comment'] ?></p>
-                </div>
-                <div class="extra">
-                    <p>By <?= $rowReview['user_name'] ?> - <?php
-                        $datePosted = $rowReview['date_posted'];
-                        $formattedDate = date('Y-m-d H:i', strtotime($datePosted));
-                        echo $formattedDate;
-                        ?></p>
-                </div>
-            </div>
-        </div>
-    <?php
-        }
-    } else {
-    ?>
-        <div class="message">No reviews yet for this book.</div>
-    <?php } ?>
-</div>
 
-
-
+                <?php if ($totalReviews > 0) { ?>
+                    <div class="ui pagination menu">
+                        <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                            <a class="item <?php echo $i === $page ? 'active' : ''; ?>"
+                                href="?id=<?php echo $bookId; ?>&page=<?php echo $i; ?>">
+                                <?php echo $i; ?>
+                            </a>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
 
 
                 <div class="ui divider"></div>
@@ -222,7 +260,7 @@ if (isset($_POST["submit"])) {
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.ui.rating').rating({
                 maxRating: 5,
             });
@@ -241,7 +279,7 @@ if (isset($_POST["submit"])) {
                         userId: userId,
                         bookId: bookId
                     },
-                    success: function(response) {
+                    success: function (response) {
                         var button = $('#favoriteButton');
 
                         if (response == '1') {
@@ -260,7 +298,7 @@ if (isset($_POST["submit"])) {
                         }
                     },
 
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle AJAX errors here
                         console.log('AJAX error: ' + error);
                         // You can display an error message or take other actions as needed
@@ -279,7 +317,7 @@ if (isset($_POST["submit"])) {
 <script src="../Fomantic-ui/dist/components/rating.js"></script>
 
 <style>
-    .img{
+    .img {
         background-size: cover;
     }
 </style>
