@@ -1,4 +1,4 @@
-  <?php
+<?php
   include_once('../db.php');
 
   if (isset($_POST['submit'])) {
@@ -105,7 +105,7 @@
     </label>
 </div>
             
-            <a class="forgot-password" href="ForgotPassword.php">Forgotten Password</a>
+            <a class="forgot-password" href="ForgotPassword.php">Forgot Password</a>
 
             <div class="login-function">
             <button type='submit' name='submit' value='submit' class="ui black button" id="login-button">Login</button>

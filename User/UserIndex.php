@@ -201,7 +201,7 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
   margin:auto;
 }
 .collection{
-  background:#000;
+  background:#FFFBF5;
   height:200px;
   width:100%;
 }
