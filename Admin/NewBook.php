@@ -16,37 +16,42 @@ if (isset($_POST['submit'])) {
 
   if (isset($_FILES["book_cover"]) && isset($_FILES["PDF"])) {
     $tmpFilePath1 = $_FILES["book_cover"]["tmp_name"];
-    $newFilePath1 = "cover/" . $_FILES["book_cover"]["name"];
+    $newFilePath1 = "../cover/" . $_FILES["book_cover"]["name"];
     // $newFilePath1 = "cover/" . $_FILES["book_cover"]["name"];
 
-
     $tmpFilePath2 = $_FILES["PDF"]["tmp_name"];
-    $newFilePath2 = "content/" . $_FILES["PDF"]["name"];
+    $newFilePath2 = "../content/" . $_FILES["PDF"]["name"];
     // $newFilePath2 = "cover/" . $_FILES["book_cover"]["name"];
 
+    echo "Debug: Attempting to move cover file to: $newFilePath1<br>";
+    echo "Debug: Attempting to move PDF file to: $newFilePath2<br>";
 
-    $book_title = $_POST['book_title'];
-    $book_author = $_POST['book_author'];
-    $book_description = $_POST['book_description'];
-    $book_public_date = $_POST['book_public_date'];
-    $book_language = $_POST['book_language'];
-    $category_id = $_POST['category_id'];
-    $date = date("Y/m/d");
+    if (move_uploaded_file($tmpFilePath1, $newFilePath1) && move_uploaded_file($tmpFilePath2, $newFilePath2)) {
+      
+      $book_title = $_POST['book_title'];
+      $book_author = $_POST['book_author'];
+      $book_description = $_POST['book_description'];
+      $book_public_date = $_POST['book_public_date'];
+      $book_language = $_POST['book_language'];
+      $category_id = $_POST['category_id'];
+      $date = date("Y/m/d");
 
-    $query = "INSERT INTO `book` (book_title, book_description, book_cover, book_content, book_author, book_public_date, book_language, category_id, upload_date, Status) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, '1')";
+      $query = "INSERT INTO `book` (book_title, book_description, book_cover, book_content, book_author, book_public_date, book_language, category_id, upload_date, Status) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, '1')";
 
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "sssssssss", $book_title, $book_description, $newFilePath1, $newFilePath2, $book_author, $book_public_date, $book_language, $category_id, $date);
+      $stmt = mysqli_prepare($conn, $query);
+      mysqli_stmt_bind_param($stmt, "sssssssss", $book_title, $book_description, $newFilePath1, $newFilePath2, $book_author, $book_public_date, $book_language, $category_id, $date);
 
-    if (mysqli_stmt_execute($stmt)) {
-      echo "<script>window.location.href='book.php';</script>";
+      if (mysqli_stmt_execute($stmt)) {
+        echo "<script>window.location.href='book.php';</script>";
+      } else {
+        $error = mysqli_error($conn);
+        echo "<script>alert('Failed to Upload, please try again $error');</script>";
+      }
     } else {
-      $error = mysqli_error($conn);
-      echo "<script>alert('Failed to Upload, please try again $error');</script>";
+      // File move failed. Handle the error.
+      echo "<script>alert('Failed to move files to destination');</script>";
     }
-  } else {
-    echo "<script>alert('Failed to Upload, please try again');</script>";
   }
 }
 ?>
@@ -58,7 +63,8 @@ if (isset($_POST['submit'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="Assets/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="Assets/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="Assets/plugins/daterangepicker/daterangepicker.css">
@@ -134,7 +140,8 @@ if (isset($_POST['submit'])) {
                   <div class="form-group">
                     <label>Public Date :</label>
                     <div class="input-group date" id="book_public_date" data-target-input="nearest">
-                      <input type="text" name="book_public_date" class="form-control datetimepicker-input" data-target="#book_public_date" required />
+                      <input type="text" name="book_public_date" class="form-control datetimepicker-input"
+                        data-target="#book_public_date" required />
                       <div class="input-group-append" data-target="#book_public_date" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
@@ -209,7 +216,7 @@ if (isset($_POST['submit'])) {
 <script>
   var selDiv = "";
   var storedFiles = [];
-  $(document).ready(function() {
+  $(document).ready(function () {
     $("#book_cover").on("change", handleFileSelect);
     selDiv = $("#selectedBanner");
   });
@@ -217,14 +224,14 @@ if (isset($_POST['submit'])) {
   function handleFileSelect(e) {
     var files = e.target.files;
     var filesArr = Array.prototype.slice.call(files);
-    filesArr.forEach(function(f) {
+    filesArr.forEach(function (f) {
       if (!f.type.match("image.*")) {
         return;
       }
       storedFiles.push(f);
 
       var reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         var html =
           '<img src="' +
           e.target.result +
@@ -240,7 +247,7 @@ if (isset($_POST['submit'])) {
   $('#book_public_date').datetimepicker({
     format: 'L'
   });
-  $(function() {
+  $(function () {
     bsCustomFileInput.init();
   });
 </script>

@@ -91,14 +91,14 @@ mysqli_close($conn);
         <div class="user-book-info">
            <div class="favorite">
              <span class="favorite-title">FAVORITE</span>
-             <span class="view-more"><a href="" class="view-more">View More</a></span>
+             <span class="view-more"><a href="Favorites.php" class="view-more">View More</a></span>
              <div class="favorite-book">
     <?php
     while ($row = mysqli_fetch_assoc($favoriteresult)) {
         echo '<div class="book-cover">';
         echo '<div class="linear-bg"></div>';
         echo '<p class="book-title">' . $row['book_title'] .'</p>';
-        echo '<img class="book-image" src="../' . $row['book_cover'] . '" alt="Book Cover">';
+        echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
         echo '</div>';
         // You can display other columns from the result as well
     }
@@ -107,7 +107,7 @@ mysqli_close($conn);
 
 
 <div class="favorite" style="margin:30px 0px;">
-             <span class="favorite-title">FAVORITE</span>
+             <span class="favorite-title">Watch Record</span>
              <span class="view-more"><a href="" class="view-more">View More</a></span>
              <div class="favorite-book">
     <?php
@@ -115,7 +115,7 @@ mysqli_close($conn);
         echo '<div class="book-cover">';
         echo '<div class="linear-bg"></div>';
         echo '<p class="book-title">' . $row['book_title'] .'</p>';
-        echo '<img class="book-image" src="../' . $row['book_cover'] . '" alt="Book Cover">';
+        echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
         echo '</div>';
         // You can display other columns from the result as well
     }
@@ -171,6 +171,7 @@ mysqli_close($conn);
 .user-image{
     height:250px;
     overflow:hidden;
+    border-bottom: 4px solid #000;
 }
 
 .user-background{
