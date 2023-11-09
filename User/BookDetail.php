@@ -162,9 +162,8 @@ if (isset($_POST["submit"])) {
                 <p>
                     <?php echo $row['book_description'] ?>
                 </p>
-                <div class="ui label">$19.99</div>
                 <div class="ui buttons">
-                    <form id="watchNowForm" action="watch_now.php" method="post">
+                    <form id="watchNowForm" action="Book.php?id=<?php echo $bookId ?>" method="post">
                         <button class="ui blue button" type="submit">Watch Now</button>
                     </form>
                     <form id="favoriteForm" action="BookDetail.php?id=<?php echo $bookId ?>" method="post">
