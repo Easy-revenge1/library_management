@@ -48,10 +48,10 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
           <div class="ui book">
             <div class="bookDetail">
               <?php
-              // $bookCoverPath = str_replace('..', '', $row["book_cover"]);
-              // $bookCoverUrl = $baseURL . $bookCoverPath;
-              $bookCoverPath = $row["book_cover"];
+              $bookCoverPath = str_replace('..', '', $row["book_cover"]);
               $bookCoverUrl = $baseURL . $bookCoverPath;
+              // $bookCoverPath = $row["book_cover"];
+              // $bookCoverUrl = $baseURL . $bookCoverPath;
               ?>
               <div class="blurring dimmable image">
                 <div class="ui dimmer">
