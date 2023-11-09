@@ -82,8 +82,8 @@ mysqli_close($conn);
 
               <form action="EditProfile.php" method="get">
               <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-              <input type="submit" class="manage-profile   ui black button" value="Manage your profile"><br>
-              <input type="submit" class="change-pass   ui red button" value="Change Password">
+              <input type="submit" class="manage-profile ui black button" value="Manage your profile"><br>
+              <input type="submit" class="change-pass ui red button" href="ChangePassword.php?user_id=<?php echo $user_id; ?>" value="Change Password">
               </form>
            </div>
         </div>

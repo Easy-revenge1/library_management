@@ -1,5 +1,8 @@
 <?php
 include_once('../db.php');
+include_once('NavigationBar.php');
+
+$userId = $_SESSION['user_id'];
 
 if (isset($_POST['change'])) {
     $user_id = $_SESSION['id'];
@@ -27,7 +30,7 @@ if (isset($_POST['change'])) {
             // Execute the update query
             if (mysqli_stmt_execute($update_stmt)) {
                 // Password updated successfully
-                echo '<div class="ui success message">Password updated successfully</div>';
+                echo '';
             } else {
                 // Error updating the password
                 echo '<div class="ui error message">Error on updating password</div>';
@@ -54,25 +57,161 @@ if (isset($_POST['change'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<h1 class="ui header">Change Password</h1>
-        <form class="ui form" action="ChangePassword.php" method="POST" novalidate>
-            <div class="field">
-                <label for="old_password">Old Password</label>
-                <input type="password" name="old_password" id="old_password" required>
+    <div class="change-pass-box">
+        <div class="change-pass-form">
+        <h1 class="ui header" id="change-password">Change Password</h1>
+        <form class="" action="ChangePassword.php" method="POST" novalidate>
+
+        <div class="lboxcss">
+            <input type="password" class="lbox-input" name="old_password" id="old_password" autocomplete="off" required >
+              <label for="text" class="label-name">
+              <span class="content-name">
+                Old Password
+              </span>
+              </label>
             </div>
-            <div class="field">
-                <label for="new_password">New Password</label>
-                <input type="password" name="new_password" id="new_password" required>
+
+            <div class="lboxcss q-mt-md">
+            <input type="password" class="lbox-input" name="new_password" id="new_password" autocomplete="off" required >
+              <label for="text" class="label-name">
+              <span class="content-name">
+                New Password
+              </span>
+              </label>
             </div>
-            <div class="field">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" name="confirm_password" id="confirm_password" required>
-            </div>
-            <button class="ui button" type="submit" name="change">Change Password</button>
+
+            <div class="lboxcss q-mt-md">
+            <input type="password" class="lbox-input" name="confirm_password" id="confirm_password" autocomplete="off" required >
+              <label for="text" class="label-name">
+              <span class="content-name">
+                Confirm Password
+              </span>
+              </label>
+            </div>       
+            
+            <div class="empty" style="height:130px;"></div>
+
+             <div class="cp-button-box">
+             <button class="ui black button" id="change-pass-button" type="submit" name="change">Change Password</button>
+            <!-- <button class="ui black button" onclick="window.location.href='EditProfile.php?user_id=' + $userId" id="back-profile-button">Back to Profile</button> -->
+             </div> 
         </form>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwa d6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </div>
+        </div>
 </body>
 
 </html>
 
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
+
+<style>
+.change-pass-box{
+    background:#FFFBF5;
+    width:40%;
+    margin:110px auto;
+    border:4px solid #000;
+    border-radius:20px;
+    overflow:hidden;
+}
+.change-password{
+    font-weight:900;
+}
+.change-pass-form{
+    padding:30px 30px;
+}
+#change-pass-button{
+   width:100%;
+   margin:10px 0px;
+}
+#back-profile-button{
+    width:100%;
+}
+.lboxcss {
+              width: 100%;
+              position: relative;
+              height: 60px;
+              overflow: hidden;
+              margin: 20px 0px;
+          }
+
+          .lboxcss .lbox-input {
+              width: 100%;
+              height: 100%;
+              color: #000;
+              padding-top: 20px;
+              border: none;
+              background: transparent;
+          }
+
+          .lboxcss .lbox-input-wrapper {
+              display: flex;
+          }
+
+          .lboxcss .lbox-input-wrapper .icon {
+              margin-left: 5px;
+          }
+
+          .lboxcss label {
+              position: absolute;
+              bottom: 0px;
+              left: 0px;
+              width: 100%;
+              height: 100%;
+              pointer-events: none;
+              border-bottom: 1px solid grey;
+          }
+
+          .lboxcss label::after {
+              content: "";
+              position: absolute;
+              bottom: -1px;
+              left: 0px;
+              width: 100%;
+              height: 100%;
+              border-bottom: 3px solid #000;
+              transform: translateX(-100%);
+              transition: all 0.3s ease;
+          }
+
+          .content-name {
+              position: absolute;
+              bottom: 0px;
+              left: 0px;
+              padding-bottom: 5px;
+              transition: all 0.3s ease;
+          }
+
+          .lboxcss .lbox-input:focus {
+              outline: none;
+          }
+
+          .lboxcss .lbox-input:focus + .label-name .content-name,
+          .lboxcss .lbox-input:valid + .label-name .content-name {
+              transform: translateY(-150%);
+              font-size: 14px;
+              left: 0px;
+              color: #000;
+          }
+
+          .lboxcss .lbox-input:focus + .label-name::after,
+          .lboxcss .lbox-input:valid + .label-name::after {
+              transform: translateX(0%);
+          }
+          #showPasswordButton{
+            background:transparent;
+            border:0px;
+            margin:35px 0px;
+            position: absolute;
+            right:0;
+          }
+
+
+.lboxcss .lbox-input-wrapper .lbox-input {
+    flex: 1; /* Take up remaining space */
+}
+
+.lboxcss .lbox-input-wrapper .icon {
+    margin-left: 5px;
+}
+</style>
