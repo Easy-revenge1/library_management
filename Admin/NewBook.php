@@ -16,27 +16,28 @@ if (isset($_POST['submit'])) {
 
   if (isset($_FILES["book_cover"]) && isset($_FILES["PDF"])) {
     $tmpFilePath1 = $_FILES["book_cover"]["tmp_name"];
-    $newFilePath1 = "../" . "cover/" . $_FILES["book_cover"]["name"];
+    $newFilePath1 = "cover/" . $_FILES["book_cover"]["name"];
     // $newFilePath1 = "cover/" . $_FILES["book_cover"]["name"];
 
 
     $tmpFilePath2 = $_FILES["PDF"]["tmp_name"];
-    $newFilePath2 = "../" . "content/" . $_FILES["PDF"]["name"];
+    $newFilePath2 = "content/" . $_FILES["PDF"]["name"];
     // $newFilePath2 = "cover/" . $_FILES["book_cover"]["name"];
 
 
     $book_title = $_POST['book_title'];
     $book_author = $_POST['book_author'];
+    $book_description = $_POST['book_description'];
     $book_public_date = $_POST['book_public_date'];
     $book_language = $_POST['book_language'];
     $category_id = $_POST['category_id'];
     $date = date("Y/m/d");
 
-    $query = "INSERT INTO `book` (book_title, book_cover, book_content, book_author, book_public_date, book_language, category_id, upload_date, Status) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, '1')";
+    $query = "INSERT INTO `book` (book_title, book_description, book_cover, book_content, book_author, book_public_date, book_language, category_id, upload_date, Status) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, '1')";
 
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "ssssssss", $book_title, $newFilePath1, $newFilePath2, $book_author, $book_public_date, $book_language, $category_id, $date);
+    mysqli_stmt_bind_param($stmt, "sssssssss", $book_title, $book_description, $newFilePath1, $newFilePath2, $book_author, $book_public_date, $book_language, $category_id, $date);
 
     if (mysqli_stmt_execute($stmt)) {
       echo "<script>window.location.href='book.php';</script>";
@@ -106,6 +107,11 @@ if (isset($_POST['submit'])) {
                   <div class="form-group">
                     <label for="inputTitle">Book Title :</label>
                     <input type="text" id="inputTitle" name="book_title" class="form-control" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputDescription">Book Description :</label>
+                    <textarea id="inputDescription" name="book_description" class="form-control" required></textarea>
                   </div>
 
                   <label for="inputCover">Book Cover</label>

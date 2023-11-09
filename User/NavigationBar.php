@@ -14,28 +14,25 @@
     <div class="ui secondary menu" id="nav">
       <p class="title">ONE LIBRARY</p>
         <div class="right menu" id="right-menu">
-          <div class="item">
+          <!-- <div class="item">
           <div class="ui icon input">
             <input class="search-input" type="text" placeholder="Search..." fdprocessedid="brlzed">
               <i class="search link icon"></i>
             </div>
-          </div>
-          <a class="item" id="nav-a" href="UserIndex.php">
-            Home
-          </a>
-          <a class="item" id="nav-a"><i class="book icon"></i>
+          </div> -->
+          <a class="ui item" id="nav-a" href="BookList.php"><i class="book icon"></i>
             Book
           </a>
-          <a class="item" id="nav-a" href="Favorites.php" ><i class="bookmark icon"></i>
+          <a class="ui item" id="nav-a" href="Favorites.php"><i class="bookmark icon"></i>
             Bookmark
           </a>
-          <a class="item" id="nav-a">
+          <a class="ui item" id="nav-a" href="AboutUs.php"><i class="users icon"></i>
             About Us
           </a>
-          <a class="ui item" href="" id="nav-a">
+          <a class="ui item" id="nav-a" href="ContactUs.php"><i class="phone alternate icon"></i>
             Contact Us
           </a>
-          <a class="ui item" href="UserProfile.php" id="nav-a">
+          <a class="ui item" id="nav-a" href="UserProfile.php">
             Profile
           </a>
           <a class="ui item" id="nav-a" href="Logout.php">
