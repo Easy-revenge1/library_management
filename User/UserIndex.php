@@ -2,9 +2,19 @@
 include_once("../db.php");
 include_once("NavigationBar.php");
 
+// if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
+//   echo  "Please Login First To Access This Content";
+//   header("Location: UserLogin.php");
+//   exit();
+// }
+
 $baseURL = "http://localhost/library_management/";
 
-$mostViewBook = "SELECT * FROM `book` ORDER BY `view` DESC";
+$mostViewBook = "SELECT b.*, COALESCE(COUNT(wr.book_id), 0) AS total_views
+FROM `book` b
+LEFT JOIN `watch_record` wr ON b.`book_id` = wr.`book_id`
+GROUP BY b.`book_id`
+ORDER BY total_views DESC;";
 $BookView = mysqli_query($conn, $mostViewBook);
 
 $newUpdateBook = "SELECT * FROM `book` ORDER BY `upload_date` DESC";
