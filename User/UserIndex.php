@@ -33,7 +33,7 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
   <title>Home</title>
 </head>
 
-<body style="background-color: #eeeeee;">
+<body>
 
 <div class="intro">
    <div class="intro-text">
