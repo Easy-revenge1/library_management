@@ -59,10 +59,10 @@ if ($bookListStmt) {
                 $bookTitle = $row['book_title'];
                 $bookCover = $row['book_cover'];
 
-                echo '<div class="column">';
+                echo '<div class="">';
                 echo '<div class="book-card">';
                 echo '<div class="image">';
-                echo '<img class="book-img" src="../' . $bookCover . '" alt="' . $bookTitle . '">';
+                echo '<img class="book-img" src="../cover/' . $bookCover . '" alt="' . $bookTitle . '">';
                 echo '</div>';
                 echo '<div class="book-title">';
                 echo '<h4>' . $bookTitle . '</h4>';

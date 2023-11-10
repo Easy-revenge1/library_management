@@ -65,6 +65,7 @@
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
+    <link rel="stylesheet" href="Css/Main.css">
     <!-- <link rel="stylesheet" type="text/css" href="Main.css"> -->
     <!-- <link rel="stylesheet" href="Utility.css"> -->
     <title>Digital Library</title>
@@ -140,9 +141,6 @@
       });
   </script>
   <style type="text/css">
-    body {
-      background-color: #eeeeee;
-    }
 
     body>.grid {
       height: 100%;
