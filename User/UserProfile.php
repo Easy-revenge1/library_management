@@ -12,7 +12,6 @@ $favoriteList = "SELECT f.*, b.*
 FROM favourites AS f
 INNER JOIN book AS b ON f.book_id = b.book_id
 WHERE f.user_id = ? LIMIT 3;";
-
 $favoritestmt = mysqli_prepare($conn, $favoriteList);
 mysqli_stmt_bind_param($favoritestmt, "i", $user_id);
 mysqli_stmt_execute($favoritestmt);
@@ -20,15 +19,14 @@ $favoriteresult = mysqli_stmt_get_result($favoritestmt);
 
 
 
-$favoriteList2 = "SELECT f.*, b.*
-FROM favourites AS f
-INNER JOIN book AS b ON f.book_id = b.book_id
-WHERE f.user_id = ? LIMIT 3;";
-
-$favoritestmt2 = mysqli_prepare($conn, $favoriteList2);
-mysqli_stmt_bind_param($favoritestmt2, "i", $user_id);
-mysqli_stmt_execute($favoritestmt2);
-$favoriteresult2 = mysqli_stmt_get_result($favoritestmt2);
+$watchRecord = "SELECT w.*, b.*
+FROM watch_record AS w
+INNER JOIN book AS b ON w.book_id = b.book_id
+WHERE w.user_id = ? LIMIT 3;";
+$recordStmt = mysqli_prepare($conn, $watchRecord);
+mysqli_stmt_bind_param($recordStmt, "i", $user_id);
+mysqli_stmt_execute($recordStmt);
+$recordResult = mysqli_stmt_get_result($recordStmt);
 
 
 
@@ -91,14 +89,14 @@ mysqli_close($conn);
         <div class="user-book-info">
            <div class="favorite">
              <span class="favorite-title">FAVORITE</span>
-             <span class="view-more"><a href="" class="view-more">View More</a></span>
+             <span class="view-more"><a href="Favorites.php" class="view-more">View More</a></span>
              <div class="favorite-book">
     <?php
     while ($row = mysqli_fetch_assoc($favoriteresult)) {
         echo '<div class="book-cover">';
         echo '<div class="linear-bg"></div>';
         echo '<p class="book-title">' . $row['book_title'] .'</p>';
-        echo '<img class="book-image" src="../' . $row['book_cover'] . '" alt="Book Cover">';
+        echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
         echo '</div>';
         // You can display other columns from the result as well
     }
@@ -107,15 +105,15 @@ mysqli_close($conn);
 
 
 <div class="favorite" style="margin:30px 0px;">
-             <span class="favorite-title">FAVORITE</span>
+             <span class="favorite-title">Watch Record</span>
              <span class="view-more"><a href="" class="view-more">View More</a></span>
              <div class="favorite-book">
     <?php
-    while ($row = mysqli_fetch_assoc($favoriteresult2)) {
+    while ($row = mysqli_fetch_assoc($recordResult)) {
         echo '<div class="book-cover">';
         echo '<div class="linear-bg"></div>';
         echo '<p class="book-title">' . $row['book_title'] .'</p>';
-        echo '<img class="book-image" src="../' . $row['book_cover'] . '" alt="Book Cover">';
+        echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
         echo '</div>';
         // You can display other columns from the result as well
     }
@@ -171,6 +169,7 @@ mysqli_close($conn);
 .user-image{
     height:250px;
     overflow:hidden;
+    border-bottom: 4px solid #000;
 }
 
 .user-background{

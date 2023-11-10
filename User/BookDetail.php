@@ -151,7 +151,9 @@ if (isset($_POST["submit"])) {
             <div class="four wide column">
                 <?php
                 $bookCoverPath = $row["book_cover"];
-                $bookCoverUrl = $baseURL . $bookCoverPath;
+                $fileName = basename($bookCoverPath);
+                $bookCoverUrl = $baseURL . 'cover/' . $fileName;
+
                 ?>
                 <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="ui fluid image">
             </div>
