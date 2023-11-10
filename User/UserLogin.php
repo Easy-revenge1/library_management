@@ -3,8 +3,8 @@
 
   if (isset($_POST['submit'])) {
     if (!empty($_POST['user_name']) && !empty($_POST['user_pass'])) {
-      $user_name = $_POST['user_name'];
-      $user_pass = $_POST['user_pass'];
+      $user_name = filter_var($_POST['user_name'], FILTER_SANITIZE_STRING);
+      $user_pass = filter_var($_POST['user_pass'], FILTER_SANITIZE_STRING);      
 
       $query = "SELECT * FROM `user` WHERE `user_name`=?";
 
@@ -23,6 +23,7 @@
           $_SESSION['user_name'] = $row['user_name'];
           $_SESSION['user_email'] = $row['user_email'];
           $_SESSION['user_contact'] = $row['user_contact'];
+          $_SESSION['user_logged_in'] = true;
 
           header("Location: UserIndex.php");
           exit();
