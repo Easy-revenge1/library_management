@@ -36,7 +36,7 @@ mysqli_stmt_bind_param($reviewStmt, "iii", $bookId, $offset, $reviewsPerPage);
 mysqli_stmt_execute($reviewStmt);
 $reviewResult = mysqli_stmt_get_result($reviewStmt);
 
-$totalPages = ceil($totalReviews/$reviewsPerPage);
+$totalPages = ceil($totalReviews / $reviewsPerPage);
 
 
 if (isset($_POST['favourite'])) {
@@ -51,7 +51,7 @@ if (isset($_POST['favourite'])) {
         if (mysqli_stmt_execute($addstmt)) {
             $book_name = $row['book_name'];
             // echo '<div class="ui success message">' . $book_name . ' had added to your bookmark</div>';
-            header("Location: BookDetail.php?id=" . $bookId);
+            header("Location: BookDetail.php?id=" . $bookId . "&page=1");
             // exit();
         } else {
             // Handle database error
@@ -74,7 +74,7 @@ if (isset($_POST['favourite'])) {
     if (mysqli_stmt_execute($removestmt)) {
         $book_name = $row['book_name'];
         // echo '<div class="ui success message">' . $book_name . ' has been remove from your bookmark</div>';
-        header("Location: BookDetail.php?id=" . $bookId);
+        header("Location: BookDetail.php?id=" . $bookId . "&page=1");
         exit();
     } else {
         $error = mysqli_error($conn);
@@ -229,7 +229,7 @@ if (isset($_POST["submit"])) {
                 <div class="ui divider"></div>
 
                 <h2 class="ui header">Add a Review</h2>
-                <form class="ui form" action="BookDetail.php?id=<?php echo $bookId ?>" method="POST">
+                <form class="ui form" action="BookDetail.php?id=<?php echo $bookId ?>&page=1" method="POST">
                     <div class="field">
                         <label>Rating</label>
                         <select class="ui dropdown" name="rating">
@@ -252,9 +252,6 @@ if (isset($_POST["submit"])) {
                 </form>
 
                 <div class="ui divider"></div>
-
-                <!-- <h2 class="ui header">Preview</h2>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
             </div>
         </div>
     </div>
@@ -284,14 +281,11 @@ if (isset($_POST["submit"])) {
                         var button = $('#favoriteButton');
 
                         if (response == '1') {
-                            // The book is already a favorite
                             button.removeClass('ui yellow button').addClass('ui grey button');
                             button.text('Unfavorite');
                             button.attr('name', 'unfavourite');
                             button.attr('value', 'unfavourite');
-                            // console.log('work');
                         } else {
-                            // The book is not a favorite
                             button.removeClass('ui grey button').addClass('ui yellow button');
                             button.text('Favorite');
                             button.attr('name', 'favourite');
@@ -300,9 +294,7 @@ if (isset($_POST["submit"])) {
                     },
 
                     error: function (xhr, status, error) {
-                        // Handle AJAX errors here
                         console.log('AJAX error: ' + error);
-                        // You can display an error message or take other actions as needed
                     }
                 });
             }

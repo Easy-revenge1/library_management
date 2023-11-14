@@ -19,7 +19,7 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 
-$WatchRecordInsert = "INSERT INTO `watch_record` (`book_id`, `user_id`, `status`) VALUES (?, ?, 'watching')";
+$WatchRecordInsert = "INSERT INTO `watch_record` (`book_id`, `user_id`) VALUES (?, ?)";
 $watchrecordstmt = mysqli_prepare($conn, $WatchRecordInsert);
 
 mysqli_stmt_bind_param($watchrecordstmt, "ii", $bookId, $userId);
@@ -68,10 +68,18 @@ mysqli_stmt_close($watchrecordstmt);
         #pdf-container {
             flex: 1;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
         }
 
-        .double-page-view {
+        .pdf-page {
+            width: 100%;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .double-page-view .pdf-page {
             width: 50%;
         }
 
@@ -99,6 +107,8 @@ mysqli_stmt_close($watchrecordstmt);
         <button class="ui button" onclick="toggleViewMode()">Toggle View Mode</button>
         <button class="ui button" onclick="prevPage()">Previous Page</button>
         <button class="ui button" onclick="nextPage()">Next Page</button>
+        <button class="ui button" onclick="zoomIn()">Zoom In</button>
+        <button class="ui button" onclick="zoomOut()">Zoom Out</button>
     </div>
 
     <script>
@@ -107,6 +117,7 @@ mysqli_stmt_close($watchrecordstmt);
 
         var pdfInstance;
         var currentPage = 1;
+        var pdfScale = 1;
 
         // Fetch the PDF document
         var loadingTask = pdfjsLib.getDocument(filePath);
@@ -137,6 +148,12 @@ mysqli_stmt_close($watchrecordstmt);
                     canvas.width = viewport.width;
                     canvas.height = viewport.height;
 
+                    // Set the position for the first page to stick to the top
+                    if (pageNumber === 1) {
+                        pageContainer.style.position = 'absolute';
+                        pageContainer.style.top = '0';
+                    }
+
                     // Render the PDF page on the canvas
                     var renderContext = {
                         canvasContext: canvas.getContext('2d'),
@@ -146,23 +163,22 @@ mysqli_stmt_close($watchrecordstmt);
                 });
             }
 
-            // Set initial view mode
-            toggleViewMode();
         });
 
-        function toggleViewMode() {
-            var container = document.getElementById('pdf-container');
-            container.classList.toggle('double-page-view');
+        function updatePagePositions() {
+            var pageContainers = document.querySelectorAll('.pdf-page');
 
-            // Update the view mode based on the class
-            var isDoublePageView = container.classList.contains('double-page-view');
-            if (isDoublePageView) {
-                // Implement double page view logic
-                showDoublePageView();
-            } else {
-                // Implement single page view logic
-                showSinglePageView();
-            }
+            pageContainers.forEach(function (pageContainer, index) {
+                var isLastPage = index === pdfInstance.numPages - 1;
+
+                if (isLastPage) {
+                    pageContainer.style.position = 'absolute';
+                    pageContainer.style.bottom = '0';
+                } else {
+                    pageContainer.style.position = 'relative';
+                    pageContainer.style.bottom = 'auto';
+                }
+            });
         }
 
         function scrollPageTop() {
@@ -179,33 +195,11 @@ mysqli_stmt_close($watchrecordstmt);
             }
         }
 
-        function showDoublePageView() {
-            var pages = document.querySelectorAll('#pdf-container > div');
-            pages.forEach(function (page, index) {
-                if (index % 2 === 0) {
-                    page.style.order = index;
-                    page.style.width = '50%';
-                } else {
-                    page.style.order = index - 1;
-                    page.style.width = '50%';
-                }
-            });
-        }
-
-        function showSinglePageView() {
-            var pages = document.querySelectorAll('#pdf-container > div');
-            pages.forEach(function (page, index) {
-                page.style.order = index;
-                page.style.width = '100%';
-            });
-        }
-
         function nextPage() {
             if (currentPage < pdfInstance.numPages) {
                 currentPage++;
                 scrollToPage(currentPage);
             } else {
-                // Scroll to the bottom of the page
                 scrollPageBottom();
             }
         }
@@ -215,7 +209,6 @@ mysqli_stmt_close($watchrecordstmt);
                 currentPage--;
                 scrollToPage(currentPage);
             } else {
-                // Scroll to the top of the page
                 scrollPageTop();
             }
         }
@@ -227,19 +220,36 @@ mysqli_stmt_close($watchrecordstmt);
             }
         }
 
-        function showPage(pageNumber) {
-            // Loop through all pages
-            var pages = document.querySelectorAll('#pdf-container > div');
-            pages.forEach(function (page, index) {
-                if (index + 1 === pageNumber) {
-                    // Show the selected page
-                    page.style.display = 'block';
-                } else {
-                    // Hide other pages
-                    page.style.display = 'none';
-                }
-            });
+        function zoomIn() {
+            if (pdfScale < 2) { // Limit maximum zoom to 2x
+                pdfScale += 0.1; // You can adjust the zoom increment as needed
+                updateZoom(); // Call the function to apply the new zoom
+            }
         }
+
+        function zoomOut() {
+            if (pdfScale > 0.5) { // Limit minimum zoom to 0.5x
+                pdfScale -= 0.1; // You can adjust the zoom decrement as needed
+                updateZoom(); // Call the function to apply the new zoom
+            }
+        }
+
+        function updateZoom() {
+            var container = document.getElementById('pdf-container');
+            container.style.transform = 'scale(' + pdfScale + ')';
+            container.style.overflow = 'hidden'; // Prevent the scroll bar from scaling
+
+            var pages = document.querySelectorAll('#pdf-container canvas');
+            pages.forEach(function (canvas) {
+                var ctx = canvas.getContext('2d');
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(pdfScale, pdfScale);
+                canvas.style.transformOrigin = '0 0'; // Set the transform origin to the top-left corner
+            });
+
+            updatePagePositions();
+        }
+
 
     </script>
 </body>

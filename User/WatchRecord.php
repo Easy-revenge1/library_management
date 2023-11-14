@@ -6,33 +6,15 @@ $userId = $_SESSION["user_id"];
 
 $baseURL = "http://localhost/library_management/";
 
-$bookmarkList = "SELECT favourites.*, book.*
-FROM `favourites`
-INNER JOIN `book` ON favourites.book_id = book.book_id
-WHERE favourites.user_id = ?";
-$stmt = mysqli_prepare($conn, $bookmarkList);
+$watchRecord = "SELECT watch_record.*, book.*
+FROM `watch_record`
+INNER JOIN `book` ON watch_record.book_id = book.book_id
+WHERE watch_record.user_id = ?";
+$stmt = mysqli_prepare($conn, $watchRecord);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
 $stmt->close();
-
-$CountBook = "SELECT COUNT(user_id) FROM `favourites` WHERE user_id = ?";
-if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
-    mysqli_stmt_bind_param($Countstmt, "i", $userId);
-
-    if (mysqli_stmt_execute($Countstmt)) {
-        $CountResult = mysqli_stmt_get_result($Countstmt);
-
-        $countData = mysqli_fetch_assoc($CountResult);
-        $book = $countData['COUNT(user_id)'];
-
-        mysqli_stmt_close($Countstmt);
-    } else {
-        $book = 0;
-    }
-} else {
-    $book = 0;
-}
 
 ?>
 <!DOCTYPE html>
@@ -69,12 +51,6 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 
     <div class="user-book-info">
         <div class="favorite">
-            <div class="titleBox">
-                <span class="book-mark-title">FAVORITES</span>
-                <span class="countBook">You have mark <span class="countNumber">
-                        <?php echo $book; ?>
-                    </span> Book</span>
-            </div>
 
             <div class="ui action input" id="searchBox">
                 <input type="text" id="searchInput" placeholder="Search...">
@@ -98,13 +74,9 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
             </div>
         </div>
 
-
-
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
 </body>
-
 </html>
 
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
