@@ -98,7 +98,6 @@ mysqli_close($conn);
         echo '<p class="book-title">' . $row['book_title'] .'</p>';
         echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
         echo '</div>';
-        // You can display other columns from the result as well
     }
     ?>
 </div>
@@ -106,7 +105,7 @@ mysqli_close($conn);
 
 <div class="favorite" style="margin:30px 0px;">
              <span class="favorite-title">Watch Record</span>
-             <span class="view-more"><a href="" class="view-more">View More</a></span>
+             <span class="view-more"><a href="WatchRecord.php" class="view-more">View More</a></span>
              <div class="favorite-book">
     <?php
     while ($row = mysqli_fetch_assoc($recordResult)) {
