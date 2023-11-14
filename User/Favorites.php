@@ -221,8 +221,9 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 .book-title{
     color:#fff;
     position:absolute;
-    bottom:0;
-    padding:0px 30px;
+    bottom: -4%;
+  left: 50%;
+  transform: translate(-50%, -50%);
     transition:0.4s;
     opacity: 1; 
     font-weight:900;

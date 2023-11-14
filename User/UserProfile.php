@@ -94,8 +94,9 @@ mysqli_close($conn);
     <?php
     while ($row = mysqli_fetch_assoc($favoriteresult)) {
         echo '<div class="book-cover">';
-        echo '<div class="linear-bg"></div>';
+        echo '<div class="small-linear-bg"></div>';
         echo '<p class="book-title">' . $row['book_title'] .'</p>';
+        echo '<button type="button" class="small-hidden-button">View Detail</button>';
         echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
         echo '</div>';
         // You can display other columns from the result as well
@@ -111,8 +112,9 @@ mysqli_close($conn);
     <?php
     while ($row = mysqli_fetch_assoc($recordResult)) {
         echo '<div class="book-cover">';
-        echo '<div class="linear-bg"></div>';
+        echo '<div class="small-linear-bg"></div>';
         echo '<p class="book-title">' . $row['book_title'] .'</p>';
+        echo '<button type="button" class="small-hidden-button">View Detail</button>';
         echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
         echo '</div>';
         // You can display other columns from the result as well
@@ -254,13 +256,14 @@ mysqli_close($conn);
     position: relative;
 }
 
-.linear-bg{
+.small-linear-bg{
     background: linear-gradient(to top, black, transparent);
     position: absolute;
-    height:120px;
-    width:200px;
+    height:130px;
+    width:100%;
     border-radius:10px;
     bottom:0%;
+    transition:0.4s;
     /* z-index:2; */
 }
 
@@ -275,6 +278,43 @@ mysqli_close($conn);
 .book-title{
     color:#fff;
     position:absolute;
-    padding:170px 20px;
+    bottom: -7%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1; 
+  transition: 0.4s;
+}
+.small-hidden-button {
+    background: transparent;
+    padding: -10px 50px;
+    height:30px;
+    width:100px;
+    font-size:13px;
+    position: absolute;
+    border: 3px solid #fff;
+    color: #fff;
+    border-radius: 5px;
+    top: 50%; /* 垂直居中 */
+    left: 50%; /* 水平居中 */
+    transform: translate(-50%, -50%); /* 用于水平和垂直居中 */
+    z-index: 2;
+    transition: 0.4s;
+    opacity: 0; /* 初始化时隐藏按钮 */
+}
+.book-cover:hover .small-hidden-button {
+    opacity: 1; /* 鼠标悬停时显示按钮 */
+    display: inline;
+}
+
+.book-cover:hover .small-linear-bg{
+    /* filter: brightness(50%); */
+    height:300px;
+}
+.book-cover:hover .book-title {
+    opacity: 0; /* 鼠标悬停时标题不可见 */
+}
+.small-hidden-button:hover{
+    background:#fff;
+    color:#000;
 }
 </style>
