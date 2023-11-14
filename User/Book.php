@@ -27,231 +27,77 @@ mysqli_stmt_execute($watchrecordstmt);
 mysqli_stmt_close($watchrecordstmt);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/reset.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/site.css">
-
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/container.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/grid.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/header.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/image.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/menu.css">
-
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/divider.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/segment.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/form.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/input.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/button.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/list.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/rating.min.css">
-    <title>PDF Viewer</title>
+    <title>Watch</title>
+    <!-- Add Fomantic UI CSS link -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
     <style>
         body {
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #222;
+            color: #fff;
         }
 
         #pdf-container {
-            flex: 1;
+            width: 100%;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-y: auto;
+            justify-content: center;
+            background-color: #FFF;
         }
 
-        .pdf-page {
+        #pdf-object {
             width: 100%;
-            margin: 10px 0;
-            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #333;
+            border: 4px solid #555;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
         }
 
-        .double-page-view .pdf-page {
-            width: 50%;
+        #pdf-object object {
+            width: 100%;
+            height: 100%;
         }
 
-        #toolbar {
-            background-color: #000;
-            padding: 10px;
-            text-align: center;
-            position: sticky;
-            bottom: 0;
-        }
-
-        button {
-            margin: 5px;
+        html {
+            --iron-icon-height: 20px;
+            --iron-icon-width: 20px;
+            --viewer-icon-ink-color: rgb(189, 189, 189);
+            --viewer-pdf-toolbar-background-color: #7e7e7e;
+            --viewer-text-input-selection-color: #7e7e7e;
         }
     </style>
-    <script>
-        var filePath = "<?php echo $filePath; ?>";
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 </head>
 
 <body>
-    <div id="pdf-container"></div>
-    <div id="toolbar" class="ui container">
-        <button class="ui button" onclick="toggleViewMode()">Toggle View Mode</button>
-        <button class="ui button" onclick="prevPage()">Previous Page</button>
-        <button class="ui button" onclick="nextPage()">Next Page</button>
-        <button class="ui button" onclick="zoomIn()">Zoom In</button>
-        <button class="ui button" onclick="zoomOut()">Zoom Out</button>
+    <div id="pdf-container" class="ui container">
+        <div id="pdf-object" class="ui raised segment">
+            <object type="application/pdf" data="<?php echo $filePath; ?>" class="pdf-viewer">
+                Your browser does not support embedded PDF files.
+                You can <a href="<?php echo $filePath; ?>" download>download the PDF</a> instead.
+            </object>
+        </div>
     </div>
 
-    <script>
-        // Initialize PDF.js
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
-
-        var pdfInstance;
-        var currentPage = 1;
-        var pdfScale = 1;
-
-        // Fetch the PDF document
-        var loadingTask = pdfjsLib.getDocument(filePath);
-
-        // Render all pages of the PDF
-        loadingTask.promise.then(function (pdf) {
-            pdfInstance = pdf;
-
-            // Get the total number of pages in the PDF
-            var numPages = pdf.numPages;
-
-            // Create a container div for the PDF viewer
-            var container = document.getElementById('pdf-container');
-
-            // Loop through all pages and render each one
-            for (var pageNumber = 1; pageNumber <= numPages; pageNumber++) {
-                pdf.getPage(pageNumber).then(function (page) {
-                    // Create a container for each page
-                    var pageContainer = document.createElement('div');
-                    container.appendChild(pageContainer);
-
-                    // Create a canvas element to render the page
-                    var canvas = document.createElement('canvas');
-                    pageContainer.appendChild(canvas);
-
-                    // Set the canvas dimensions to match the PDF page
-                    var viewport = page.getViewport({ scale: 1.5 });
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-
-                    // Set the position for the first page to stick to the top
-                    if (pageNumber === 1) {
-                        pageContainer.style.position = 'absolute';
-                        pageContainer.style.top = '0';
-                    }
-
-                    // Render the PDF page on the canvas
-                    var renderContext = {
-                        canvasContext: canvas.getContext('2d'),
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-                });
-            }
-
-        });
-
-        function updatePagePositions() {
-            var pageContainers = document.querySelectorAll('.pdf-page');
-
-            pageContainers.forEach(function (pageContainer, index) {
-                var isLastPage = index === pdfInstance.numPages - 1;
-
-                if (isLastPage) {
-                    pageContainer.style.position = 'absolute';
-                    pageContainer.style.bottom = '0';
-                } else {
-                    pageContainer.style.position = 'relative';
-                    pageContainer.style.bottom = 'auto';
-                }
-            });
-        }
-
-        function scrollPageTop() {
-            var pageContainer = document.querySelector(`#pdf-container > div:nth-child(${currentPage})`);
-            if (pageContainer) {
-                pageContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        function scrollPageBottom() {
-            var pageContainer = document.querySelector(`#pdf-container > div:nth-child(${currentPage})`);
-            if (pageContainer) {
-                pageContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
-            }
-        }
-
-        function nextPage() {
-            if (currentPage < pdfInstance.numPages) {
-                currentPage++;
-                scrollToPage(currentPage);
-            } else {
-                scrollPageBottom();
-            }
-        }
-
-        function prevPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                scrollToPage(currentPage);
-            } else {
-                scrollPageTop();
-            }
-        }
-
-        function scrollToPage(pageNumber) {
-            var pageContainer = document.querySelector(`#pdf-container > div:nth-child(${pageNumber})`);
-            if (pageContainer) {
-                pageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-
-        function zoomIn() {
-            if (pdfScale < 2) { // Limit maximum zoom to 2x
-                pdfScale += 0.1; // You can adjust the zoom increment as needed
-                updateZoom(); // Call the function to apply the new zoom
-            }
-        }
-
-        function zoomOut() {
-            if (pdfScale > 0.5) { // Limit minimum zoom to 0.5x
-                pdfScale -= 0.1; // You can adjust the zoom decrement as needed
-                updateZoom(); // Call the function to apply the new zoom
-            }
-        }
-
-        function updateZoom() {
-            var container = document.getElementById('pdf-container');
-            container.style.transform = 'scale(' + pdfScale + ')';
-            container.style.overflow = 'hidden'; // Prevent the scroll bar from scaling
-
-            var pages = document.querySelectorAll('#pdf-container canvas');
-            pages.forEach(function (canvas) {
-                var ctx = canvas.getContext('2d');
-                ctx.setTransform(1, 0, 0, 1, 0, 0);
-                ctx.scale(pdfScale, pdfScale);
-                canvas.style.transformOrigin = '0 0'; // Set the transform origin to the top-left corner
-            });
-
-            updatePagePositions();
-        }
-
-
-    </script>
+    <!-- Add Fomantic UI JS and jQuery CDN links -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
 </body>
 
 </html>
+
