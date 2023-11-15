@@ -141,6 +141,8 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
     .favorite-book {
         margin: 20px 0px;
         display: flex;
+        flex-wrap: wrap; /* Allow items to wrap to the next row */
+        justify-content: space-around;
     }
 
     #searchBox {
@@ -176,8 +178,8 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
     }
 
     .book-cover {
-        height: 400px;
-        width: 400px;
+        height: 350px;
+        width: 300px;
         margin: 5px 10px;
         border: 5px solid #000;
         border-radius: 20px;
