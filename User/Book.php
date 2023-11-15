@@ -35,8 +35,25 @@ mysqli_stmt_close($watchrecordstmt);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch</title>
-    <!-- Add Fomantic UI CSS link -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/reset.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/site.css">
+
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/container.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/grid.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/header.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/image.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/menu.css">
+
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/divider.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/segment.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/form.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/input.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/button.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/list.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.css">
+    <link rel="stylesheet" type="text/css" href="Css/Utility.css">
     <style>
         body {
             margin: 0;
@@ -73,14 +90,6 @@ mysqli_stmt_close($watchrecordstmt);
             width: 100%;
             height: 100%;
         }
-
-        html {
-            --iron-icon-height: 20px;
-            --iron-icon-width: 20px;
-            --viewer-icon-ink-color: rgb(189, 189, 189);
-            --viewer-pdf-toolbar-background-color: #7e7e7e;
-            --viewer-text-input-selection-color: #7e7e7e;
-        }
     </style>
 </head>
 
@@ -95,9 +104,11 @@ mysqli_stmt_close($watchrecordstmt);
     </div>
 
     <!-- Add Fomantic UI JS and jQuery CDN links -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>
 
+<script src="../Fomantic-ui/dist/semantic.min.js"></script>
+<script src="../Fomantic-ui/dist/components/form.js"></script>
+<script src="../Fomantic-ui/dist/components/transition.js"></script>
