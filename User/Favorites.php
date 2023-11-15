@@ -76,13 +76,24 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
                     </span> Book</span>
             </div>
 
-            <div class="ui action input" id="searchBox">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button class="ui icon button">
-                    <i class="search icon q-mr-xs"></i>
-                    Search
-                </button>
+            <div class="flex">
+
+                <div class="ui action input" id="searchBox">
+                    <input type="text" id="searchInput" placeholder="Search...">
+                    <button class="ui icon button" id="searchButton">
+                        <i class="search icon q-mr-xs"></i>
+                        Search
+                    </button>
+                </div>
+                <div class="reset" style="margin:0px 0px; padding:20px 0px;">
+                    <button class="" id="resetButton">
+                        <i class="undo icon"></i>
+                    </button>
+                </div>
             </div>
+
+
+
             <div class="favorite-book">
 
                 <?php
@@ -98,11 +109,6 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
             </div>
         </div>
 
-
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 </body>
 
 </html>
@@ -110,8 +116,57 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 <script src="../Fomantic-ui/dist/components/form.js"></script>
 <script src="../Fomantic-ui/dist/components/transition.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#resetButton').on('click', function () {
+            // Refresh the page
+            location.reload();
+        });
+        $('#searchBox button').on('click', function () {
+            // Get the search query from the input field
+            var query = $('#searchInput').val();
+
+            // Empty the .favorite-book div before making the request
+            $('.favorite-book').empty();
+
+            $.ajax({
+                url: 'Ajax/favoriteSearch.php',
+                method: 'GET',
+                data: { query: query },
+                dataType: 'json',
+                beforeSend: function () {
+                    // You can show a loading indicator here if needed
+                },
+                success: function (data) {
+                    // Iterate through the search results and append them to the favorite-book div
+                    $.each(data, function (index, book) {
+                        var bookCover = $('<div class="book-cover"></div>');
+                        bookCover.append('<div class="linear-bg"></div>');
+                        bookCover.append('<p class="book-title">' + book.book_title + '</p>');
+                        bookCover.append('<button type="button" class="hidden-button">View Detail</button>');
+                        bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
+
+                        $('.favorite-book').append(bookCover);
+                    });
+                },
+                error: function (error) {
+                    console.error('AJAX Error:', error);
+                }
+            });
+        });
+    });
+
+</script>
+
 
 <style>
+    #resetButton {
+        background: transparent;
+        color: #000;
+        border: 0px;
+        font-size: 20px;
+    }
+
     .user-book-info {
         background: #FFFBF5;
         border: 4px solid #000;
@@ -141,12 +196,13 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
     .favorite-book {
         margin: 20px 0px;
         display: flex;
-        flex-wrap: wrap; /* Allow items to wrap to the next row */
+        flex-wrap: wrap;
+        /* Allow items to wrap to the next row */
         justify-content: space-around;
     }
 
     #searchBox {
-        width: 100%;
+        width: 97%;
         padding: 10px 10px;
         display: flex;
     }
@@ -164,7 +220,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
         border-bottom-left-radius: 6px;
     }
 
-    #searchBox button {
+    #searchBox #searchButton {
         background: #000;
         color: #fff;
         border-top: 3px solid #000;
@@ -181,13 +237,11 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
         height: 350px;
         width: 300px;
         margin: 5px 10px;
-        border: 5px solid #000;
+        /* border: 5px solid #000; */
         border-radius: 20px;
         overflow: hidden;
         position: relative;
     }
-
-
 
     .linear-bg {
         background: linear-gradient(to top, black, transparent);
@@ -212,7 +266,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 
     .book-title {
         color: #fff;
-        position:absolute;
+        position: absolute;
         bottom: -20%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -259,7 +313,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
     }
 
     .book-cover:hover .book-title {
-        opacity: 0;
+        /* opacity: 0; */
     }
 
     .hidden-button:hover {

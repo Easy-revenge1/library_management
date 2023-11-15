@@ -12,7 +12,7 @@
 
 
     <div class="ui secondary menu" id="nav">
-      <p class="title">ONE LIBRARY</p>
+      <a class="title" href="UserIndex.php">ONE LIBRARY</a>
         <div class="right menu" id="right-menu">
           <!-- <div class="item">
           <div class="ui icon input">
