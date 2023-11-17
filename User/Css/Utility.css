@@ -94,6 +94,7 @@
   .text-md { font-size: 16px; }
   .text-lg { font-size: 18px; }
   .text-xl { font-size: 24px; }
+  .text-xxl { font-size: 60px; }
   
   /* Font Weight Utilities */
   .font-bold { font-weight: bold; }
