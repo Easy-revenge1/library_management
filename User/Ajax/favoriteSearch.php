@@ -2,7 +2,7 @@
 include_once("../../db.php");
 
 if (isset($_GET['query'])) {
-    $query  = '%' . $_GET['query'] . '%';
+    $query = '%' . $_GET['query'] . '%';
     $userId = $_SESSION["user_id"];
 
     $searchQuery = "SELECT favourites.*, book.*
@@ -11,9 +11,9 @@ if (isset($_GET['query'])) {
     WHERE favourites.user_id = ? AND
           (book.book_title LIKE ? OR
            book.book_author LIKE ?)";
-    
+
     $stmt = mysqli_prepare($conn, $searchQuery);
-    $stmt->bind_param("iss", $userId, $query, $query);  
+    $stmt->bind_param("iss", $userId, $query, $query);
     $stmt->execute();
     $result = $stmt->get_result();
     $stmt->close();
