@@ -2,7 +2,7 @@
 include_once("../db.php");
 include_once("NavigationBar.php");
 
-$bookListQuery = "SELECT * FROM `book`";
+$bookListQuery = "SELECT * FROM book";
 $bookListStmt = mysqli_prepare($conn, $bookListQuery);
 
 if ($bookListStmt) {
@@ -51,11 +51,10 @@ if (!$categoryResult) {
 </head>
 
 <body style="margin-top: 100px;">
-    <div class="bookListSearch">
-        <input type="text" placeholder="Search..">
-    </div>
+
     <div class="bookContent">
         <div class="sideMenu">
+            <input type="text" placeholder="Search.." class="searchInput">
             <!-- ui sticky fixed top -->
             <div class="ui selection dropdown q-mb-md" id="dropdownMenu">
                 <input type="hidden" name="pet">
@@ -85,7 +84,15 @@ if (!$categoryResult) {
                 </div>
             </div>
 
+            <div class="bookListSearch">
+                <!-- <input type="text" placeholder="Search.."> -->
+                <button class="ui black button" style="width:88.5%;  position: absolute; bottom: 20px;"><i
+                        class="ui search icon"></i> Search</button>
+            </div>
         </div>
+
+
+
         <div class="ui three column " id="bookList">
             <?php
 
@@ -98,7 +105,7 @@ if (!$categoryResult) {
                     echo '<div class="book-cover">';
                     echo '<div class="linear-bg"></div>';
                     echo '<p class="book-title">' . $bookTitle . '</p>';
-                    echo '<button type="button" class="hidden-button">View Detail</button>';
+                    echo '<button type="button" class="hidden-button" onclick="location.href=\'BookDetail.php?id=' . $row['book_id'] . '&page=1\'">View Detail</button>';
                     echo '<img class="book-image" src="' . $bookCover . '" alt="' . $bookTitle . '">';
                     echo '</div>';
                 }
@@ -107,6 +114,7 @@ if (!$categoryResult) {
             }
 
             ?>
+            <div class="spacer" style="height:15px; width:100%;"></div>
         </div>
     </div>
 </body>
@@ -120,16 +128,17 @@ if (!$categoryResult) {
 </script>
 <style>
     .bookListSearch {
-        width: 97.5%;
+        width: 100%;
         margin: auto;
     }
 
-    .bookListSearch input {
+    .searchInput {
         background: transparent;
         width: 100%;
         padding: 8px;
-        border-radius: 10px;
+        border-radius: 4px;
         border: 3px solid #000;
+        margin-bottom: 10px;
     }
 
     .bookContent {
@@ -138,11 +147,11 @@ if (!$categoryResult) {
     }
 
     #bookList {
+        width: 80%;
+        margin-left: 540px;
         display: flex;
         flex-wrap: wrap;
-        /* Allow items to wrap to the next row */
-        justify-content: space-around;
-        /* Adjust as needed for your spacing */
+        /* justify-content: space-around; */
         /* margin: auto; */
     }
 
@@ -163,14 +172,16 @@ if (!$categoryResult) {
         } */
 
     .sideMenu {
-        margin: 15px 20px;
+        position: fixed;
+        margin: 15px 50px;
         background: #FFFBF5;
-        height: 100%;
-        width: 100%;
+        height: 40%;
+        width: 28%;
         border: 4px solid #000;
         border-radius: 20px;
         overflow: hidden;
         padding: 20px;
+        z-index: 1;
     }
 
     #dropdownMenu {
@@ -191,12 +202,13 @@ if (!$categoryResult) {
     .book-cover {
         height: 400px;
         width: 350px;
-        margin: 15px 10px;
+        margin: 15px 15px;
         /* border: 5px solid #000; */
         border-radius: 20px;
         overflow: hidden;
         position: relative;
     }
+
     .ui.selection.active.dropdown .menu {
         border-color: #FFFBF5 !important;
     }
