@@ -16,9 +16,15 @@ $reviewCountResult = mysqli_query($conn, $totalReview);
 $reviewCountData = mysqli_fetch_assoc($reviewCountResult);
 $totalReviews = $reviewCountData['total'];
 
-$BookDetail = "SELECT * FROM `book`
-               INNER JOIN `language` ON book.`language_id` = `language`.`language_id`
-               WHERE `book`.`book_id` = ?";
+$BookDetail = "SELECT b.*, l.language_name, c.category_name,
+    COALESCE(COUNT(wr.book_id), 0) AS total_views,
+    ROW_NUMBER() OVER (ORDER BY COALESCE(COUNT(wr.book_id), 0) DESC) AS view_rank
+FROM `book` b
+INNER JOIN `language` l ON b.`language_id` = l.`language_id`
+INNER JOIN `category` c ON b.`category_id` = c.`category_id`
+LEFT JOIN `watch_record` wr ON b.`book_id` = wr.`book_id`
+WHERE b.`book_id` = ?
+GROUP BY b.`book_id`";
 
 $stmt = mysqli_prepare($conn, $BookDetail);
 mysqli_stmt_bind_param($stmt, 'i', $bookId);
@@ -40,7 +46,7 @@ $reviewStmt = mysqli_prepare($conn, $ReviewListing);
 mysqli_stmt_bind_param($reviewStmt, "iii", $bookId, $offset, $reviewsPerPage);
 mysqli_stmt_execute($reviewStmt);
 $reviewResult = mysqli_stmt_get_result($reviewStmt);
-$row1 = mysqli_fetch_assoc($reviewResult);
+
 
 $totalPages = ceil($totalReviews / $reviewsPerPage);
 
@@ -108,9 +114,9 @@ if (isset($_POST["submit"])) {
             mysqli_stmt_bind_param($submitReview, 'iiiss', $bookId, $userId, $rating, $title, $comment);
 
             if (mysqli_stmt_execute($submitReview)) {
-                echo '<div class="ui success message">Your Review on this book has been submitted</div>';
+                // echo '<div class="ui success message">Your Review on this book has been submitted</div>';
                 // Optionally, you can redirect the user after a successful submission
-                // header("Location: BookDetail.php?id=" . $bookId);
+                header("Location: BookDetail.php?id=" . $bookId . "&page=1");
                 // exit();
             } else {
                 echo '<div class="ui error message">Failed to submit your review.</div>';
@@ -212,7 +218,14 @@ if (isset($_POST["submit"])) {
                     <div class="info">
                         <span class="infoTitle">Total View</span>
                         <p class="infomation">
-                            123
+                            <?php echo $row['total_views'] ?>
+                        </p>
+                    </div>
+
+                    <div class="info">
+                        <span class="infoTitle">Category</span>
+                        <p class="infomation">
+                            <?php echo $row['category_name'] ?>
                         </p>
                     </div>
                 </div>
@@ -255,7 +268,7 @@ if (isset($_POST["submit"])) {
                                     <div class="comment">
                                         <a class="avatar" id="avatarImg">
                                             <img
-                                                src="<?php echo $row1['user_profilepicture'] ? $row1['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>">
+                                                src="<?php echo $rowReview['user_profilepicture'] ? $rowReview['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>">
                                         </a>
                                         <div class="content" style="margin:0px 60px;">
                                             <a class="author" style="font-size:20px;">

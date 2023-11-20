@@ -379,7 +379,7 @@ if (!isset($_SESSION['user_logged_in']) && isset($_COOKIE['remember_me'])) {
     position: absolute;
     width: 44%;
     text-align: center;
-    margin: 200px 0px;
+    margin: 180px 0px;
   }
 
   .login-function #login-button {

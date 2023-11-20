@@ -79,7 +79,7 @@ if (isset($_POST['submit'])) {
 $query = "SELECT book.*, category.category_name, language.language_name, bookstatus.BookStatus
             FROM book
             INNER JOIN category ON book.category_id = category.category_id
-            INNER JOIN language ON book.book_language = language.language_id
+            INNER JOIN language ON book.language_id = language.language_id
             INNER JOIN bookstatus ON book.Status = bookstatus.BookStatusId
             WHERE book.book_id = ?";
 
@@ -184,7 +184,7 @@ $statusResult = mysqli_query($conn, $statusQuery);
                     <label class="inputLanguage">Book Language :</label>
                     <select class="form-control custom-select" name="book_language">
                       <?php while ($languageRow = mysqli_fetch_assoc($languageResult)) { ?>
-                        <option value="<?= $languageRow['language_id'] ?>" <?= ($languageRow['language_id'] == $row['book_language']) ? 'selected' : '' ?>>
+                        <option value="<?= $languageRow['language_id'] ?>" <?= ($languageRow['language_id'] == $row['language_name']) ? 'selected' : '' ?>>
                           <?= $languageRow['language_name'] ?>
                         </option>
                       <?php } ?>

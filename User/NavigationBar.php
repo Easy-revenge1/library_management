@@ -32,10 +32,10 @@
       <a class="ui item" id="nav-a" href="Favorites.php"><i class="bookmark icon"></i>
         Favorites
       </a>
-      <a class="ui item" id="nav-a" href="AboutUs.php"><i class="users icon"></i>
+      <a class="ui item" id="nav-a" href="#"><i class="users icon"></i>
         About Us
       </a>
-      <a class="ui item" id="nav-a" href="ContactUs.php"><i class="phone alternate icon"></i>
+      <a class="ui item" id="nav-a" href="#"><i class="phone alternate icon"></i>
         Contact Us
       </a>
       <a class="ui item" id="nav-a" href="UserProfile.php">
