@@ -27,19 +27,20 @@ $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
 
-$reviewsPerPage = 4;
+$reviewsPerPage = 8;
 
 $offset = ($page - 1) * $reviewsPerPage;
 
-$ReviewListing = "SELECT reviews.*, `user`.`user_name`, `user`.`user_id` 
-                 FROM `reviews` 
-                 INNER JOIN `user` ON reviews.user_id = user.user_id
-                 WHERE reviews.book_id = ?
-                 LIMIT ?, ?";
+$ReviewListing = "SELECT reviews.*, user.*
+FROM reviews
+INNER JOIN user ON reviews.user_id = user.user_id
+WHERE reviews.book_id = ?
+LIMIT ?, ?";
 $reviewStmt = mysqli_prepare($conn, $ReviewListing);
 mysqli_stmt_bind_param($reviewStmt, "iii", $bookId, $offset, $reviewsPerPage);
 mysqli_stmt_execute($reviewStmt);
 $reviewResult = mysqli_stmt_get_result($reviewStmt);
+$row1 = mysqli_fetch_assoc($reviewResult);
 
 $totalPages = ceil($totalReviews / $reviewsPerPage);
 
@@ -159,7 +160,7 @@ if (isset($_POST["submit"])) {
 
 <body>
 
- 
+
 
 
     <div class="detailBox">
@@ -237,8 +238,8 @@ if (isset($_POST["submit"])) {
             <div class="reviewTitleBox">
                 <div class="flex-container">
                     <h2 class="" style="font-size: 40px; margin: 0;">Book Review</h2>
-                    <div class="spacer"></div> <!-- 空白元素，用于推动按钮到右侧 -->
-                    <button class="ui black button" id="showButton" style="">Add your Review</button>
+                    <div class="spacer"></div>
+                    <button class="ui black button" id="showButton">Add your Review</button>
                 </div>
             </div>
 
@@ -253,7 +254,8 @@ if (isset($_POST["submit"])) {
                                 <div class="ui comments">
                                     <div class="comment">
                                         <a class="avatar" id="avatarImg">
-                                            <img src="../pic/fscat.jpg">
+                                            <img
+                                                src="<?php echo $row1['user_profilepicture'] ? $row1['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>">
                                         </a>
                                         <div class="content" style="margin:0px 60px;">
                                             <a class="author" style="font-size:20px;">
@@ -308,26 +310,26 @@ if (isset($_POST["submit"])) {
 
 
 
-           
-    </div>
+
+        </div>
     </div>
 
 
     <div class="addCommentBox" id="addCommentBox">
-    <div class="addForm"> 
-    <h2 class="ui header">Add a Review</h2>
+        <div class="addForm">
+            <h2 class="ui header">Add a Review</h2>
             <form class="" action="BookDetail.php?id=<?php echo $bookId ?>&page=1" method="POST">
 
-            <div class="lboxcss" style="margin-bottom:30px;">
-            <input type="text" name="title" class="lbox-input" autocomplete="off" required>
-              <label for="text" class="label-name">
-              <span class="content-name">
-                Review Title
-              </span>
-              </label>
-            </div>
+                <div class="lboxcss" style="margin-bottom:30px;">
+                    <input type="text" name="title" class="lbox-input" autocomplete="off" required>
+                    <label for="text" class="label-name">
+                        <span class="content-name">
+                            Review Title
+                        </span>
+                    </label>
+                </div>
 
-            <div class="ui">
+                <div class="ui">
                     <select class="" id="ratingForm" style="" name="rating">
                         <option value="5">5 - Excellent</option>
                         <option value="4">4 - Very Good</option>
@@ -335,26 +337,12 @@ if (isset($_POST["submit"])) {
                         <option value="2">2 - Fair</option>
                         <option value="1">1 - Poor</option>
                     </select>
-              <!-- <label for="text" class="label-name">
-              <span class="content-name">
-                Rating
-              </span>
-              </label> -->
-            </div>
-<!-- 
-            <div class="lboxcss">
-            <textarea rows="2" name="comment" class="lbox-input" ></textarea>
-              <label for="text" class="label-name">
-              <span class="content-name">
-              Review Comment
-              </span>
-              </label>
-            </div> -->
 
-
+                </div>
                 <div class="ui form" style="margin-bottom:10px;">
                     <label>Review Comment</label>
-                    <textarea rows="2" name="comment" style="border:3px solid #000;background: transparent;" placeholder="Enter your review comment"></textarea>
+                    <textarea rows="2" name="comment" style="border:3px solid #000;background: transparent;"
+                        placeholder="Enter your review comment"></textarea>
                 </div>
                 <button class="ui black button" style="width:100%;" type="submit" name="submit">Submit Review</button>
             </form>
@@ -362,9 +350,9 @@ if (isset($_POST["submit"])) {
         </div>
     </div>
     </div>
-   </div>
+    </div>
 
-   <div style="height:10px;"></div>
+    <div style="height:10px;"></div>
 
 
 
@@ -452,133 +440,136 @@ if (isset($_POST["submit"])) {
 <script src="../Fomantic-ui/dist/components/rating.js"></script>
 
 <style>
-    /* no need add to style.css */
     .lboxcss {
-              width: 100%;
-              position: relative;
-              height: 60px;
-              overflow: hidden;
-              margin: 10px 0px;
-          }
-
-          .lboxcss .lbox-input {
-              width: 100%;
-              height: 100%;
-              color: #000;
-              padding-top: 20px;
-              border: none;
-              background: transparent;
-          }
-
-          .lboxcss .lbox-input-wrapper {
-              display: flex;
-          }
-
-          .lboxcss .lbox-input-wrapper .icon {
-              margin-left: 5px;
-          }
-
-          .lboxcss label {
-              position: absolute;
-              bottom: 0px;
-              left: 0px;
-              width: 100%;
-              height: 100%;
-              pointer-events: none;
-              border-bottom: 1px solid grey;
-          }
-
-          .lboxcss label::after {
-              content: "";
-              position: absolute;
-              bottom: -1px;
-              left: 0px;
-              width: 100%;
-              height: 100%;
-              border-bottom: 3px solid #000;
-              transform: translateX(-100%);
-              transition: all 0.3s ease;
-          }
-
-          .content-name {
-              position: absolute;
-              bottom: 0px;
-              left: 0px;
-              padding-bottom: 5px;
-              transition: all 0.3s ease;
-          }
-
-          .lboxcss .lbox-input:focus {
-              outline: none;
-          }
-
-          .lboxcss .lbox-input:focus + .label-name .content-name,
-          .lboxcss .lbox-input:valid + .label-name .content-name {
-              transform: translateY(-150%);
-              font-size: 14px;
-              left: 0px;
-              color: #000;
-          }
-
-          .lboxcss .lbox-input:focus + .label-name::after,
-          .lboxcss .lbox-input:valid + .label-name::after {
-              transform: translateX(0%);
-          }
-          #showPasswordButton{
-            background:transparent;
-            border:0px;
-            margin:35px 0px;
-            position: absolute;
-            right:0;
-          }
-
-
-.lboxcss .lbox-input-wrapper .lbox-input {
-    flex: 1; /* Take up remaining space */
-}
-
-.lboxcss .lbox-input-wrapper .icon {
-    margin-left: 5px;
-}
-
-
-
-    .addCommentBox{
-        background:rgb(0,0,0, 0.8);
-        position:fixed;
-        z-index:7;
         width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-    transition: opacity 0.1s ;
+        position: relative;
+        height: 60px;
+        overflow: hidden;
+        margin: 10px 0px;
     }
-    .addForm{
+
+    .lboxcss .lbox-input {
+        width: 100%;
+        height: 100%;
+        color: #000;
+        padding-top: 20px;
+        border: none;
+        background: transparent;
+    }
+
+    .lboxcss .lbox-input-wrapper {
+        display: flex;
+    }
+
+    .lboxcss .lbox-input-wrapper .icon {
+        margin-left: 5px;
+    }
+
+    .lboxcss label {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-bottom: 1px solid grey;
+    }
+
+    .lboxcss label::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        border-bottom: 3px solid #000;
+        transform: translateX(-100%);
+        transition: all 0.3s ease;
+    }
+
+    .content-name {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        padding-bottom: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .lboxcss .lbox-input:focus {
+        outline: none;
+    }
+
+    .lboxcss .lbox-input:focus+.label-name .content-name,
+    .lboxcss .lbox-input:valid+.label-name .content-name {
+        transform: translateY(-150%);
+        font-size: 14px;
+        left: 0px;
+        color: #000;
+    }
+
+    .lboxcss .lbox-input:focus+.label-name::after,
+    .lboxcss .lbox-input:valid+.label-name::after {
+        transform: translateX(0%);
+    }
+
+    #showPasswordButton {
+        background: transparent;
+        border: 0px;
+        margin: 35px 0px;
+        position: absolute;
+        right: 0;
+    }
+
+
+    .lboxcss .lbox-input-wrapper .lbox-input {
+        flex: 1;
+    }
+
+    .lboxcss .lbox-input-wrapper .icon {
+        margin-left: 5px;
+    }
+
+
+
+    .addCommentBox {
+        background: rgb(0, 0, 0, 0.8);
+        position: fixed;
+        z-index: 7;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transition: opacity 0.2s;
+    }
+
+    .addForm {
         background: #FFFBF5;
-  width: 60%;
-  margin: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding:20px;
-  /* border:4px solid #fff; */
-  border-radius:10px;
+        width: 60%;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        border-radius: 10px;
     }
-    #ratingForm{
-        width:100%;
-        font-size:15px;
-        padding:10px;
-        background:transparent;
-        border:0;
-        border:3px solid #000;
-        border-radius:5px;
-        margin-bottom:15px
+
+    #ratingForm {
+        width: 100%;
+        font-size: 15px;
+        padding: 10px;
+        background: transparent;
+        border: 0;
+        border: 3px solid #000;
+        border-radius: 5px;
+        margin-bottom: 15px
     }
-    #ratingForm option{
-        background:#000;
-        color:#fff;
+
+    #ratingForm option {
+        background: #000;
+        color: #fff;
     }
+
     #bookCover {
         background-size: cover;
         object-fit: cover;
@@ -611,15 +602,8 @@ if (isset($_POST["submit"])) {
 
     .detailInfo .info {
         margin-bottom: 30px;
-        /* margin:0px 60px; */
-        /* display: inline-block;
-        margin-right: 300px; 
-        vertical-align: top; */
     }
 
-    /* .detailInfo .info:last-child {
-        margin-right: 0; 
-    } */
     .detailInfo .info .infoTitle {
         font-size: 25px;
         font-weight: 900;
@@ -663,38 +647,30 @@ if (isset($_POST["submit"])) {
         display: flex;
         align-items: center;
         width: 100%;
-        /* 使.flex-container占满.reviewTitleBox的宽度 */
     }
 
     .spacer {
         flex-grow: 1;
-        /* 将空白元素拉伸，推动按钮到右侧 */
     }
 
     #userComment {
-        background:#F7EFE5;
+        background: #F7EFE5;
         border: 4px solid #000;
         border-radius: 10px;
         padding: 20px;
     }
 
-    #detailPagination{  
-        background:#F7EFE5;
-        /* border:4px solid #000; */
-        border-radius:5px;
-        margin:auto;
-    }
-    #avatarImg img{
-        border-radius:5px;
-        object-fit: cover;
-        border-radius:50%;
-        height:45px;
-        width:45px;
+    #detailPagination {
+        background: #F7EFE5;
+        border-radius: 5px;
+        margin: auto;
     }
 
-    /* .detailInfo{
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        grid-gap: 20px;
-    } */
+    #avatarImg img {
+        border-radius: 5px;
+        object-fit: cover;
+        border-radius: 50%;
+        height: 45px;
+        width: 45px;
+    }
 </style>

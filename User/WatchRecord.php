@@ -77,6 +77,7 @@ $stmt->close();
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
+
 </html>
 
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
@@ -113,6 +114,8 @@ $stmt->close();
     .favorite-book {
         margin: 20px 0px;
         display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
     }
 
     #searchBox {
