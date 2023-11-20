@@ -142,12 +142,21 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
                         var bookCover = $('<div class="book-cover"></div>');
                         bookCover.append('<div class="linear-bg"></div>');
                         bookCover.append('<p class="book-title">' + book.book_title + '</p>');
-                        bookCover.append('<button type="button" class="hidden-button">View Detail</button>');
+
+                        // Dynamically create the button using JavaScript
+                        var viewDetailButton = $('<button type="button" class="hidden-button">View Detail</button>');
+                        viewDetailButton.on('click', function () {
+                            // Redirect to the BookDetail.php page with the book_id as a parameter
+                            location.href = 'BookDetail.php?id=' + book.book_id + '&page=1';
+                        });
+                        bookCover.append(viewDetailButton);
+
                         bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
 
                         $('.favorite-book').append(bookCover);
                     });
                 },
+
                 error: function (error) {
                     console.error('AJAX Error:', error);
                 }

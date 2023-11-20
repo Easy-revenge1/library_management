@@ -74,7 +74,9 @@ mysqli_close($conn);
         <div class="user-info-box">
             <div class="user-image">
                 <img src="<?php echo $row['user_profilepicture'] ? $row['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>"
-                    class="user-pic" alt=""> <img src="../pic/pyh.jpg" class="user-background" alt="">
+                    class="user-pic" alt="profilepic">
+                <img src="<?php echo $row['user_profilebackground'] ? $row['user_profilebackground'] : '../BackgroundPic/pyh.jpg'; ?>"
+                    class="user-background" alt="background">
             </div>
             <div class="empty2">
                 <p>
@@ -95,9 +97,12 @@ mysqli_close($conn);
                 <form action="EditProfile.php" method="get">
                     <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                     <input type="submit" class="manage-profile ui black button" value="Manage your profile"><br>
-                    <input type="submit" class="change-pass ui red button"
-                        href="ChangePassword.php?user_id=<?php echo $user_id; ?>" value="Change Password">
                 </form>
+                <a class="change-pass ui red button" href="ChangePassword.php?user_id=<?php echo $user_id; ?>"
+                    style="text-decoration: none;">
+                    Change Password
+                </a>
+
             </div>
         </div>
 
@@ -214,6 +219,7 @@ mysqli_close($conn);
         position: absolute;
         margin: 150px 30px;
         z-index: 2;
+        object-fit: cover;
     }
 
     .user-info {

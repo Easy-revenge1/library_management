@@ -2,47 +2,6 @@
 include_once('../db.php');
 // include_once('NavigationBar.php');
 
-if (isset($_POST['submit'])) {
-    $user_id = $_GET['user_id'];
-    $user_name = $_POST['user_name'];
-    $user_email = $_POST['user_email'];
-    $user_contact = $_POST['user_contact'];
-
-    $profilePicUpload = null;
-    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = '../ProfilePic/';
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-        $maxFileSize = 5 * 1024 * 1024;  // 5 MB
-    
-        if (!in_array($_FILES['profile_picture']['type'], $allowedTypes) || $_FILES['profile_picture']['size'] > $maxFileSize) {
-            // echo "Invalid file. Please upload a valid image file (JPEG, PNG, JPG) with a maximum size of 5 MB.";
-        } else {
-            $profilePicUpload = $uploadDir . $user_id . '_' . uniqid() . '_' . basename($_FILES['profile_picture']['name']);
-            move_uploaded_file($_FILES['profile_picture']['tmp_name'], $profilePicUpload);
-    
-            // Debugging statements
-            // echo "File uploaded successfully. Path: $profilePicUpload";
-        }
-    }
-
-    $query = "UPDATE `user` SET `user_name` = ?, `user_email` = ?, `user_contact` = ?, `user_profilepicture` = ? WHERE `user_id` = ?";
-    
-    if ($stmt = mysqli_prepare($conn, $query)) {
-        mysqli_stmt_bind_param($stmt, "ssssi", $user_name, $user_email, $user_contact, $profilePicUpload, $user_id);
-    
-        if (mysqli_stmt_execute($stmt)) {
-            // echo '<div class="ui success message">User information updated successfully</div>';
-        } else {
-            // echo "Error updating user information: " . mysqli_stmt_error($stmt);
-        }
-    
-        mysqli_stmt_close($stmt); // Close the statement here
-    } else {
-        // echo "Error preparing the statement: " . mysqli_error($conn);
-    }
-    
-}
-
 $user_id = $_GET['user_id'];
 
 $UserProfile = "SELECT * FROM `user` WHERE `user_id` = ?";
@@ -58,8 +17,68 @@ if (!$result) {
 
 $row = mysqli_fetch_assoc($result);
 
-mysqli_stmt_close($stmt); // Close the statement here
-mysqli_close($conn);
+
+if (isset($_POST['submit'])) {
+    $user_id = $_GET['user_id'];
+    $user_name = $_POST['user_name'];
+    $user_email = $_POST['user_email'];
+    $user_contact = $_POST['user_contact'];
+
+    $backgroundPicUpload = $row['user_profilebackground'];
+    if (isset($_FILES['background_picture']) && $_FILES['background_picture']['error'] === UPLOAD_ERR_OK) {
+        $uploadPath = '../BackgroundPic/';
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        $maxFileSize = 5 * 1024 * 1024;
+
+        if (!in_array($_FILES['background_picture']['type'], $allowedTypes) || $_FILES['background_picture']['size'] > $maxFileSize) {
+            echo "Invalid file. Please upload a valid image file (JPEG, PNG, JPG) with a maximum size of 5 MB.";
+        } else {
+            $backgroundPicUpload = $uploadPath . $user_id . '_' . uniqid() . '_' . basename($_FILES['background_picture']['name']);
+            if (move_uploaded_file($_FILES['background_picture']['tmp_name'], $backgroundPicUpload)) {
+                // echo "Background file uploaded successfully.";
+            } else {
+                echo "Failed to move the uploaded background file.";
+            }
+        }
+    }
+
+    $profilePicUpload = $row['user_profilepicture'];
+    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = '../ProfilePic/';
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        $maxFileSize = 5 * 1024 * 1024;  // 5 MB
+
+        if (!in_array($_FILES['profile_picture']['type'], $allowedTypes) || $_FILES['profile_picture']['size'] > $maxFileSize) {
+            echo "Invalid file. Please upload a valid image file (JPEG, PNG, JPG) with a maximum size of 5 MB.";
+        } else {
+            $profilePicUpload = $uploadDir . $user_id . '_' . uniqid() . '_' . basename($_FILES['profile_picture']['name']);
+            if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $profilePicUpload)) {
+                // echo "Profile file uploaded successfully. Path: $profilePicUpload";
+            } else {
+                // echo "Failed to move the uploaded profile file.";
+            }
+        }
+    }
+
+    $query = "UPDATE `user` SET `user_name` = ?, `user_email` = ?, `user_contact` = ?, `user_profilepicture` = ?, `user_profilebackground` = ? WHERE `user_id` = ?";
+
+    if ($stmt = mysqli_prepare($conn, $query)) {
+        mysqli_stmt_bind_param($stmt, "sssssi", $user_name, $user_email, $user_contact, $profilePicUpload, $backgroundPicUpload, $user_id);
+
+        if (mysqli_stmt_execute($stmt)) {
+            // echo '<div class="ui success message">User information updated successfully</div>';
+            header("Location: EditProfile.php?user_id=" . $user_id . "");
+        } else {
+            echo "Error updating user information: " . mysqli_stmt_error($stmt);
+        }
+
+        mysqli_stmt_close($stmt); // Close the statement here
+    } else {
+        echo "Error preparing the statement: " . mysqli_error($conn);
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -78,8 +97,11 @@ mysqli_close($conn);
 
         <div class="edit-box">
             <div class="user-image">
+                <input type="file" name="background_picture" id="backgroundPicInput" accept="image/*"
+                    style="display: none;">
                 <button type="button" class="hidden-button">Change Background</button>
-                <img src="../pic/pyh.jpg" class="user-background" alt="">
+                <img src="<?php echo $row['user_profilebackground'] ? $row['user_profilebackground'] : '../BackgroundPic/pyh.jpg'; ?>"
+                    class="user-background" alt="">
             </div>
             <div class="user-edit-box">
                 <div class="user-pic-box">
@@ -142,6 +164,31 @@ mysqli_close($conn);
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        var backgroundPicInput = document.getElementById('backgroundPicInput');
+        var changeBackgroundButton = document.querySelector('button[type="button"]');
+        var userBackground = document.querySelector('.user-background');
+
+        changeBackgroundButton.addEventListener('click', function () {
+            backgroundPicInput.click();
+        });
+
+        backgroundPicInput.addEventListener('change', function () {
+            var input = this;
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    console.log('Background image loaded');
+                    userBackground.src = e.target.result;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
         var profilePictureInput = document.getElementById('profilePictureInput');
         var addImageButton = document.getElementById('addImageButton');
         var userPic = document.querySelector('.user-pic');
@@ -168,6 +215,8 @@ mysqli_close($conn);
     var userEmailInput = document.getElementById('user_email');
     var userContactInput = document.getElementById('user_contact');
     var profilePictureInput = document.getElementById('profilePictureInput')
+    var backgroundPicInput = document.getElementById('backgroundPicInput')
+
 
     var updateProfileButton = document.getElementById('updateProfileButton');
 
@@ -179,6 +228,7 @@ mysqli_close($conn);
     userEmailInput.addEventListener('input', enableUpdateProfileButton);
     userContactInput.addEventListener('input', enableUpdateProfileButton);
     profilePictureInput.addEventListener('input', enableUpdateProfileButton);
+    backgroundPicInput.addEventListener('input', enableUpdateProfileButton)
 </script>
 
 <style>

@@ -19,13 +19,27 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 
-$WatchRecordInsert = "INSERT INTO `watch_record` (`book_id`, `user_id`) VALUES (?, ?)";
-$watchrecordstmt = mysqli_prepare($conn, $WatchRecordInsert);
+$checkWatchRecordQuery = "SELECT * FROM `watch_record` WHERE `book_id` = ? AND `user_id` = ?";
+$checkWatchRecordStmt = mysqli_prepare($conn, $checkWatchRecordQuery);
+mysqli_stmt_bind_param($checkWatchRecordStmt, "ii", $bookId, $userId);
+mysqli_stmt_execute($checkWatchRecordStmt);
+$existingWatchRecord = mysqli_stmt_get_result($checkWatchRecordStmt);
 
-mysqli_stmt_bind_param($watchrecordstmt, "ii", $bookId, $userId);
-mysqli_stmt_execute($watchrecordstmt);
-mysqli_stmt_close($watchrecordstmt);
-
+if ($existingWatchRecord->num_rows > 0) {
+    // If the user has already watched the book, update the timestamp
+    $updateWatchRecordQuery = "UPDATE `watch_record` SET `watch_timestamp` = current_timestamp() WHERE `book_id` = ? AND `user_id` = ?";
+    $updateWatchRecordStmt = mysqli_prepare($conn, $updateWatchRecordQuery);
+    mysqli_stmt_bind_param($updateWatchRecordStmt, "ii", $bookId, $userId);
+    mysqli_stmt_execute($updateWatchRecordStmt);
+    mysqli_stmt_close($updateWatchRecordStmt);
+} else {
+    // If the user hasn't watched the book, insert a new record
+    $insertWatchRecordQuery = "INSERT INTO `watch_record` (`book_id`, `user_id`) VALUES (?, ?)";
+    $insertWatchRecordStmt = mysqli_prepare($conn, $insertWatchRecordQuery);
+    mysqli_stmt_bind_param($insertWatchRecordStmt, "ii", $bookId, $userId);
+    mysqli_stmt_execute($insertWatchRecordStmt);
+    mysqli_stmt_close($insertWatchRecordStmt);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
