@@ -45,7 +45,7 @@ if (!$categoryResult) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="Css/Utility.css">
-    <title>Your Profile</title>
+    <title>Book List</title>
 
 
 </head>
@@ -56,9 +56,7 @@ if (!$categoryResult) {
     </div>
     <div class="bookContent">
         <div class="sideMenu">
-            <!-- <select name="" id="">
-    <option value=""></option>
-  </select> -->
+            <!-- ui sticky fixed top -->
             <div class="ui selection dropdown q-mb-md" id="dropdownMenu">
                 <input type="hidden" name="pet">
                 <i class="dropdown icon"></i>
@@ -184,8 +182,8 @@ if (!$categoryResult) {
     }
 
     #languageSelector {
-        background: #000;
-        color: #fff;
+        background: #FFFBF5;
+        color: #252525;
         /* border:0px;
         border-bottom:3px solid #000; */
     }
@@ -199,7 +197,13 @@ if (!$categoryResult) {
         overflow: hidden;
         position: relative;
     }
+    .ui.selection.active.dropdown .menu {
+        border-color: #FFFBF5 !important;
+    }
 
+    .ui.selection.dropdown:focus .menu {
+        border-color: #FFFBF5 !important;
+    }
 
 
     .linear-bg {
