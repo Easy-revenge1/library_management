@@ -150,8 +150,7 @@ if (isset($_POST['submit'])) {
                         <button class="ui button" type="submit" name="submit" id="updateProfileButton" disabled>Update
                             Profile</button>
 
-                        <a class="ui red button" id="change-pass-button"
-                            href="ChangePassword.php?user_id=<?php echo $user_id; ?>">Change Password</a>
+                        <a class="ui black button" href="UserProfile.php" id="back-button">Back</a>
                     </div>
                 </div>
             </div>
@@ -416,7 +415,7 @@ if (isset($_POST['submit'])) {
         margin: 13px 0px;
     }
 
-    #change-pass-button {
+    #back-button {
         width: 100%;
     }
 
