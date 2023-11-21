@@ -115,7 +115,7 @@ $stmt->close();
         margin: 20px 0px;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-around;
+        /* justify-content: space-around; */
     }
 
     #searchBox {
@@ -151,16 +151,14 @@ $stmt->close();
     }
 
     .book-cover {
-        height: 400px;
-        width: 400px;
-        margin: 5px 10px;
-        border: 5px solid #000;
+        height: 350px;
+        width: 300px;
+        margin: 12px 12px;
+        /* border: 5px solid #000; */
         border-radius: 20px;
         overflow: hidden;
         position: relative;
     }
-
-
 
     .linear-bg {
         background: linear-gradient(to top, black, transparent);

@@ -84,24 +84,21 @@ mysqli_close($conn);
                 </p>
             </div>
             <div class="user-info">
-                <p>Email:
-                    <?php echo $row['user_email']; ?>
+                <p>Email: 
+                    <span><?php echo $row['user_email']; ?></span>
                 </p>
-                <p>Contact:
-                    <?php echo $row['user_contact']; ?>
+                <p>Contact: 
+                    <span><?php echo $row['user_contact']; ?></span>
                 </p>
-                <p>Join date:
-                    <?php echo $row['user_signupdate']; ?>
+                <p>Join date:  
+                    <span><?php echo $row['user_signupdate']; ?></span>
                 </p>
 
-                
+            </div>
 
-                 <div>
-                    
-                 </div>
 
-                 <div style="position: absolute; bottom:10px; width:50%;">
-                <form action="EditProfile.php" method="get">
+            <div class="profileButtonBox">
+                <form action="EditProfile.php" method="get" style="margin-bottom:10px;">
                     <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                     <input type="submit" class="manage-profile ui black button" value="Manage your profile"><br>
                 </form>
@@ -110,8 +107,6 @@ mysqli_close($conn);
                     Change Password
                 </a>
                  </div>
-
-            </div>
         </div>
 
         <div class="user-book-info">
@@ -153,7 +148,6 @@ mysqli_close($conn);
                 </div>
             </div>
         </div>
-        
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
@@ -167,10 +161,10 @@ mysqli_close($conn);
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 
 <style>
-    .empty {
+    /* .empty {
         height: 100px;
         width: 100%;
-    }
+    } */
 
     .empty2 {
         height: 100px;
@@ -185,7 +179,7 @@ mysqli_close($conn);
     }
 
     .user-profile {
-        margin: 0px auto;
+        margin: 80px auto;
         display: flex;
         width: 96%;
 
@@ -233,9 +227,41 @@ mysqli_close($conn);
 
     .user-info {
         /* position:absolute; */
-        padding: 20px 20px;
+        padding: 20px 30px;
+        background:#F7EFE5;
+        border-radius:10px;
+        margin:30px 20px;
         /* top:32%;
     width:46%; */
+    /* display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 20px; */
+    }
+
+    .user-info p{
+        font-size:20px;
+        font-weight:900;
+    }
+
+    .user-info span{
+        float:right;
+        color: #7D7C7C;
+        font-weight:900;
+    }
+
+    .profileButtonBox{
+        /* position: absolute; 
+        bottom:30px;  */
+        width:100%; 
+        padding: 10px 20px;
+    }
+
+    .profileButtonBox input{
+        width:100%;
+    }
+
+    .profileButtonBox a{
+        width:100%;
     }
 
     .user-info .manage-profile {

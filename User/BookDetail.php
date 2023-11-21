@@ -235,7 +235,7 @@ if (isset($_POST["submit"])) {
                         <button class="ui black button" type="submit">Watch Now</button>
                     </form>
                     <form id="favoriteForm" action="BookDetail.php?id=<?php echo $bookId ?>" method="post">
-                        <button id="favoriteButton" type="submit" name="favourite" value="favourite">Favorite</button>
+                        <button id="favoriteButton" class="ui button" type="submit" name="favourite" value="favourite"></button>
                     </form>
                 </div>
 
@@ -250,9 +250,9 @@ if (isset($_POST["submit"])) {
         <div class="commentInfo">
             <div class="reviewTitleBox">
                 <div class="flex-container">
-                    <h2 class="" style="font-size: 40px; margin: 0;">Book Review</h2>
+                    <h2 class="" style="font-size: 40px; margin: 0;">Review</h2>
                     <div class="spacer"></div>
-                    <button class="ui black button" id="showButton">Add your Review</button>
+                    <button class="ui black button" id="showButton">Add Review</button>
                 </div>
             </div>
 
@@ -330,7 +330,7 @@ if (isset($_POST["submit"])) {
 
     <div class="addCommentBox" id="addCommentBox">
         <div class="addForm">
-            <h2 class="ui header">Add a Review</h2>
+            <h2 class="ui header">Add Review</h2>
             <form class="" action="BookDetail.php?id=<?php echo $bookId ?>&page=1" method="POST">
 
                 <div class="lboxcss" style="margin-bottom:30px;">
@@ -342,7 +342,7 @@ if (isset($_POST["submit"])) {
                     </label>
                 </div>
 
-                <div class="ui">
+                <div>
                     <select class="" id="ratingForm" style="" name="rating">
                         <option value="5">5 - Excellent</option>
                         <option value="4">4 - Very Good</option>
@@ -350,14 +350,14 @@ if (isset($_POST["submit"])) {
                         <option value="2">2 - Fair</option>
                         <option value="1">1 - Poor</option>
                     </select>
-
                 </div>
+                
                 <div class="ui form" style="margin-bottom:10px;">
-                    <label>Review Comment</label>
+                    <label>Comment</label>
                     <textarea rows="2" name="comment" style="border:3px solid #000;background: transparent;"
                         placeholder="Enter your review comment"></textarea>
                 </div>
-                <button class="ui black button" style="width:100%;" type="submit" name="submit">Submit Review</button>
+                <button class="ui black button" style="width:100%;" type="submit" name="submit">Post</button>
             </form>
 
         </div>
@@ -394,13 +394,13 @@ if (isset($_POST["submit"])) {
                         var button = $('#favoriteButton');
 
                         if (response == '1') {
-                            button.removeClass('ui black button').addClass('ui grey button');
-                            button.text('Unfavorite');
+                            button.removeAttr('id').attr('id', 'activeFavoriteButton');
+                            button.empty().append('<i class="heart icon"></i>');
                             button.attr('name', 'unfavourite');
                             button.attr('value', 'unfavourite');
                         } else {
-                            button.removeClass('ui grey button').addClass('ui black button');
-                            button.text('Favorite');
+                            button.removeAttr('id').attr('id', 'favoriteButton');
+                            button.empty().append('<i class="heart outline icon"></i>');
                             button.attr('name', 'favourite');
                             button.attr('value', 'favourite');
                         }
@@ -583,6 +583,11 @@ if (isset($_POST["submit"])) {
         color: #000;
     }
 
+    #ratingForm option:hover{
+        background: #fff;
+        color: #fff;
+    }
+
     #bookCover {
         background-size: cover;
         object-fit: cover;
@@ -634,19 +639,36 @@ if (isset($_POST["submit"])) {
     #detailButton {
         position: absolute;
         bottom: 0;
-        width: 99.5%;
+        width: 99.2%;
     }
 
     #detailButton form {
-        width: 100%;
-        margin-right: 10px;
+        width: 50%;
+        margin-right: 5px;
     }
 
     #detailButton button {
         width: 100%;
     }
-
-    . .reviewTitleBox {
+    #detailButton #favoriteForm{
+        /* background:#eee; */
+        width:5.5%;
+        
+    }
+    #detailButton #favoriteButton{
+        /* width:1%; */
+        background: #7e7e7e;
+        color:#fff;
+        size: 1.5rem;
+    }
+    #detailButton #activeFavoriteButton{
+        /* width:1%; */
+        background: red;
+        color:#fff;
+        size:1.5rem;
+        /* box-shadow:3px 3px grey; */
+    }
+    .reviewTitleBox {
         display: flex;
         justify-content: space-between;
     }
