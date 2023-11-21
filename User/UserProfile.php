@@ -84,17 +84,21 @@ mysqli_close($conn);
                 </p>
             </div>
             <div class="user-info">
-                <p>Email:
-                    <?php echo $row['user_email']; ?>
+                <p>Email: 
+                    <span><?php echo $row['user_email']; ?></span>
                 </p>
-                <p>Contact:
-                    <?php echo $row['user_contact']; ?>
+                <p>Contact: 
+                    <span><?php echo $row['user_contact']; ?></span>
                 </p>
-                <p>Join date:
-                    <?php echo $row['user_signupdate']; ?>
+                <p>Join date:  
+                    <span><?php echo $row['user_signupdate']; ?></span>
                 </p>
 
-                <form action="EditProfile.php" method="get">
+            </div>
+
+
+            <div class="profileButtonBox">
+                <form action="EditProfile.php" method="get" style="margin-bottom:10px;">
                     <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                     <input type="submit" class="manage-profile ui black button" value="Manage your profile"><br>
                 </form>
@@ -102,8 +106,7 @@ mysqli_close($conn);
                     style="text-decoration: none;">
                     Change Password
                 </a>
-
-            </div>
+                 </div>
         </div>
 
         <div class="user-book-info">
@@ -113,7 +116,7 @@ mysqli_close($conn);
                 <div class="favorite-book">
                     <?php
                     while ($row = mysqli_fetch_assoc($favoriteresult)) {
-                        echo '<div class="book-cover">';
+                        echo '<div class="smallCover">';
                         echo '<div class="small-linear-bg"></div>';
                         echo '<p class="book-title">' . $row['book_title'] . '</p>';
                         echo '<button type="button" class="small-hidden-button" onclick="location.href=\'BookDetail.php?id=' . $row['book_id'] . '&page=1\'">View Detail</button>';
@@ -130,7 +133,7 @@ mysqli_close($conn);
                     <div class="favorite-book">
                         <?php
                         while ($row = mysqli_fetch_assoc($recordResult)) {
-                            echo '<div class="book-cover">';
+                            echo '<div class="smallCover">';
                             echo '<div class="small-linear-bg"></div>';
                             echo '<p class="book-title">' . $row['book_title'] . '</p>';
                             echo '<button type="button" class="small-hidden-button" onclick="location.href=\'BookDetail.php?id=' . $row['book_id'] . '&page=1\'">View Detail</button>';
@@ -158,10 +161,10 @@ mysqli_close($conn);
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 
 <style>
-    .empty {
+    /* .empty {
         height: 100px;
         width: 100%;
-    }
+    } */
 
     .empty2 {
         height: 100px;
@@ -176,7 +179,7 @@ mysqli_close($conn);
     }
 
     .user-profile {
-        margin: 0px auto;
+        margin: 80px auto;
         display: flex;
         width: 96%;
 
@@ -224,9 +227,41 @@ mysqli_close($conn);
 
     .user-info {
         /* position:absolute; */
-        padding: 20px 20px;
+        padding: 20px 30px;
+        background:#F7EFE5;
+        border-radius:10px;
+        margin:30px 20px;
         /* top:32%;
     width:46%; */
+    /* display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 20px; */
+    }
+
+    .user-info p{
+        font-size:20px;
+        font-weight:900;
+    }
+
+    .user-info span{
+        float:right;
+        color: #7D7C7C;
+        font-weight:900;
+    }
+
+    .profileButtonBox{
+        /* position: absolute; 
+        bottom:30px;  */
+        width:100%; 
+        padding: 10px 20px;
+    }
+
+    .profileButtonBox input{
+        width:100%;
+    }
+
+    .profileButtonBox a{
+        width:100%;
     }
 
     .user-info .manage-profile {
@@ -262,6 +297,7 @@ mysqli_close($conn);
 
     .user-book-info .view-more {
         float: right;
+        font-weight:bold;
     }
 
     .favorite {
@@ -273,8 +309,8 @@ mysqli_close($conn);
         display: flex;
     }
 
-    .book-cover {
-        height: 200px;
+    .smallCover {
+        height: 250px;
         width: 200px;
         margin: 5px 10px;
         border-radius: 10px;
@@ -334,18 +370,18 @@ mysqli_close($conn);
         /* 初始化时隐藏按钮 */
     }
 
-    .book-cover:hover .small-hidden-button {
+    .smallCover:hover .small-hidden-button {
         opacity: 1;
         /* 鼠标悬停时显示按钮 */
         display: inline;
     }
 
-    .book-cover:hover .small-linear-bg {
+    .smallCover:hover .small-linear-bg {
         /* filter: brightness(50%); */
         height: 300px;
     }
 
-    .book-cover:hover .book-title {
+    .smallCover:hover .book-title {
         opacity: 0;
         /* 鼠标悬停时标题不可见 */
     }

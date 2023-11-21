@@ -50,7 +50,7 @@ if (!$categoryResult) {
 
 </head>
 
-<body style="margin-top: 100px;">
+<body style="margin-top: 70px;">
 
     <div class="bookContent">
         <div class="sideMenu">
@@ -86,7 +86,7 @@ if (!$categoryResult) {
 
             <div class="bookListSearch">
                 <!-- <input type="text" placeholder="Search.."> -->
-                <button class="ui black button" style="width:88.5%;  position: absolute; bottom: 20px;"><i
+                <button class="ui black button" style="width:88.5%;  position: absolute; bottom: 35px;"><i
                         class="ui search icon"></i> Search</button>
             </div>
         </div>
@@ -144,11 +144,12 @@ if (!$categoryResult) {
     .bookContent {
         display: flex;
         height: 100%;
+        border-top:;
     }
 
     #bookList {
-        width: 80%;
-        margin-left: 540px;
+        width: 100%;
+        margin-left: 430px;
         display: flex;
         flex-wrap: wrap;
         /* justify-content: space-around; */
@@ -173,14 +174,13 @@ if (!$categoryResult) {
 
     .sideMenu {
         position: fixed;
-        margin: 15px 50px;
-        background: #FFFBF5;
-        height: 40%;
+        /* margin: 15px 50px; */
+        /* background: #FFFBF5; */
+        height: 93%;
         width: 28%;
-        border: 4px solid #000;
-        border-radius: 20px;
+        border-right: 2px solid #A9A9A9;
         overflow: hidden;
-        padding: 20px;
+        padding: 50px 20px;
         z-index: 1;
     }
 
@@ -200,8 +200,8 @@ if (!$categoryResult) {
     }
 
     .book-cover {
-        height: 400px;
-        width: 350px;
+        height: 350px;
+        width: 300px;
         margin: 15px 15px;
         /* border: 5px solid #000; */
         border-radius: 20px;

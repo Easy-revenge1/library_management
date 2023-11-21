@@ -17,9 +17,9 @@
 
 
 
-  <div class="ui secondary menu" id="nav">
+  <div class="" id="nav">
     <a class="title" href="UserIndex.php">ONE LIBRARY</a>
-    <div class="right menu" id="right-menu">
+    <div class="" id="rightMenu">
       <!-- <div class="item">
           <div class="ui icon input">
             <input class="search-input" type="text" placeholder="Search..." fdprocessedid="brlzed">
@@ -57,17 +57,18 @@
   #nav {
     width: 100%;
     position: fixed;
-    padding: 20px 20px;
+    padding: 30px 20px;
     transition: 0.4s;
     z-index: 3;
     top: 0;
-    backdrop-filter: blur(30px);
+    /* backdrop-filter: blur(30px); */
+    border-radius:0px;
   }
 
   .title {
     font-size: 20px;
     position: absolute;
-    padding: 5px 30px;
+    padding: 0px 30px;
     letter-spacing: 10px;
     color: #000;
   }
@@ -78,6 +79,13 @@
 
   #nav-a {
     transition: 0.4s;
+  }
+  #rightMenu{
+    float:right;
+  }
+  #rightMenu a{
+    color:#000;
+    padding-left:30px;
   }
 </style>
 <script>
@@ -90,7 +98,7 @@
     var scroll = window.pageYOffset;
 
     if (scroll > 5) {
-      nav.style.background = "rgba(255, 255, 255, 0.7)";
+      nav.style.background = "rgba(255, 255, 255)";
       // nav.style.boxShadow = "7px 3px 7px 3px #7D7C7C";
     } else {
       nav.style.background = "transparent";
