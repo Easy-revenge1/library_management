@@ -126,8 +126,36 @@ if (isset($_POST["submit"])) {
 }
 
 
+if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'delete') {
+    $id = $_GET['review_id'];
 
+    // Fetch the review details to check user_id
+    $getReviewQuery = "SELECT * FROM reviews WHERE review_id = ?";
+    $getReviewStmt = mysqli_prepare($conn, $getReviewQuery);
+    mysqli_stmt_bind_param($getReviewStmt, "i", $id);
+    mysqli_stmt_execute($getReviewStmt);
+    $getReviewResult = mysqli_stmt_get_result($getReviewStmt);
+    $reviewData = mysqli_fetch_assoc($getReviewResult);
 
+    // Check if the user trying to delete the review is the owner of the review
+    if ($reviewData['user_id'] == $_SESSION['user_id']) {
+        $deleteQuery = "DELETE FROM reviews WHERE review_id = ?";
+        $deleteStmt = mysqli_prepare($conn, $deleteQuery);
+        mysqli_stmt_bind_param($deleteStmt, "i", $id);
+
+        if (mysqli_stmt_execute($deleteStmt)) {
+            // echo '<div class="ui success message">' . $book_name . ' has been remove from your bookmark</div>';
+        } else {
+            echo "<script>
+            toastr.error('Failed to delete the review.');
+            </script>";
+        }
+    } else {
+        echo "<script>
+        toastr.error('You do not have permission to delete this review.');
+        </script>";
+    }
+}
 ?>
 
 
@@ -145,8 +173,6 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/container.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/grid.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/header.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/image.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/menu.css">
 
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/divider.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/segment.css">
@@ -155,7 +181,7 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/button.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/list.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.min.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/rating.min.css">
     <link rel="stylesheet" type="text/css" href="Css/Utility.css">
@@ -295,11 +321,18 @@ if (isset($_POST["submit"])) {
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            if ($rowReview['user_id'] == $_SESSION['user_id']) {
+                                ?>
+                                <a class="btn btn-danger btn-sm" style="float:right"
+                                    href="BookDetail.php?id=<?php echo $bookId ?>&page=1&review_id=<?= $rowReview['review_id'] ?>&action=delete"
+                                    onclick="return confirm('Are you sure you want to Delete Your Review ?');">
+                                    <i class="trash icon" style="color: red;"></i>
+                                </a>
+                                <?php
+                            }
+                            ?>
                         </div>
-
-
-
-
                         <?php
                     }
                 } else {
@@ -443,14 +476,13 @@ if (isset($_POST["submit"])) {
 
 
     </script>
+    <script src="../Fomantic-ui/dist/semantic.min.js"></script>
+    <script src="../Fomantic-ui/dist/components/form.js"></script>
+    <script src="../Fomantic-ui/dist/components/transition.js"></script>
+    <script src="../Fomantic-ui/dist/components/rating.js"></script>
 </body>
 
 </html>
-
-<script src="../Fomantic-ui/dist/semantic.min.js"></script>
-<script src="../Fomantic-ui/dist/components/form.js"></script>
-<script src="../Fomantic-ui/dist/components/transition.js"></script>
-<script src="../Fomantic-ui/dist/components/rating.js"></script>
 
 <style>
     .lboxcss {

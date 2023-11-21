@@ -1,7 +1,7 @@
 <?php
 include_once('../db.php');
+error_reporting(0);
 
-// Function to save Remember Me token in the database
 function saveRememberMeToken($userId, $token)
 {
   global $conn;
@@ -13,7 +13,6 @@ function saveRememberMeToken($userId, $token)
   mysqli_stmt_close($stmt);
 }
 
-// Function to get user ID by Remember Me token
 function getUserIdByRememberMeToken($token)
 {
   global $conn;
@@ -29,16 +28,16 @@ function getUserIdByRememberMeToken($token)
   return $row['user_id'];
 }
 
-function deleteRememberMeToken($userId)
-{
-  global $conn;
+// function deleteRememberMeToken($userId)
+// {
+//   global $conn;
 
-  $query = "UPDATE user SET remember_me_token = NULL WHERE user_id = ?";
-  $stmt = mysqli_prepare($conn, $query);
-  mysqli_stmt_bind_param($stmt, "i", $userId);
-  mysqli_stmt_execute($stmt);
-  mysqli_stmt_close($stmt);
-}
+//   $query = "UPDATE user SET remember_me_token = NULL WHERE user_id = ?";
+//   $stmt = mysqli_prepare($conn, $query);
+//   mysqli_stmt_bind_param($stmt, "i", $userId);
+//   mysqli_stmt_execute($stmt);
+//   mysqli_stmt_close($stmt);
+// }
 
 if (isset($_POST['submit'])) {
   if (!empty($_POST['user_name']) && !empty($_POST['user_pass'])) {
