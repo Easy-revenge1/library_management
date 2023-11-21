@@ -8,7 +8,7 @@ include_once("../Include/Sidebar.php");
 $query = "SELECT book.*, category.category_name, language.language_name, bookstatus.BookStatus
           FROM book
           INNER JOIN category ON book.category_id = category.category_id
-          INNER JOIN language ON book.book_language = language.language_id
+          INNER JOIN language ON book.language_id = language.language_id
           INNER JOIN bookstatus ON book.Status = bookstatus.BookStatusId";
 $SQL = mysqli_query($conn, $query);
 
