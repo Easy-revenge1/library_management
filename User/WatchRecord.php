@@ -52,14 +52,26 @@ $stmt->close();
     <div class="user-book-info">
         <div class="favorite">
 
-            <div class="ui action input" id="searchBox">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button class="ui icon button">
-                    <i class="search icon q-mr-xs"></i>
-                    Search
-                </button>
+        <div class="titleBox">
+                <span class="book-mark-title">Watch Record</span>
             </div>
-            <div class="favorite-book">
+
+            <div class="flex">
+
+                <div class="ui action input" id="searchBox">
+                    <input type="text" id="searchInput" placeholder="Search...">
+                    <button class="ui icon button" id="searchButton">
+                        <i class="search icon q-mr-xs"></i>
+                        Search
+                    </button>
+                </div>
+                <div class="reset" style="margin:0px 0px; padding:20px 0px;">
+                    <button class="" id="resetButton">
+                        <i class="undo icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="watchrecord_book">
 
                 <?php
                 while ($row = mysqli_fetch_array($result)) {
@@ -83,8 +95,68 @@ $stmt->close();
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 <script src="../Fomantic-ui/dist/components/form.js"></script>
 <script src="../Fomantic-ui/dist/components/transition.js"></script>
+<script>
+$(document).ready(function () {
+    $('#resetButton').on('click', function () {
+        // Refresh the page
+        location.reload();
+    });
+
+    $('#searchBox button').on('click', function () {
+        // Get the search query from the input field
+        var query = $('#searchInput').val();
+
+        // Empty the .watchrecord_book div before making the request
+        $('.watchrecord_book').empty();
+
+        $.ajax({
+            url: 'Ajax/watchRecordSearch.php',
+            method: 'GET',
+            data: { query: query },
+            dataType: 'json',
+            beforeSend: function () {
+                // You can show a loading indicator here if needed
+            },
+            success: function (data) {
+                if (data.length > 0) {
+                    $.each(data, function (index, book) {
+                        var bookCover = $('<div class="book-cover"></div>');
+                        bookCover.append('<div class="linear-bg"></div>');
+                        bookCover.append('<p class="book-title">' + book.book_title + '</p>');
+
+                        // Dynamically create the button using JavaScript
+                        var viewDetailButton = $('<button type="button" class="hidden-button">View Detail</button>');
+                        viewDetailButton.on('click', function () {
+                            // Redirect to the BookDetail.php page with the book_id as a parameter
+                            location.href = 'BookDetail.php?id=' + book.book_id + '&page=1';
+                        });
+                        bookCover.append(viewDetailButton);
+
+                        bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
+
+                        $('.watchrecord_book').append(bookCover);
+                    });
+                } else {
+                    $('.watchrecord_book').append('<p>No matching books found.</p>');
+                }
+            },
+            error: function (error) {
+                console.error('AJAX Error:', error);
+            }
+        });
+    });
+});
+
+</script>
 
 <style>
+    #resetButton {
+        background: transparent;
+        color: #000;
+        border: 0px;
+        font-size: 20px;
+    }
+
     .user-book-info {
         background: #FFFBF5;
         border: 4px solid #000;
@@ -111,15 +183,17 @@ $stmt->close();
         margin: 20px 0px;
     }
 
-    .favorite-book {
+
+    .watchrecord_book {
         margin: 20px 0px;
         display: flex;
         flex-wrap: wrap;
         /* justify-content: space-around; */
+    
     }
 
     #searchBox {
-        width: 100%;
+        width: 97%;
         padding: 10px 10px;
         display: flex;
     }
@@ -137,7 +211,7 @@ $stmt->close();
         border-bottom-left-radius: 6px;
     }
 
-    #searchBox button {
+    #searchBox #searchButton {
         background: #000;
         color: #fff;
         border-top: 3px solid #000;
@@ -184,8 +258,10 @@ $stmt->close();
     .book-title {
         color: #fff;
         position: absolute;
+        bottom: -20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         bottom: 0;
-        padding: 0px 30px;
         transition: 0.4s;
         opacity: 1;
         font-weight: 900;
@@ -228,7 +304,7 @@ $stmt->close();
     }
 
     .book-cover:hover .book-title {
-        opacity: 0;
+        /* opacity: 0; */
     }
 
     .hidden-button:hover {

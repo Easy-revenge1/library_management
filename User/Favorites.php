@@ -138,7 +138,8 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
                     // You can show a loading indicator here if needed
                 },
                 success: function (data) {
-                    $.each(data, function (index, book) {
+                    if (data.length > 0) {
+                        $.each(data, function (index, book) {
                         var bookCover = $('<div class="book-cover"></div>');
                         bookCover.append('<div class="linear-bg"></div>');
                         bookCover.append('<p class="book-title">' + book.book_title + '</p>');
@@ -155,6 +156,9 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 
                         $('.favorite-book').append(bookCover);
                     });
+                    } else {
+                        $('.favorite').append('<p>No matching books found.</p>');
+                    }
                 },
 
                 error: function (error) {
