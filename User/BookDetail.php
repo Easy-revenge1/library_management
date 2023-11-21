@@ -566,8 +566,8 @@ if (isset($_POST["submit"])) {
     }
 
     #ratingForm option {
-        background: #000;
-        color: #fff;
+        background: #FFFBF5;
+        color: #000;
     }
 
     #bookCover {

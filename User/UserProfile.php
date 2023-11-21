@@ -94,6 +94,13 @@ mysqli_close($conn);
                     <?php echo $row['user_signupdate']; ?>
                 </p>
 
+                
+
+                 <div>
+                    
+                 </div>
+
+                 <div style="position: absolute; bottom:10px; width:50%;">
                 <form action="EditProfile.php" method="get">
                     <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                     <input type="submit" class="manage-profile ui black button" value="Manage your profile"><br>
@@ -102,6 +109,7 @@ mysqli_close($conn);
                     style="text-decoration: none;">
                     Change Password
                 </a>
+                 </div>
 
             </div>
         </div>
@@ -113,7 +121,7 @@ mysqli_close($conn);
                 <div class="favorite-book">
                     <?php
                     while ($row = mysqli_fetch_assoc($favoriteresult)) {
-                        echo '<div class="book-cover">';
+                        echo '<div class="smallCover">';
                         echo '<div class="small-linear-bg"></div>';
                         echo '<p class="book-title">' . $row['book_title'] . '</p>';
                         echo '<button type="button" class="small-hidden-button" onclick="location.href=\'BookDetail.php?id=' . $row['book_id'] . '&page=1\'">View Detail</button>';
@@ -130,7 +138,7 @@ mysqli_close($conn);
                     <div class="favorite-book">
                         <?php
                         while ($row = mysqli_fetch_assoc($recordResult)) {
-                            echo '<div class="book-cover">';
+                            echo '<div class="smallCover">';
                             echo '<div class="small-linear-bg"></div>';
                             echo '<p class="book-title">' . $row['book_title'] . '</p>';
                             echo '<button type="button" class="small-hidden-button" onclick="location.href=\'BookDetail.php?id=' . $row['book_id'] . '&page=1\'">View Detail</button>';
@@ -145,6 +153,7 @@ mysqli_close($conn);
                 </div>
             </div>
         </div>
+        
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
@@ -262,6 +271,7 @@ mysqli_close($conn);
 
     .user-book-info .view-more {
         float: right;
+        font-weight:bold;
     }
 
     .favorite {
@@ -273,8 +283,8 @@ mysqli_close($conn);
         display: flex;
     }
 
-    .book-cover {
-        height: 200px;
+    .smallCover {
+        height: 250px;
         width: 200px;
         margin: 5px 10px;
         border-radius: 10px;
@@ -334,18 +344,18 @@ mysqli_close($conn);
         /* 初始化时隐藏按钮 */
     }
 
-    .book-cover:hover .small-hidden-button {
+    .smallCover:hover .small-hidden-button {
         opacity: 1;
         /* 鼠标悬停时显示按钮 */
         display: inline;
     }
 
-    .book-cover:hover .small-linear-bg {
+    .smallCover:hover .small-linear-bg {
         /* filter: brightness(50%); */
         height: 300px;
     }
 
-    .book-cover:hover .book-title {
+    .smallCover:hover .book-title {
         opacity: 0;
         /* 鼠标悬停时标题不可见 */
     }
