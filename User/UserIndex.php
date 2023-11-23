@@ -36,71 +36,78 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
 <body>
 
 <div class="intro">
-   <div class="intro-text">
+  <div class="firstIntroBox">
+  <div class="intro-text">
      <span class="text1">ONE LIBRARY</span><br>
      <span class="text2">Online Digital Book</span>
    </div>
-   <div class="intro-design">
+  </div>
+   <!-- <div class="intro-design">
      <div class="intro-elm">
        <div class="elm1"></div>
-       <!-- <div class="elm2"></div> -->
+       
      </div>
-   </div>
+   </div> -->
+   <div class="blueCircleBox">
+  <div class="blueCircle"></div>
+  </div>
 </div>
 
+
   <div class="ui grid padded" id="bookshelf">
-    <div class="sixteen wide column">
+    <div class="sixteen wide column" style="background:#eee;">
+    
+    <div class="bookRowTable">
+    <h2 class="ui header" id="content-title">Most View</h2>
 
-      <h2 class="ui header" id="content-title">Most View</h2>
-
-      <div class="ui bookshelf slider lastdiv">
-        <?php while ($row = mysqli_fetch_assoc($BookView)) { ?>
-          <div class="ui book">
-            <div class="bookDetail">
-              <?php
-              $bookCoverPath = str_replace('..', '', $row["book_cover"]);
-              $bookCoverUrl = $baseURL . $bookCoverPath;
-              // $bookCoverPath = $row["book_cover"];
-              // $bookCoverUrl = $baseURL . $bookCoverPath;
-              ?>
-              <div class="blurring dimmable image">
-                <div class="ui dimmer">
-                  <div class="center">
-                    <a class="ui inverted button" href="BookDetail.php?id=<?= $row['book_id'] ?>&page=1">Watch Details</a>
-                  </div>
-                </div>
-                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
-              </div>
-              <h3><?= $row["book_title"] ?></h3>
+<div class="ui bookshelf slider lastdiv">
+  <?php while ($row = mysqli_fetch_assoc($BookView)) { ?>
+    <div class="ui book">
+      <div class="bookDetail">
+        <?php
+        $bookCoverPath = str_replace('..', '', $row["book_cover"]);
+        $bookCoverUrl = $baseURL . $bookCoverPath;
+        // $bookCoverPath = $row["book_cover"];
+        // $bookCoverUrl = $baseURL . $bookCoverPath;
+        ?>
+        <div class="blurring dimmable image">
+          <div class="ui dimmer">
+            <div class="center">
+              <a class="ui inverted button" href="BookDetail.php?id=<?= $row['book_id'] ?>&page=1">Watch Details</a>
             </div>
           </div>
-        <?php } ?>
+          <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
+        </div>
+        <h3><?= $row["book_title"] ?></h3>
       </div>
+    </div>
+  <?php } ?>
+</div>
 
-      <h2 class="ui header" id="content-title">Newest Update</h2>
+<h2 class="ui header" id="content-title">Newest Update</h2>
 
-      <div class="ui bookshelf slider">
-        <?php while ($row = mysqli_fetch_assoc($NewestBook)) { ?>
-          <div class="ui book">
-            <div class="bookDetail">
-              <?php
-              $bookCoverPath = str_replace('..', '', $row["book_cover"]);
-              $bookCoverUrl = $baseURL . $bookCoverPath;
-              ?>
-              <div class="blurring dimmable image">
-                <div class="ui dimmer">
-                  <div class="center">
-                  <a class="ui inverted button" href="BookDetail.php?id=<?= $row['book_id'] ?>&page=1">Watch Details</a>
-                  </div>
-                </div>
-                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
-              </div>
-              <h3><?= $row["book_title"] ?></h3>
+<div class="ui bookshelf slider">
+  <?php while ($row = mysqli_fetch_assoc($NewestBook)) { ?>
+    <div class="ui book">
+      <div class="bookDetail">
+        <?php
+        $bookCoverPath = str_replace('..', '', $row["book_cover"]);
+        $bookCoverUrl = $baseURL . $bookCoverPath;
+        ?>
+        <div class="blurring dimmable image">
+          <div class="ui dimmer">
+            <div class="center">
+            <a class="ui inverted button" href="BookDetail.php?id=<?= $row['book_id'] ?>&page=1">Watch Details</a>
             </div>
           </div>
-        <?php } ?>
+          <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="bookCover">
+        </div>
+        <h3><?= $row["book_title"] ?></h3>
       </div>
-
+    </div>
+  <?php } ?>
+</div>
+    </div>
     </div>
   </div>
   
@@ -155,18 +162,32 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
 </script>
 
 <style>
-
-.intro{
-  height:500px;
+.firstIntroBox{
+  height:100vh;
   width:100%;
-  display: flex;
-  margin:150px 0px;
+  background:rgba(238,238,238, 0.1);
+  z-index:2;
+  backdrop-filter: blur(100px);
+}
+.intro{
+  background:rgba(238,238,238, 1.0);
+  background-image:url('');
+  background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    backdrop-filter: blur(0px);
+  /* display: flex; */
+  /* margin:150px 0px; */
   
 }
 .intro-text{
-  height:100%;
-  width:100%;
-  padding:220px 100px;
+  text-align:center;
+  padding:350px;
+  /* padding:220px 100px; */
 }
 .intro-text .text1{
    font-size:60px;
@@ -207,6 +228,23 @@ $NewestBook = mysqli_query($conn, $newUpdateBook);
   font-size:30px;
 }
 #bookshelf{
+  background:#eee;
+  width:100%;
+  margin:auto;
+}
+.blueCircleBox{
+  position:fixed; 
+  top:-100px;
+  right:-300px;
+}
+.blueCircle{
+  background:blue; 
+  height:600px; 
+  width:600px; 
+  transform: rotate(20deg) skew(20deg);
+  z-index:1;
+}
+.bookRowTable{
   width:95%;
   margin:auto;
 }

@@ -93,6 +93,8 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
+    <div style="height:25px;"></div>
+
     <form action="EditProfile.php?user_id=<?php echo $user_id ?>" method="POST" enctype="multipart/form-data">
 
         <div class="edit-box">
@@ -102,18 +104,21 @@ if (isset($_POST['submit'])) {
                 <button type="button" class="hidden-button">Change Background</button>
                 <img src="<?php echo $row['user_profilebackground'] ? $row['user_profilebackground'] : '../BackgroundPic/pyh.jpg'; ?>"
                     class="user-background" alt="">
+                 
             </div>
+
+
             <div class="user-edit-box">
-                <div class="user-pic-box">
-                    <input type="file" name="profile_picture" id="profilePictureInput" accept="image/*"
-                        style="display: none;">
-                    <label for="profilePictureInput" class="change-icon" id="addImageButton"><img src="../pic/plus2.png"
-                            alt=""></label>
-                    <img src="<?php echo $row['user_profilepicture'] ? $row['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>"
-                        class="user-pic" alt="">
+            <div class="user-pic-box">
+                    <input type="file" name="profile_picture" id="profilePictureInput" accept="image/*" style="display: none;">
+                        <button type="button" class="hidden-button2" id="addImageButton">Change Avatar</button>
+                    <img src="<?php echo $row['user_profilepicture'] ? $row['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>" class="user-pic" alt="">
+                    <!-- <label for="profilePictureInput" class="change-icon" id="addImageButton"><img src="../pic/plus2.png" alt=""></label> -->
                 </div>
+
+
                 <div class="edit-form">
-                    <h1 class="ui header">Edit Your Profile</h1>
+                    
                     <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
 
                     <div class="lboxcss">
@@ -156,6 +161,7 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </form>
+    <div style="height:5px;"></div>
 </body>
 
 </html>
@@ -187,27 +193,54 @@ if (isset($_POST['submit'])) {
         });
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var profilePictureInput = document.getElementById('profilePictureInput');
-        var addImageButton = document.getElementById('addImageButton');
-        var userPic = document.querySelector('.user-pic');
 
-        // Attach the change event to the file input
-        profilePictureInput.addEventListener('change', function () {
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var avatarPicInput = document.getElementById('profilePictureInput');
+        var addImageButton = document.getElementById('addImageButton');
+        var userAvatar = document.querySelector('.user-pic');
+
+        addImageButton.addEventListener('click', function () {
+            avatarPicInput.click();
+        });
+
+        avatarPicInput.addEventListener('change', function () {
             var input = this;
 
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    console.log('Image loaded');
-                    userPic.src = e.target.result;
+                    console.log('Background image loaded');
+                    userAvatar.src = e.target.result;
                 };
 
                 reader.readAsDataURL(input.files[0]);
             }
         });
     });
+
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     var profilePictureInput = document.getElementById('profilePictureInput');
+    //     var addImageButton = document.getElementById('addImageButton');
+    //     var userPic = document.querySelector('.user-pic');
+
+    //     // Attach the change event to the file input
+    //     profilePictureInput.addEventListener('change', function () {
+    //         var input = this;
+
+    //         if (input.files && input.files[0]) {
+    //             var reader = new FileReader();
+
+    //             reader.onload = function (e) {
+    //                 console.log('Image loaded');
+    //                 userPic.src = e.target.result;
+    //             };
+
+    //             reader.readAsDataURL(input.files[0]);
+    //         }
+    //     });
+    // });
 
 
     var userNameInput = document.getElementById('user_name');
@@ -236,7 +269,7 @@ if (isset($_POST['submit'])) {
         border: 4px solid #000;
         border-radius: 20px;
         width: 90%;
-        margin: 90px auto;
+        margin:auto;
         overflow: hidden;
     }
 
@@ -247,7 +280,7 @@ if (isset($_POST['submit'])) {
 
     .user-image {
         position: relative;
-        height: 250px;
+        height: 350px;
         border-bottom: 4px solid #000;
     }
 
@@ -283,6 +316,21 @@ if (isset($_POST['submit'])) {
         /* 初始化时隐藏按钮 */
     }
 
+    .hidden-button2 {
+        background: transparent;
+    padding: 10px 30px;
+    position: absolute;
+    border: 3px solid #fff;
+    color: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    transition: 0.4s;
+    opacity: 0;
+    }
+
     .user-image:hover .hidden-button {
         opacity: 1;
         /* 鼠标悬停时显示按钮 */
@@ -293,28 +341,53 @@ if (isset($_POST['submit'])) {
         filter: brightness(50%);
     }
 
+
+
+    .user-pic-box:hover .hidden-button2 {
+        opacity: 1;
+        /* 鼠标悬停时显示按钮 */
+        display: inline;
+    }
+
+    .user-pic-box:hover .user-pic {
+        filter: brightness(50%);
+    }
+
     .hidden-button:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    .hidden-button2:hover {
         background: #fff;
         color: #000;
     }
 
     .edit-form {
         width: 65%;
-        padding: 40px 40px;
+        padding: 20px 40px;
         float: right;
     }
 
     .user-pic-box {
-        padding: 60px 60px;
+        /* position: absolute; */
+        margin: 20px 60px;
+        border-radius: 50%;
+        position: relative;
+    display: inline-block;
     }
 
     .user-pic {
-        background: #fff;
-        height: 300px;
-        width: 300px;
-        border: 6px solid #000;
-        border-radius: 50%;
-        object-fit: cover;
+        display: block;
+    width: 320px; /* 调整头像的宽度，这里使用了一个示例值 */
+    height: 320px; /* 调整头像的高度，这里使用了一个示例值 */
+    object-fit: cover;
+    border-radius: 50%; /* 使图像为圆形 */
+    transition: filter 0.4s;
+    border: 4px solid #000;
+    /* position: absolute;
+        margin: -220px 30px; */
+        z-index: 2;
         /* margin:50px 100px; */
     }
 
@@ -412,7 +485,7 @@ if (isset($_POST['submit'])) {
 
     #updateProfileButton {
         width: 100%;
-        margin: 13px 0px;
+        margin: 20px 0px;
     }
 
     #back-button {
@@ -420,11 +493,11 @@ if (isset($_POST['submit'])) {
     }
 
     .change-icon {
-        border: 0;
         background: transparent;
+        /* border: 0;
         margin: 30px 200px;
         position: absolute;
-        bottom: 0;
+        bottom: 0; */
     }
 
     .change-icon img {
