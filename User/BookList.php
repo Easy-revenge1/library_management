@@ -54,9 +54,9 @@ if (!$categoryResult) {
 
     <div class="bookContent">
         <div class="sideMenu">
-            <input type="text" placeholder="Search.." class="searchInput">
+            <input type="text" placeholder="Search.." class="searchInput" id="searchInput">
             <!-- ui sticky fixed top -->
-            <div class="ui selection dropdown q-mb-md" id="dropdownMenu">
+            <div class="ui selection dropdown q-mb-md" id="languageDropdown">
                 <input type="hidden" name="pet">
                 <i class="dropdown icon"></i>
                 <div class="default text">Language</div>
@@ -70,7 +70,7 @@ if (!$categoryResult) {
                 </div>
             </div>
 
-            <div class="ui selection dropdown q-mb-md" id="dropdownMenu">
+            <div class="ui selection dropdown q-mb-md" id="categoryDropdown">
                 <input type="hidden" name="category">
                 <i class="dropdown icon"></i>
                 <div class="default text">Select Category</div>
@@ -86,14 +86,14 @@ if (!$categoryResult) {
 
             <div class="bookListSearch">
                 <!-- <input type="text" placeholder="Search.."> -->
-                <button class="ui black button" style="width:88.5%;  position: absolute; bottom: 35px;"><i
-                        class="ui search icon"></i> Search</button>
+                <button class="ui black button" id="searchButton" style="width:88.5%;  position: absolute; bottom: 35px;" type="submit">
+                <i class="ui search icon"></i> Search</button>
             </div>
         </div>
 
 
 
-        <div class="ui three column " id="bookList">
+        <div class="ui three column bookList" id="bookList">
             <?php
 
             if ($bookListStmt) {
@@ -125,6 +125,65 @@ if (!$categoryResult) {
     $('.ui.dropdown')
         .dropdown()
         ;
+    $(document).ready(function () {
+        // $('#resetButton').on('click', function () {
+        //     location.reload();
+        // });
+        $('#searchButton').on('click', function () {
+            var query = $('#searchInput').val().trim();
+            var selectedLanguage = $('#languageDropdown').dropdown('get value');
+            var selectedCategory = $('#categoryDropdown').dropdown('get value');
+
+            console.log('Query:', query);
+            console.log('Selected Language:', selectedLanguage);
+            console.log('Selected Category:', selectedCategory);
+
+            $('#bookList').empty();
+
+            $.ajax({
+                url: 'Ajax/bookSearch.php',
+                method: 'GET',
+                data: {
+                    query: query,
+                    language: parseInt(selectedLanguage, 10),
+                    category: parseInt(selectedCategory, 10)
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    // You can show a loading indicator here if needed
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        $.each(data, function (index, book) {
+                        var bookCover = $('<div class="book-cover"></div>');
+                        bookCover.append('<div class="linear-bg"></div>');
+                        bookCover.append('<p class="book-title">' + book.book_title + '</p>');
+
+                        // Dynamically create the button using JavaScript
+                        var viewDetailButton = $('<button type="button" class="hidden-button">View Detail</button>');
+                        viewDetailButton.on('click', function () {
+                            location.href = 'BookDetail.php?id=' + book.book_id + '&page=1';
+                        });
+                        bookCover.append(viewDetailButton);
+
+                        bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
+
+                        $('#bookList').append(bookCover);
+                    });
+                    } else {
+                        $('#bookList').append('<p>No matching books found.</p>');
+                    }
+                },
+
+                error: function (error) {
+                    console.error('AJAX Error:', error);
+                }
+            });
+        });
+        $('#languageDropdown, #categoryDropdown').dropdown();
+
+    });
+
 </script>
 <style>
     .bookListSearch {
@@ -184,7 +243,8 @@ if (!$categoryResult) {
         z-index: 1;
     }
 
-    #dropdownMenu {
+    #categoryDropdown,
+    #languageDropdown {
         width: 100%;
         background: transparent;
         border: 0px;
