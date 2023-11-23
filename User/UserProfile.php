@@ -161,10 +161,10 @@ mysqli_close($conn);
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 
 <style>
-    /* .empty {
-        height: 100px;
+    .empty {
+        height: 80px;
         width: 100%;
-    } */
+    }
 
     .empty2 {
         height: 100px;
@@ -179,7 +179,7 @@ mysqli_close($conn);
     }
 
     .user-profile {
-        margin: 80px auto;
+        margin: 0px auto;
         display: flex;
         width: 96%;
 
