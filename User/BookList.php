@@ -55,16 +55,19 @@ if (!$categoryResult) {
     <div class="bookContent">
         <div class="sideMenu">
             <input type="text" placeholder="Search.." class="searchInput" id="searchInput">
-            <!-- ui sticky fixed top -->
+
             <div class="ui selection dropdown q-mb-md" id="languageDropdown">
-                <input type="hidden" name="pet">
+                <input type="hidden" name="language">
                 <i class="dropdown icon"></i>
                 <div class="default text">Language</div>
                 <div class="scrollhint menu">
+                    <div class="item" data-value="">Select Language</div>
+
                     <?php
-                    // Loop through the result set and generate dropdown items
+                    mysqli_data_seek($languageResult, 0);
+
                     while ($language = mysqli_fetch_assoc($languageResult)) {
-                        echo '<div id="languageSelector" class="item" data-value="' . $language['language_id'] . '">' . $language['language_name'] . '</div>';
+                        echo '<div class="item" data-value="' . $language['language_id'] . '">' . $language['language_name'] . '</div>';
                     }
                     ?>
                 </div>
@@ -75,21 +78,27 @@ if (!$categoryResult) {
                 <i class="dropdown icon"></i>
                 <div class="default text">Select Category</div>
                 <div class="scrollhint menu">
+                    <div class="item" data-value="">Select Category</div>
+
                     <?php
-                    // Loop through the result set and generate dropdown items
+                    mysqli_data_seek($categoryResult, 0);
+
                     while ($category = mysqli_fetch_assoc($categoryResult)) {
-                        echo '<div id="languageSelector" class="item" data-value="' . $category['category_id'] . '">' . $category['category_name'] . '</div>';
+                        echo '<div class="item" data-value="' . $category['category_id'] . '">' . $category['category_name'] . '</div>';
                     }
                     ?>
                 </div>
             </div>
 
             <div class="bookListSearch">
-                <!-- <input type="text" placeholder="Search.."> -->
-                <button class="ui black button" id="searchButton" style="width:88.5%;  position: absolute; bottom: 35px;" type="submit">
-                <i class="ui search icon"></i> Search</button>
+                <button class="ui black button" id="searchButton" style="width:88.5%; position: absolute; bottom: 35px;" type="submit">
+                    <i class="ui search icon"></i> Search</button>
+            </div>
+            <div class="ui black button" style="width:88.5%; position: absolute; bottom: 85px;">
+                    <i class="undo icon"></i> Reset</button>
             </div>
         </div>
+
 
 
 
@@ -126,13 +135,16 @@ if (!$categoryResult) {
         .dropdown()
         ;
     $(document).ready(function () {
-        // $('#resetButton').on('click', function () {
-        //     location.reload();
-        // });
+        $('#resetButton').on('click', function () {
+            location.reload();
+        });
         $('#searchButton').on('click', function () {
             var query = $('#searchInput').val().trim();
             var selectedLanguage = $('#languageDropdown').dropdown('get value');
             var selectedCategory = $('#categoryDropdown').dropdown('get value');
+
+            selectedLanguage = selectedLanguage === '' ? null : selectedLanguage;
+            selectedCategory = selectedCategory === '' ? null : selectedCategory;
 
             console.log('Query:', query);
             console.log('Selected Language:', selectedLanguage);
@@ -145,8 +157,8 @@ if (!$categoryResult) {
                 method: 'GET',
                 data: {
                     query: query,
-                    language: parseInt(selectedLanguage, 10),
-                    category: parseInt(selectedCategory, 10)
+                    language: selectedLanguage !== null ? selectedLanguage : '',
+                    category: selectedCategory !== null ? selectedCategory : ''
                 },
                 dataType: 'json',
                 beforeSend: function () {
@@ -155,21 +167,21 @@ if (!$categoryResult) {
                 success: function (data) {
                     if (data.length > 0) {
                         $.each(data, function (index, book) {
-                        var bookCover = $('<div class="book-cover"></div>');
-                        bookCover.append('<div class="linear-bg"></div>');
-                        bookCover.append('<p class="book-title">' + book.book_title + '</p>');
+                            var bookCover = $('<div class="book-cover"></div>');
+                            bookCover.append('<div class="linear-bg"></div>');
+                            bookCover.append('<p class="book-title">' + book.book_title + '</p>');
 
-                        // Dynamically create the button using JavaScript
-                        var viewDetailButton = $('<button type="button" class="hidden-button">View Detail</button>');
-                        viewDetailButton.on('click', function () {
-                            location.href = 'BookDetail.php?id=' + book.book_id + '&page=1';
+                            // Dynamically create the button using JavaScript
+                            var viewDetailButton = $('<button type="button" class="hidden-button">View Detail</button>');
+                            viewDetailButton.on('click', function () {
+                                location.href = 'BookDetail.php?id=' + book.book_id + '&page=1';
+                            });
+                            bookCover.append(viewDetailButton);
+
+                            bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
+
+                            $('#bookList').append(bookCover);
                         });
-                        bookCover.append(viewDetailButton);
-
-                        bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
-
-                        $('#bookList').append(bookCover);
-                    });
                     } else {
                         $('#bookList').append('<p>No matching books found.</p>');
                     }
@@ -186,6 +198,13 @@ if (!$categoryResult) {
 
 </script>
 <style>
+    #resetButton {
+        background: transparent;
+        color: #000;
+        border: 0px;
+        font-size: 20px;
+    }
+
     .bookListSearch {
         width: 100%;
         margin: auto;
@@ -203,7 +222,7 @@ if (!$categoryResult) {
     .bookContent {
         display: flex;
         height: 100%;
-        border-top:;
+        border-top: ;
     }
 
     #bookList {

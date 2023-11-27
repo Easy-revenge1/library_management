@@ -12,43 +12,21 @@ if (isset($_GET['query'])) {
     FROM `book`
     INNER JOIN `category` ON book.category_id = category.category_id
     INNER JOIN `language` ON book.language_id = language.language_id
-    WHERE book.book_title LIKE ? OR book.book_author LIKE ?";
+    WHERE (book.book_title LIKE '$query' OR book.book_author LIKE '$query')";
 
-    // Apply language filter
+    // Apply language filter if set
     if ($languageFilter !== '') {
-        $searchQuery .= " AND language.language_id = ?";
+        $searchQuery .= " AND language.language_id = $languageFilter";
     }
 
-    // Apply category filter
+    // Apply category filter if set
     if ($categoryFilter !== '') {
-        $searchQuery .= " AND category.category_id = ?";
+        $searchQuery .= " AND category.category_id = $categoryFilter";
     }
 
-        error_log("Debug: Search Query: " . $searchQuery);  // Log the search query
+    error_log("Debug: Search Query: " . $searchQuery);
 
-
-    $stmt = mysqli_prepare($conn, $searchQuery);
-
-    // Create an array to store parameters and their types
-    $params = ["ss", &$query, &$query];
-    
-    // Add parameters and types for language and category filters
-    if ($languageFilter !== '') {
-        $params[0] .= "i"; // Add "i" for integer type
-        $params[] = &$languageFilter;
-    }
-    
-    if ($categoryFilter !== '') {
-        $params[0] .= "i"; // Add "i" for integer type
-        $params[] = &$categoryFilter;
-    }
-    
-    // Call bind_param with the dynamic parameters
-    call_user_func_array([$stmt, 'bind_param'], $params);
-    
-    $stmt->execute();    
-    $result = $stmt->get_result();
-    $stmt->close();
+    $result = mysqli_query($conn, $searchQuery);
 
     $books = [];
     while ($row = mysqli_fetch_assoc($result)) {
