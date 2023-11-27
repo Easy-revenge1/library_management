@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
   $book_description = mysqli_real_escape_string($conn, $_POST['book_description']);
   $book_author = mysqli_real_escape_string($conn, $_POST['book_author']);
   $book_public_date = $_POST['book_public_date'];
-  $book_language = mysqli_real_escape_string($conn, $_POST['book_language']);
+  $language_id = mysqli_real_escape_string($conn, $_POST['language_id']);
   $category_id = mysqli_real_escape_string($conn, $_POST['category_id']);
   $book_status = mysqli_real_escape_string($conn, $_POST['book_status']);
 
@@ -61,19 +61,22 @@ if (isset($_POST['submit'])) {
     $book_cover_path = $existingCover;
   }
 
-  echo $Update = "UPDATE book SET book_title=?, book_description=?,book_content=?, book_author=?, book_public_date=?, book_language=?, category_id=?, book_cover=?, Status=? WHERE book_id=?";
+  $Update = "UPDATE book SET book_title=?, book_description=?,book_content=?, book_author=?, book_public_date=?, language_id=?, category_id=?, book_cover=?, Status=? WHERE book_id=?";
   $stmt = mysqli_prepare($conn, $Update);
   if ($stmt === false) {
     die('mysqli_prepare failed: ' . mysqli_error($conn));
   }
-  mysqli_stmt_bind_param($stmt, 'ssssssssis', $book_title, $book_description, $book_content_path, $book_author, $book_public_date, $book_language, $category_id, $book_cover_path, $book_status, $bookId);
+  mysqli_stmt_bind_param($stmt, 'ssssssssis', $book_title, $book_description, $book_content_path, $book_author, $book_public_date, $language_id, $category_id, $book_cover_path, $book_status, $bookId);
   mysqli_stmt_execute($stmt);
   if (mysqli_stmt_execute($stmt)) {
-    echo "<script>window.location.href='book.php';</script>";
-    exit;
-  } else {
+    echo '<script>
+            $(document).ready(function() {
+                toastr.success("Book details updated successfully.");
+            });
+          </script>';
+} else {
     echo "<script>alert('Update Failed');</script>";
-  }
+}
 }
 
 $query = "SELECT book.*, category.category_name, language.language_name, bookstatus.BookStatus
@@ -182,7 +185,7 @@ $statusResult = mysqli_query($conn, $statusQuery);
 
                   <div class="form-group">
                     <label class="inputLanguage">Book Language :</label>
-                    <select class="form-control custom-select" name="book_language">
+                    <select class="form-control custom-select" name="language_id">
                       <?php while ($languageRow = mysqli_fetch_assoc($languageResult)) { ?>
                         <option value="<?= $languageRow['language_id'] ?>" <?= ($languageRow['language_id'] == $row['language_name']) ? 'selected' : '' ?>>
                           <?= $languageRow['language_name'] ?>
@@ -276,9 +279,6 @@ $statusResult = mysqli_query($conn, $statusQuery);
 
 
 <script>
-  // console.log('Image source:', selDiv.find('img').attr('src'));
-
-  //Date picker
   $('#book_public_date').datetimepicker({
     format: 'L'
   });
