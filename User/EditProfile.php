@@ -4,6 +4,10 @@ include_once('../db.php');
 
 $user_id = $_GET['user_id'];
 
+if (!isset($_SESSION['operation_success'])) {
+    $_SESSION['operation_success'] = false;
+}
+
 $UserProfile = "SELECT * FROM `user` WHERE `user_id` = ?";
 
 $stmt = mysqli_prepare($conn, $UserProfile);
@@ -64,20 +68,18 @@ if (isset($_POST['submit'])) {
 
     if ($stmt = mysqli_prepare($conn, $query)) {
         mysqli_stmt_bind_param($stmt, "sssssi", $user_name, $user_email, $user_contact, $profilePicUpload, $backgroundPicUpload, $user_id);
-
-        if (mysqli_stmt_execute($stmt)) {
-            // echo '<div class="ui success message">User information updated successfully</div>';
-            header("Location: EditProfile.php?user_id=" . $user_id . "");
+    
+        if (mysqli_stmt_execute($stmt)) {    
+            $_SESSION['operation_success'] = true;
         } else {
-            echo "Error updating user information: " . mysqli_stmt_error($stmt);
+            $_SESSION['operation_success'] = "error";
         }
-
-        mysqli_stmt_close($stmt); // Close the statement here
+    
+        mysqli_stmt_close($stmt);
     } else {
         echo "Error preparing the statement: " . mysqli_error($conn);
     }
 }
-
 
 ?>
 
@@ -90,9 +92,35 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
     <title>Edit Profile</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="Assets/plugins/sweetalert2/sweetalert2.all.js"></script>
+    <script src="Assets/plugins/toastr/toastr.min.js"></script>
+    <script src="Assets/js/SweetAlert.js"></script>
 </head>
 
 <body>
+
+<?php
+if (isset($_SESSION["operation_success"])) {
+    if ($_SESSION["operation_success"] === true) {
+        echo '<script>testToast(' . json_encode("Profile Edited, Please Refresh Page") . ')</script>';
+
+        unset($_SESSION['operation_success']);
+    //     echo '<script>
+    //     setTimeout(function () {
+    //         location.reload();
+    //     }, 2000);
+    // </script>';
+
+    } elseif ($_SESSION["operation_success"] === "error") {
+        echo '<script>alertErrorToast(' . json_encode("Profile Edit failed. Please try again.") . ')</script>';
+    }   
+
+    unset($_SESSION['operation_success']);
+}
+?>
+
+
+
     <div style="height:25px;"></div>
 
     <form action="EditProfile.php?user_id=<?php echo $user_id ?>" method="POST" enctype="multipart/form-data">
@@ -167,7 +195,17 @@ if (isset($_POST['submit'])) {
 </html>
 
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
+<script src="Assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="Assets/plugins/toastr/toastr.min.js"></script>
+
 <script>
+   var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+
     document.addEventListener('DOMContentLoaded', function () {
         var backgroundPicInput = document.getElementById('backgroundPicInput');
         var changeBackgroundButton = document.querySelector('button[type="button"]');
@@ -219,29 +257,6 @@ if (isset($_POST['submit'])) {
             }
         });
     });
-
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     var profilePictureInput = document.getElementById('profilePictureInput');
-    //     var addImageButton = document.getElementById('addImageButton');
-    //     var userPic = document.querySelector('.user-pic');
-
-    //     // Attach the change event to the file input
-    //     profilePictureInput.addEventListener('change', function () {
-    //         var input = this;
-
-    //         if (input.files && input.files[0]) {
-    //             var reader = new FileReader();
-
-    //             reader.onload = function (e) {
-    //                 console.log('Image loaded');
-    //                 userPic.src = e.target.result;
-    //             };
-
-    //             reader.readAsDataURL(input.files[0]);
-    //         }
-    //     });
-    // });
-
 
     var userNameInput = document.getElementById('user_name');
     var userEmailInput = document.getElementById('user_email');

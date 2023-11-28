@@ -89,7 +89,7 @@ ob_end_flush();
       <!-- Main content -->
       <section class="content">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Form</h3>
@@ -106,10 +106,10 @@ ob_end_flush();
                     <input type="text" id="inputDescription" name="user_email" class="form-control" value="<?=$row['user_email']?>"></input>
                   </div>
 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label for="inputPassword">Password</label>
                     <input type="text" id="inputDescription" name="user_password" class="form-control" value="<?=$row['user_password']?>"></input>
-                  </div>
+                  </div> -->
 
                   <div class="form-group">
                   <label for="inputContact">Contact :</label>

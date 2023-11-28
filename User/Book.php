@@ -93,7 +93,7 @@ if ($existingWatchRecord->num_rows > 0) {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #333;
+            /* background-color: #333; */
             border: 4px solid #555;
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);

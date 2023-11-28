@@ -4,6 +4,10 @@ include_once('NavigationBar.php');
 
 $userId = $_SESSION['user_id'];
 
+if (!isset($_SESSION['operation_status'])) {
+    $_SESSION['operation_status'] = null;
+}
+
 if (isset($_POST['change'])) {
     $user_id = $_SESSION['id'];
     $old_password = $_POST['old_password'];
@@ -30,18 +34,18 @@ if (isset($_POST['change'])) {
             // Execute the update query
             if (mysqli_stmt_execute($update_stmt)) {
                 // Password updated successfully
-                echo '';
+                $_SESSION['operation_status'] = true;
             } else {
                 // Error updating the password
-                echo '<div class="ui error message">Error on updating password</div>';
+                $_SESSION['operation_status'] = false;
             }
         } else {
             // New and confirm passwords don't match
-            echo '<div class="ui error message">New and Confirm Password don\'t match</div>';
+            $_SESSION['operation_status'] = "NewOldDontMatch";
         }
     } else {
         // Old password doesn't match
-        echo '<div class="ui error message">Old password don\'t match</div>';
+        $_SESSION['operation_status'] = "OldDontMatch";
     }
 }
 ?>
@@ -49,18 +53,37 @@ if (isset($_POST['change'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Change Password</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="Assets/plugins/sweetalert2/sweetalert2.all.js"></script>
+    <script src="Assets/plugins/toastr/toastr.min.js"></script>
+    <script src="Assets/js/SweetAlert.js"></script>
 </head>
 <body>
+<?php
+if (isset($_SESSION["operation_status"])) {
+    if ($_SESSION["operation_status"] === true) {
+        echo '<script>testToast(' . json_encode("Password Changed, Please Refresh Page") . ')</script>';
+    } elseif ($_SESSION["operation_status"] === false) {
+        echo '<script>failToast(' . json_encode("Password change failed. Please try again.") . ')</script>';
+    } elseif ($_SESSION["operation_status"] === "NewOldDontMatch") {
+        echo '<script>failToast(' . json_encode("New and Confirm Password don't match") . ')</script>';
+    } elseif ($_SESSION["operation_status"] === "OldDontMatch") {
+        echo '<script>failToast(' . json_encode("Old password don't match") . ')</script>';
+    }
+
+    // unset($_SESSION['operation_status']);
+}
+?>
+
+
     <div class="change-pass-box">
         <div class="change-pass-form">
         <h1 class="ui header" id="change-password">Change Password</h1>
-        <form class="" action="ChangePassword.php" method="POST" novalidate>
+        <form action="ChangePassword.php" method="POST" novalidate>
 
         <div class="lboxcss">
             <input type="password" class="lbox-input" name="old_password" id="old_password" autocomplete="off" required >
@@ -96,7 +119,6 @@ if (isset($_POST['change'])) {
             <!-- <button class="ui black button" onclick="window.location.href='EditProfile.php?user_id=' + $userId" id="back-profile-button">Back to Profile</button> -->
              </div> 
         </form>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwa d6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </div>
         </div>
 </body>

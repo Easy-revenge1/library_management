@@ -15,6 +15,16 @@ $TotalUser = "SELECT COUNT(*) FROM `user`";
 $totaluser = mysqli_query($conn, $TotalUser);
 $rowUser = mysqli_fetch_array($totaluser);
 $user = $rowUser[0];
+
+$TotalWatch = "SELECT COUNT(*) FROM `watch_record`";
+$totalwatch = mysqli_query($conn, $TotalWatch);
+$rowWatch = mysqli_fetch_array($totalwatch);
+$watch = $rowWatch[0];
+
+$TotalReview = "SELECT COUNT(*) FROM `reviews`";
+$totalreview = mysqli_query($conn, $TotalReview);
+$rowReview = mysqli_fetch_array($totalreview);
+$review = $rowReview[0];
 ?>
 
 <!DOCTYPE html>
@@ -63,9 +73,9 @@ $user = $rowUser[0];
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                    <h3><?php echo $watch ?></h3>
 
-                                    <p>Bounce Rate</p>
+                                    <p>Total Watch </p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
@@ -89,9 +99,9 @@ $user = $rowUser[0];
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>65</h3>
+                                    <h3><?php echo $review ?></h3>
 
-                                    <p>Unique Visitors</p>
+                                    <p>Total Review</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>

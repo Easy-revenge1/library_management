@@ -23,8 +23,8 @@ if (isset($_POST['submit'])) {
     $newFilePath2 = "../content/" . $_FILES["PDF"]["name"];
     // $newFilePath2 = "cover/" . $_FILES["book_cover"]["name"];
 
-    echo "Debug: Attempting to move cover file to: $newFilePath1<br>";
-    echo "Debug: Attempting to move PDF file to: $newFilePath2<br>";
+    // echo "Debug: Attempting to move cover file to: $newFilePath1<br>";
+    // echo "Debug: Attempting to move PDF file to: $newFilePath2<br>";
 
     if (move_uploaded_file($tmpFilePath1, $newFilePath1) && move_uploaded_file($tmpFilePath2, $newFilePath2)) {
       
@@ -32,15 +32,15 @@ if (isset($_POST['submit'])) {
       $book_author = $_POST['book_author'];
       $book_description = $_POST['book_description'];
       $book_public_date = $_POST['book_public_date'];
-      $book_language = $_POST['book_language'];
+      $language_id = $_POST['language_id'];
       $category_id = $_POST['category_id'];
       $date = date("Y/m/d");
 
-      $query = "INSERT INTO `book` (book_title, book_description, book_cover, book_content, book_author, book_public_date, book_language, category_id, upload_date, Status) 
+      $query = "INSERT INTO `book` (book_title, book_description, book_cover, book_content, book_author, book_public_date, language_id, category_id, upload_date, Status) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, '1')";
 
       $stmt = mysqli_prepare($conn, $query);
-      mysqli_stmt_bind_param($stmt, "sssssssss", $book_title, $book_description, $newFilePath1, $newFilePath2, $book_author, $book_public_date, $book_language, $category_id, $date);
+      mysqli_stmt_bind_param($stmt, "sssssssss", $book_title, $book_description, $newFilePath1, $newFilePath2, $book_author, $book_public_date, $language_id, $category_id, $date);
 
       if (mysqli_stmt_execute($stmt)) {
         echo "<script>window.location.href='book.php';</script>";
@@ -150,7 +150,7 @@ if (isset($_POST['submit'])) {
 
                   <div class="form-group">
                     <label class="details" for="">Book Language :</label>
-                    <select class="form-control custom-select" name="book_language" required>
+                    <select class="form-control custom-select" name="language_id" required>
                       <option value="" selected disabled>Select Language</option>
                       <?php while ($row = mysqli_fetch_array($result2, MYSQLI_ASSOC)) { ?>
                         <option value="<?php echo $row["language_id"]; ?>">
