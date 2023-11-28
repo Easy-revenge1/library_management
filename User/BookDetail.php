@@ -1,5 +1,6 @@
 <?php
 include('../db.php');
+ob_start();
 include_once("NavigationBar.php");
 
 $bookId = $_GET['id'];
@@ -62,18 +63,14 @@ if (isset($_POST['favourite'])) {
 
         if (mysqli_stmt_execute($addstmt)) {
             $book_name = $row['book_name'];
-            // echo '<div class="ui success message">' . $book_name . ' had added to your bookmark</div>';
             header("Location: BookDetail.php?id=" . $bookId . "&page=1");
             // exit();
         } else {
-            // Handle database error
+            $_SESSION['favorite_operation'] = false;
             $error = mysqli_error($conn);
-            // Log the error and show a user-friendly message
             error_log("Database Error: $error");
-            // echo '<div class="ui error message">Failed to add to favorites. Please try again later</div>';
         }
     } else {
-        echo '<div class="ui error message">This book is already in your favorites.</div>';
     }
 } elseif (isset($_POST['unfavourite'])) {
     $bookId = $_GET['id'];
@@ -85,14 +82,12 @@ if (isset($_POST['favourite'])) {
 
     if (mysqli_stmt_execute($removestmt)) {
         $book_name = $row['book_name'];
-        // echo '<div class="ui success message">' . $book_name . ' has been remove from your bookmark</div>';
         header("Location: BookDetail.php?id=" . $bookId . "&page=1");
         exit();
     } else {
+        $_SESSION['favorite_operation'] = false;
         $error = mysqli_error($conn);
-        //Log the error
         error_log("Database Error: $error");
-        // echo '<div class="ui error message">Error</div>';
     }
 }
 
@@ -104,9 +99,8 @@ if (isset($_POST["submit"])) {
 
     // Check if any of the fields are empty
     if (empty($rating) || empty($title) || empty($comment)) {
-        echo '<div class="ui error message">Please fill in all the required fields.</div>';
+        
     } else {
-        // All fields are filled, proceed with inserting the review
         $submitReviewQuery = "INSERT INTO `reviews`(`book_id`, `user_id`, `rating`, `title`, `comment`) VALUES(?, ?, ?, ?, ?)";
         $submitReview = mysqli_prepare($conn, $submitReviewQuery);
 
@@ -114,12 +108,11 @@ if (isset($_POST["submit"])) {
             mysqli_stmt_bind_param($submitReview, 'iiiss', $bookId, $userId, $rating, $title, $comment);
 
             if (mysqli_stmt_execute($submitReview)) {
-                // echo '<div class="ui success message">Your Review on this book has been submitted</div>';
-                // Optionally, you can redirect the user after a successful submission
+                $_SESSION['review_operation'] = true;
                 header("Location: BookDetail.php?id=" . $bookId . "&page=1");
                 // exit();
             } else {
-                echo '<div class="ui error message">Failed to submit your review.</div>';
+                $_SESSION['review_operation'] = false;
             }
         }
     }
@@ -137,23 +130,19 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
     $getReviewResult = mysqli_stmt_get_result($getReviewStmt);
     $reviewData = mysqli_fetch_assoc($getReviewResult);
 
-    // Check if the user trying to delete the review is the owner of the review
     if ($reviewData['user_id'] == $_SESSION['user_id']) {
         $deleteQuery = "DELETE FROM reviews WHERE review_id = ?";
         $deleteStmt = mysqli_prepare($conn, $deleteQuery);
         mysqli_stmt_bind_param($deleteStmt, "i", $id);
 
         if (mysqli_stmt_execute($deleteStmt)) {
-            // echo '<div class="ui success message">' . $book_name . ' has been remove from your bookmark</div>';
+            $_SESSION['review_operation'] = "delete";
         } else {
-            echo "<script>
-            toastr.error('Failed to delete the review.');
-            </script>";
+            $_SESSION['review_operation'] = "FailDelete";
+
         }
     } else {
-        echo "<script>
-        toastr.error('You do not have permission to delete this review.');
-        </script>";
+        $_SESSION['review_operation'] = "PermissionDelete";
     }
 }
 ?>
@@ -167,23 +156,24 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/reset.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/site.css">
-
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/container.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/grid.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/header.css">
-
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/divider.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/segment.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/reset.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/site.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/container.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/grid.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/header.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/divider.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/segment.css"> -->
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/form.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/input.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/button.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/list.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/button.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/list.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css"> -->
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.min.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/rating.min.css">
+    <script src="Assets/plugins/sweetalert2/sweetalert2.all.js"></script>
+    <script src="Assets/plugins/toastr/toastr.min.js"></script>
+    <script src="Assets/js/SweetAlert.js"></script>
     <link rel="stylesheet" type="text/css" href="Css/Utility.css">
     <title>
         <?php echo $row['book_title'] ?>
@@ -192,8 +182,23 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 
 <body>
 
+<?php
+if (isset($_SESSION["review_operation"])) {
+    if ($_SESSION["review_operation"] === true) {
+        // echo '<script>testToast(' . json_encode("Review Posted") . ')</script>';
+    } elseif ($_SESSION["review_operation"] === false) {
+        echo '<script>failToast(' . json_encode("Post Review Failed") . ')</script>';
+    }
+}
 
-
+if (isset($_SESSION['favorite_operation'])) {
+    if ($_SESSION['favorite_operation'] === false) {
+        echo '<script>failToast(' . json_encode("Add to favorite fail, please try again later") . ')</script>';
+    } else {
+        
+    }
+}
+?>
 
     <div class="detailBox">
         <div class="ui grid" style="width:99.7%; margin:auto;">
@@ -326,7 +331,7 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
                                 ?>
                                 <a class="btn btn-danger btn-sm" style="float:right"
                                     href="BookDetail.php?id=<?php echo $bookId ?>&page=1&review_id=<?= $rowReview['review_id'] ?>&action=delete"
-                                    onclick="return confirm('Are you sure you want to Delete Your Review ?');">
+                                    onclick="handleDeleteClick(event, <?= $rowReview['review_id'] ?>)">
                                     <i class="trash icon" style="color: red;"></i>
                                 </a>
                                 <?php
@@ -400,8 +405,6 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 
     <div style="height:10px;"></div>
 
-
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -413,9 +416,8 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 
             function checkFavoriteStatus() {
                 var userId = <?php echo $_SESSION['user_id']; ?>;
-                var bookId = <?php echo $bookId; ?>; // Retrieve the book's ID from your PHP code
+                var bookId = <?php echo $bookId; ?>;
 
-                // Use AJAX to asynchronously check the favorite status
                 $.ajax({
                     type: 'POST',
                     url: 'Ajax/check_favourite.php',
@@ -446,6 +448,54 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
             }
         });
 
+        function handleDeleteClick(event, reviewId) {
+    event.preventDefault();
+
+    // Show SweetAlert confirmation
+    swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this\!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+        confirmButtonColor: "#E81D1D",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `../Admin/Ajax/DeleteReview.php?id=${reviewId}&action=delete`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response && response.success) {
+                        swal.fire(
+                            'Deleted!',
+                            'Your review has been deleted.',
+                            'success'
+                        );
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        swal.fire(
+                            'Error',
+                            'Failed to delete the review. Check the console for more details.',
+                            'error'
+                        );
+                    }
+                },
+                error: function (xhr, status, error) {
+                    swal.fire(
+                        'Error',
+                        'Failed to delete the review. Check the console for more details.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+}
 
 
         const showButton = document.getElementById('showButton');
@@ -485,6 +535,10 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 </html>
 
 <style>
+    .swal2-styled.swal2-confirm:focus{
+        box-shadow: none;
+    }
+
     .lboxcss {
         width: 100%;
         position: relative;

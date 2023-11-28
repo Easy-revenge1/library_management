@@ -79,7 +79,7 @@ $stmt->close();
                     echo '<div class="book-cover">';
                     echo '<div class="linear-bg"></div>';
                     echo '<p class="book-title">' . $row['book_title'] . '</p>';
-                    echo '<button type="button" class="hidden-button">View Detail</button>';
+                    echo '<button type="button" class="hidden-button" onclick="location.href=\'BookDetail.php?id=' . $row['book_id'] . '&page=1\'">View Detail</button>';
                     echo '<img class="book-image" src="../cover/' . $row['book_cover'] . '" alt="Book Cover">';
                     echo '</div>';
                 } ?>
