@@ -15,13 +15,13 @@ if(isset($_SESSION['user_id'])) {
   $stmt = mysqli_prepare($conn, $UserProfile);
   mysqli_stmt_bind_param($stmt, "i", $user_id);
   mysqli_stmt_execute($stmt);
-  $result = mysqli_stmt_get_result($stmt);
+  $userAvatar = mysqli_stmt_get_result($stmt);
 
-  if (!$result) {
+  if (!$userAvatar) {
       die("Error: " . mysqli_error($conn));
   }
 
-  $row = mysqli_fetch_assoc($result);
+  $userImage = mysqli_fetch_assoc($userAvatar);
 }
 
 ?>
@@ -37,7 +37,7 @@ if(isset($_SESSION['user_id'])) {
     integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
-  <link rel="stylesheet" href="Css/Main.css">
+  <!-- <link rel="stylesheet" href="Css/Main.css"> -->
   <link rel="stylesheet" href="Sidebar.php">
 </head>
 
@@ -72,9 +72,9 @@ if(isset($_SESSION['user_id'])) {
   <?php if(isset($_SESSION['user_id'])) { ?>
     <!-- 如果用户已登录，则显示用户信息 -->
     <div style="display:flex; background:#fff;" class="dropDownProfile">
-      <img src="<?php echo $row['user_profilepicture'] ? $row['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>"
+      <img src="<?php echo $userImage['user_profilepicture'] ? $userImage['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>"
            class="navAvatar" alt="profilepic">
-      <div class="text" id="dropDownText"> <?php echo $row['user_name']; ?> <i class="dropdown icon"></i></div> 
+      <div class="text" id="dropDownText"> <?php echo $userImage['user_name']; ?> <i class="dropdown icon"></i></div> 
     </div>
     <div class="menu" id="dropDownList">
       <a class="item" href="UserProfile.php"><i class="user icon"></i> Profile</a>
@@ -83,7 +83,7 @@ if(isset($_SESSION['user_id'])) {
   <?php } else { ?>
     <!-- 如果用户未登录，则显示登录按钮 -->
     <button onclick="window.location.href='UserLogin.php'" name="login" class="navLoginButton"><i class="user icon"></i> LOGIN</button>
-  <?php } ?>
+  <?php }?>
 </div>
 
       <!-- <a class="ui item" id="nav-a" href="UserProfile.php">
@@ -110,12 +110,16 @@ $('.dropdown')
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@200&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
 
+
+  body {
+      background: #dddddd !important;
+    }
   #nav {
     width: 100%;
     position: fixed;
     /* padding: 30px 20px; */
     transition: 0.4s;
-    z-index: 3;
+    z-index: 99;
     top: 0;
     /* backdrop-filter: blur(30px); */
     border-radius:0px;
@@ -157,8 +161,8 @@ $('.dropdown')
     padding:0px 7px;
   }
   #dropDownList{
-    margin-top:13px;
-    margin-left:190px;
+    /* margin-top:13px; */
+    margin:16px 30px;
     border-radius:0px;
   }
   /* #dropDownList a{
@@ -179,6 +183,7 @@ $('.dropdown')
     padding:10px 20px;
     transition:0.1s;
     margin:-10px 0px;
+    cursor: pointer;
   }
   .navLoginButton:hover{
     background:#000;
@@ -186,24 +191,28 @@ $('.dropdown')
   }
 </style>
 <script>
-  var nav = document.getElementById('nav');
-  // var navLoginButton = document.getElementsByClassName('navLoginButton')[0];
+ var nav = document.getElementById('nav');
+// var mostViewBook = document.getElementsByClassName('mostView')[0];
 
-  nav.style.background = "transparent";
-  nav.style.padding = "30px 20px";
-  // nav.style.boxShadow = "0px 0px 0px 0px #7D7C7C";
+nav.style.background = "transparent";
+nav.style.padding = "30px 20px";
+nav.style.borderBottom = "0px solid #45474B";
 
-  window.onscroll = function (event) {
-    var scroll = window.pageYOffset;
+// mostViewBook.style.opacity = "0";
 
-    if (scroll > 5) {
-      nav.style.background = "rgba(255, 255, 255)";
-      nav.style.padding = "20px 20px";
-      // nav.style.boxShadow = "7px 3px 7px 3px #7D7C7C";
-    } else {
-      nav.style.background = "transparent";
-      nav.style.padding = "30px 20px";
-      //  nav.style.boxShadow = "0px 0px 0px 0px #7D7C7C";
-    }
-  };
+window.onscroll = function (event) {
+  var scroll = window.pageYOffset;
+
+  if (scroll > 5) {
+    nav.style.background = "#FFFBF5";
+    nav.style.padding = "20px 20px";
+    nav.style.borderBottom = "3px solid #45474B";
+  } else {
+    nav.style.background = "transparent";
+    nav.style.padding = "30px 20px";
+    nav.style.borderBottom = "3px solid transparent";
+    // mostViewBook.style.opacity = "0";
+  }
+};
+
 </script>
