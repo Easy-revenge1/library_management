@@ -1,7 +1,4 @@
-    body {
-      background: #eeeeee !important;
-    }
-.bookshelf {
+ .bookshelf {
   height: 350px;
   margin-bottom:100px;
 }
@@ -22,20 +19,18 @@
 .slick-prev {
   margin-left: 40px;
 }
-.slick-next {
-  margin-right: 40px;
-}
+
 .blurring.dimmable.image {
   width: 300px;
   border-radius: 15px;
 }
-#footer {
-  background-color: #fff;
+/* #footer {
+  background-color: #000;
   text-align: center;
   padding: 20px;
   height:500px;
   width: 100%;
-}
+} */
 .ui.link.list .item,
 .ui.link.list .item a:not(.ui),
 .ui.link.list a.item {
