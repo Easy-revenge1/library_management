@@ -48,16 +48,16 @@ if(isset($_SESSION['user_id'])) {
               <i class="search link icon"></i>
             </div>
           </div> -->
-      <a class="ui item" id="nav-a" href="BookList.php"><i class="book icon"></i>
+      <a class="ui item navHref" id="nav-a" href="BookList.php"><i class="book icon"></i>
         Book
       </a>
-      <a class="ui item" id="nav-a" href="Favorites.php"><i class="bookmark icon"></i>
+      <a class="ui item navHref" id="nav-a" href="Favorites.php"><i class="bookmark icon"></i>
         Favorites
       </a>
-      <a class="ui item" id="nav-a" href="#"><i class="users icon"></i>
+      <a class="ui item navHref" id="nav-a" href="#"><i class="users icon"></i>
         About Us
       </a>
-      <a class="ui item" id="nav-a" href="#"><i class="phone alternate icon"></i>
+      <a class="ui item navHref" id="nav-a" href="#"><i class="phone alternate icon"></i>
         Contact Us
       </a>
 
@@ -185,13 +185,18 @@ $('.dropdown')
 </style>
 <script>
  var nav = document.getElementById('nav');
-// var mostViewBook = document.getElementsByClassName('mostView')[0];
+var logo = document.querySelector('.title');
+var navLinks = document.querySelectorAll('.navHref');
 
 nav.style.background = "transparent";
 nav.style.padding = "30px 20px";
 nav.style.borderBottom = "0px solid #45474B";
 
-// mostViewBook.style.opacity = "0";
+logo.style.color = "#fff";
+
+navLinks.forEach(function(navLink) {
+  navLink.style.color = "#fff";
+});
 
 window.onscroll = function (event) {
   var scroll = window.pageYOffset;
@@ -200,12 +205,20 @@ window.onscroll = function (event) {
     nav.style.background = "#FFFBF5";
     nav.style.padding = "20px 20px";
     nav.style.borderBottom = "3px solid #45474B";
+    logo.style.color = "#000";
+    
+    navLinks.forEach(function(navLink) {
+      navLink.style.color = "#000";
+    });
   } else {
     nav.style.background = "transparent";
     nav.style.padding = "30px 20px";
     nav.style.borderBottom = "3px solid transparent";
-    // mostViewBook.style.opacity = "0";
+    logo.style.color = "#fff";
+    
+    navLinks.forEach(function(navLink) {
+      navLink.style.color = "#fff";
+    });
   }
 };
-
 </script>
