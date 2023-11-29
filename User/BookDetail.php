@@ -94,18 +94,18 @@ if (isset($_POST['favourite'])) {
 if (isset($_POST["submit"])) {
     $userId = $_SESSION["user_id"];
     $rating = $_POST["rating"];
-    $title = $_POST["title"];
+    // $title = $_POST["title"];
     $comment = $_POST["comment"];
 
     // Check if any of the fields are empty
-    if (empty($rating) || empty($title) || empty($comment)) {
-        
+    if (empty($rating) || empty($comment)) {
+
     } else {
-        $submitReviewQuery = "INSERT INTO `reviews`(`book_id`, `user_id`, `rating`, `title`, `comment`) VALUES(?, ?, ?, ?, ?)";
+        $submitReviewQuery = "INSERT INTO `reviews`(`book_id`, `user_id`, `rating`, `comment`) VALUES(?, ?, ?, ?)";
         $submitReview = mysqli_prepare($conn, $submitReviewQuery);
 
         if ($submitReview) {
-            mysqli_stmt_bind_param($submitReview, 'iiiss', $bookId, $userId, $rating, $title, $comment);
+            mysqli_stmt_bind_param($submitReview, 'iiis', $bookId, $userId, $rating, $comment);
 
             if (mysqli_stmt_execute($submitReview)) {
                 $_SESSION['review_operation'] = true;
@@ -182,23 +182,23 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 
 <body>
 
-<?php
-if (isset($_SESSION["review_operation"])) {
-    if ($_SESSION["review_operation"] === true) {
-        // echo '<script>testToast(' . json_encode("Review Posted") . ')</script>';
-    } elseif ($_SESSION["review_operation"] === false) {
-        echo '<script>failToast(' . json_encode("Post Review Failed") . ')</script>';
+    <?php
+    if (isset($_SESSION["review_operation"])) {
+        if ($_SESSION["review_operation"] === true) {
+            // echo '<script>testToast(' . json_encode("Review Posted") . ')</script>';
+        } elseif ($_SESSION["review_operation"] === false) {
+            echo '<script>failToast(' . json_encode("Post Review Failed") . ')</script>';
+        }
     }
-}
 
-if (isset($_SESSION['favorite_operation'])) {
-    if ($_SESSION['favorite_operation'] === false) {
-        echo '<script>failToast(' . json_encode("Add to favorite fail, please try again later") . ')</script>';
-    } else {
-        
+    if (isset($_SESSION['favorite_operation'])) {
+        if ($_SESSION['favorite_operation'] === false) {
+            echo '<script>failToast(' . json_encode("Add to favorite fail, please try again later") . ')</script>';
+        } else {
+
+        }
     }
-}
-?>
+    ?>
 
     <div class="detailBox">
         <div class="ui grid" style="width:99.7%; margin:auto;">
@@ -266,7 +266,8 @@ if (isset($_SESSION['favorite_operation'])) {
                         <button class="ui black button" type="submit">Watch Now</button>
                     </form>
                     <form id="favoriteForm" action="BookDetail.php?id=<?php echo $bookId ?>" method="post">
-                        <button id="favoriteButton" class="ui button" type="submit" name="favourite" value="favourite"></button>
+                        <button id="favoriteButton" class="ui button" type="submit" name="favourite"
+                            value="favourite"></button>
                     </form>
                 </div>
 
@@ -371,14 +372,14 @@ if (isset($_SESSION['favorite_operation'])) {
             <h2 class="ui header">Add Review</h2>
             <form class="" action="BookDetail.php?id=<?php echo $bookId ?>&page=1" method="POST">
 
-                <div class="lboxcss" style="margin-bottom:30px;">
+                <!-- <div class="lboxcss" style="margin-bottom:30px;">
                     <input type="text" name="title" class="lbox-input" autocomplete="off" required>
                     <label for="text" class="label-name">
                         <span class="content-name">
                             Review Title
                         </span>
                     </label>
-                </div>
+                </div> -->
 
                 <div>
                     <select class="" id="ratingForm" style="" name="rating">
@@ -389,7 +390,7 @@ if (isset($_SESSION['favorite_operation'])) {
                         <option value="1">1 - Poor</option>
                     </select>
                 </div>
-                
+
                 <div class="ui form" style="margin-bottom:10px;">
                     <label>Comment</label>
                     <textarea rows="2" name="comment" style="border:3px solid #000;background: transparent;"
@@ -449,53 +450,54 @@ if (isset($_SESSION['favorite_operation'])) {
         });
 
         function handleDeleteClick(event, reviewId) {
-    event.preventDefault();
+            event.preventDefault();
 
-    // Show SweetAlert confirmation
-    swal.fire({
-        title: 'Are you sure?',
-        text: 'You won\'t be able to revert this\!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true,
-        confirmButtonColor: "#E81D1D",
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: `../Admin/Ajax/DeleteReview.php?id=${reviewId}&action=delete`,
-                type: 'GET',
-                dataType: 'json',
-                success: function (response) {
-                    if (response && response.success) {
-                        swal.fire(
-                            'Deleted!',
-                            'Your review has been deleted.',
-                            'success'
-                        );
-                        setTimeout(function () {
-                            location.reload();
-                        }, 2000);
-                    } else {
-                        swal.fire(
-                            'Error',
-                            'Failed to delete the review. Check the console for more details.',
-                            'error'
-                        );
-                    }
-                },
-                error: function (xhr, status, error) {
-                    swal.fire(
-                        'Error',
-                        'Failed to delete the review. Check the console for more details.',
-                        'error'
-                    );
+            // Show SweetAlert confirmation
+            swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this\!',
+                icon: 'warning',
+                width: 300,
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true,
+                confirmButtonColor: "#E81D1D",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `../Admin/Ajax/DeleteReview.php?id=${reviewId}&action=delete`,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response && response.success) {
+                                swal.fire(
+                                    'Deleted',
+                                    'Your review has been deleted.',
+                                    'success'
+                                );
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 2000);
+                            } else {
+                                swal.fire(
+                                    'Error',
+                                    'Failed to delete the review. Check the console for more details.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            swal.fire(
+                                'Error',
+                                'Failed to delete the review. Check the console for more details.',
+                                'error'
+                            );
+                        }
+                    });
                 }
             });
         }
-    });
-}
 
 
         const showButton = document.getElementById('showButton');
@@ -535,7 +537,11 @@ if (isset($_SESSION['favorite_operation'])) {
 </html>
 
 <style>
-    .swal2-styled.swal2-confirm:focus{
+    .ui.comments .comment .text {
+        width: 1100px
+    }
+
+    .swal2-styled.swal2-confirm:focus {
         box-shadow: none;
     }
 
@@ -669,7 +675,7 @@ if (isset($_SESSION['favorite_operation'])) {
         color: #000;
     }
 
-    #ratingForm option:hover{
+    #ratingForm option:hover {
         background: #fff;
         color: #fff;
     }
@@ -736,24 +742,28 @@ if (isset($_SESSION['favorite_operation'])) {
     #detailButton button {
         width: 100%;
     }
-    #detailButton #favoriteForm{
+
+    #detailButton #favoriteForm {
         /* background:#eee; */
-        width:5.5%;
-        
+        width: 5.5%;
+
     }
-    #detailButton #favoriteButton{
+
+    #detailButton #favoriteButton {
         /* width:1%; */
         background: #7e7e7e;
-        color:#fff;
+        color: #fff;
         size: 1.5rem;
     }
-    #detailButton #activeFavoriteButton{
+
+    #detailButton #activeFavoriteButton {
         /* width:1%; */
         background: red;
-        color:#fff;
-        size:1.5rem;
+        color: #fff;
+        size: 1.5rem;
         /* box-shadow:3px 3px grey; */
     }
+
     .reviewTitleBox {
         display: flex;
         justify-content: space-between;

@@ -172,6 +172,11 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 
 
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
     #resetButton {
         background: transparent;
         color: #000;
@@ -248,12 +253,12 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 
     .book-cover {
         height: 350px;
-        width: 300px;
+        width: 23%;
         margin: 12px 12px;
-        /* border: 5px solid #000; */
         border-radius: 20px;
         overflow: hidden;
         position: relative;
+        box-sizing: border-box;
     }
 
     .linear-bg {
