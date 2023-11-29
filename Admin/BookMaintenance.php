@@ -8,12 +8,12 @@ $bookId = $_GET['id'];
 
 if (isset($_POST['submit'])) {
   $book_title = mysqli_real_escape_string($conn, $_POST['book_title']);
-  $book_description = mysqli_real_escape_string($conn, $_POST['book_description']);
+  $book_description = $_POST['book_description'];
   $book_author = mysqli_real_escape_string($conn, $_POST['book_author']);
   $book_public_date = $_POST['book_public_date'];
   $language_id = mysqli_real_escape_string($conn, $_POST['language_id']);
   $category_id = mysqli_real_escape_string($conn, $_POST['category_id']);
-  $book_status = mysqli_real_escape_string($conn, $_POST['book_status']);
+  // $book_status = mysqli_real_escape_string($conn, $_POST['book_status']);
 
   // Handle uploaded book content
   if (!empty($_FILES['book_content']['tmp_name'])) {
@@ -41,8 +41,8 @@ if (isset($_POST['submit'])) {
   // Handle uploaded book cover
   if (!empty($_FILES['book_cover']['tmp_name'])) {
     $book_cover = $_FILES['book_cover']['tmp_name'];
-    $book_cover_path = "cover/" . $_FILES['book_cover']['name'];
-    if (!move_uploaded_file($book_cover, "../" . $book_cover_path)) {
+    $book_cover_path = "../" . "cover/" . $_FILES['book_cover']['name'];
+    if (!move_uploaded_file($book_cover, $book_cover_path)) {
       die('Failed to move uploaded cover image');
     }
   } else {
@@ -61,12 +61,12 @@ if (isset($_POST['submit'])) {
     $book_cover_path = $existingCover;
   }
 
-  $Update = "UPDATE book SET book_title=?, book_description=?,book_content=?, book_author=?, book_public_date=?, language_id=?, category_id=?, book_cover=?, Status=? WHERE book_id=?";
+  $Update = "UPDATE book SET book_title=?, book_description=?,book_content=?, book_author=?, book_public_date=?, language_id=?, category_id=?, book_cover=? WHERE book_id=?";
   $stmt = mysqli_prepare($conn, $Update);
   if ($stmt === false) {
     die('mysqli_prepare failed: ' . mysqli_error($conn));
   }
-  mysqli_stmt_bind_param($stmt, 'ssssssssis', $book_title, $book_description, $book_content_path, $book_author, $book_public_date, $language_id, $category_id, $book_cover_path, $book_status, $bookId);
+  mysqli_stmt_bind_param($stmt, 'sssssiisi', $book_title, $book_description, $book_content_path, $book_author, $book_public_date, $language_id, $category_id, $book_cover_path, $bookId);
   mysqli_stmt_execute($stmt);
   if (mysqli_stmt_execute($stmt)) {
     echo '<script>
@@ -79,11 +79,10 @@ if (isset($_POST['submit'])) {
 }
 }
 
-$query = "SELECT book.*, category.category_name, language.language_name, bookstatus.BookStatus
+$query = "SELECT book.*, category.category_name, language.language_name
             FROM book
             INNER JOIN category ON book.category_id = category.category_id
             INNER JOIN language ON book.language_id = language.language_id
-            INNER JOIN bookstatus ON book.Status = bookstatus.BookStatusId
             WHERE book.book_id = ?";
 
 $stmt = mysqli_prepare($conn, $query);
@@ -98,8 +97,8 @@ $categoryResult = mysqli_query($conn, $categoryQuery);
 $languageQuery = "SELECT * FROM language";
 $languageResult = mysqli_query($conn, $languageQuery);
 
-$statusQuery = "SELECT * FROM bookstatus";
-$statusResult = mysqli_query($conn, $statusQuery);
+// $statusQuery = "SELECT * FROM bookstatus";
+// $statusResult = mysqli_query($conn, $statusQuery);
 
 ?>
 
@@ -215,17 +214,6 @@ $statusResult = mysqli_query($conn, $statusQuery);
                     </div>
                   </div>
 
-                  <div class="form-group">
-                    <label for="inputStatus">Status</label>
-                    <select id="inputStatus" name="book_status" class="form-control custom-select">
-                      <?php while ($statusRow = mysqli_fetch_assoc($statusResult)) { ?>
-                        <option value="<?= $statusRow['BookStatusId'] ?>" <?= ($statusRow['BookStatusId'] == $row['Status']) ? 'selected' : '' ?>>
-                          <?= $statusRow['BookStatus'] ?>
-                        </option>
-                      <?php } ?>
-                    </select>
-                  </div>
-
                 </div>
 
                 <!-- /.card-body -->
@@ -239,7 +227,6 @@ $statusResult = mysqli_query($conn, $statusQuery);
               $book_cover_path = $row['book_cover'];
               echo '<img src="../Cover/' . $book_cover_path . '" alt="Book Cover">';
               
-
               ?>
             </div>
 

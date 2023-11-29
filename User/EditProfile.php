@@ -4,9 +4,11 @@ include_once('../db.php');
 
 $user_id = $_GET['user_id'];
 
-if (!isset($_SESSION['operation_success'])) {
-    $_SESSION['operation_success'] = false;
+if (isset($_SESSION['operation_success'])) {
+    // unset($_SESSION['operation_success']);
+    $_SESSION['operation_success'] = null;
 }
+
 
 $UserProfile = "SELECT * FROM `user` WHERE `user_id` = ?";
 
@@ -68,13 +70,13 @@ if (isset($_POST['submit'])) {
 
     if ($stmt = mysqli_prepare($conn, $query)) {
         mysqli_stmt_bind_param($stmt, "sssssi", $user_name, $user_email, $user_contact, $profilePicUpload, $backgroundPicUpload, $user_id);
-    
-        if (mysqli_stmt_execute($stmt)) {    
+
+        if (mysqli_stmt_execute($stmt)) {
             $_SESSION['operation_success'] = true;
         } else {
             $_SESSION['operation_success'] = "error";
         }
-    
+
         mysqli_stmt_close($stmt);
     } else {
         echo "Error preparing the statement: " . mysqli_error($conn);
@@ -99,27 +101,15 @@ if (isset($_POST['submit'])) {
 
 <body>
 
-<?php
-if (isset($_SESSION["operation_success"])) {
-    if ($_SESSION["operation_success"] === true) {
-        echo '<script>testToast(' . json_encode("Profile Edited, Please Refresh Page") . ')</script>';
+    <?php
 
-        unset($_SESSION['operation_success']);
-    //     echo '<script>
-    //     setTimeout(function () {
-    //         location.reload();
-    //     }, 2000);
-    // </script>';
+    if (isset($_SESSION["operation_success"]) && $_SESSION["operation_success"] === true) {
+        echo '<script>successToast(' . json_encode("Profile Edited, Redirecting...") . ')</script>';
+        header("Refresh: 1; url=Userprofile.php");
+        exit();
+    }
 
-    } elseif ($_SESSION["operation_success"] === "error") {
-        echo '<script>alertErrorToast(' . json_encode("Profile Edit failed. Please try again.") . ')</script>';
-    }   
-
-    unset($_SESSION['operation_success']);
-}
-?>
-
-
+    ?>
 
     <div style="height:25px;"></div>
 
@@ -132,21 +122,22 @@ if (isset($_SESSION["operation_success"])) {
                 <button type="button" class="hidden-button">Change Background</button>
                 <img src="<?php echo $row['user_profilebackground'] ? $row['user_profilebackground'] : '../BackgroundPic/pyh.jpg'; ?>"
                     class="user-background" alt="">
-                 
+
             </div>
 
 
             <div class="user-edit-box">
-            <div class="user-pic-box">
-                    <input type="file" name="profile_picture" id="profilePictureInput" accept="image/*" style="display: none;">
-                        <button type="button" class="hidden-button2" id="addImageButton">Change Avatar</button>
-                    <img src="<?php echo $row['user_profilepicture'] ? $row['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>" class="user-pic" alt="">
-                    <!-- <label for="profilePictureInput" class="change-icon" id="addImageButton"><img src="../pic/plus2.png" alt=""></label> -->
+                <div class="user-pic-box">
+                    <input type="file" name="profile_picture" id="profilePictureInput" accept="image/*"
+                        style="display: none;">
+                    <button type="button" class="hidden-button2" id="addImageButton">Change Avatar</button>
+                    <img src="<?php echo $row['user_profilepicture'] ? $row['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>"
+                        class="user-pic" alt="">
                 </div>
 
 
                 <div class="edit-form">
-                    
+
                     <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
 
                     <div class="lboxcss">
@@ -199,12 +190,12 @@ if (isset($_SESSION["operation_success"])) {
 <script src="Assets/plugins/toastr/toastr.min.js"></script>
 
 <script>
-   var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000
+    });
 
     document.addEventListener('DOMContentLoaded', function () {
         var backgroundPicInput = document.getElementById('backgroundPicInput');
@@ -284,7 +275,7 @@ if (isset($_SESSION["operation_success"])) {
         border: 4px solid #000;
         border-radius: 20px;
         width: 90%;
-        margin:auto;
+        margin: auto;
         overflow: hidden;
     }
 
@@ -333,17 +324,17 @@ if (isset($_SESSION["operation_success"])) {
 
     .hidden-button2 {
         background: transparent;
-    padding: 10px 30px;
-    position: absolute;
-    border: 3px solid #fff;
-    color: #fff;
-    border-radius: 10px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    transition: 0.4s;
-    opacity: 0;
+        padding: 10px 30px;
+        position: absolute;
+        border: 3px solid #fff;
+        color: #fff;
+        border-radius: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        transition: 0.4s;
+        opacity: 0;
     }
 
     .user-image:hover .hidden-button {
@@ -389,18 +380,21 @@ if (isset($_SESSION["operation_success"])) {
         margin: 20px 60px;
         border-radius: 50%;
         position: relative;
-    display: inline-block;
+        display: inline-block;
     }
 
     .user-pic {
         display: block;
-    width: 320px; /* 调整头像的宽度，这里使用了一个示例值 */
-    height: 320px; /* 调整头像的高度，这里使用了一个示例值 */
-    object-fit: cover;
-    border-radius: 50%; /* 使图像为圆形 */
-    transition: filter 0.4s;
-    border: 4px solid #000;
-    /* position: absolute;
+        width: 320px;
+        /* 调整头像的宽度，这里使用了一个示例值 */
+        height: 320px;
+        /* 调整头像的高度，这里使用了一个示例值 */
+        object-fit: cover;
+        border-radius: 50%;
+        /* 使图像为圆形 */
+        transition: filter 0.4s;
+        border: 4px solid #000;
+        /* position: absolute;
         margin: -220px 30px; */
         z-index: 2;
         /* margin:50px 100px; */

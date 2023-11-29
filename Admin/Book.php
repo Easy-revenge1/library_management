@@ -5,11 +5,10 @@ include_once("../Include/TopNavbar.php");
 include_once("../Include/Sidebar.php");
 
 // Start Of Queries
-$query = "SELECT book.*, category.category_name, language.language_name, bookstatus.BookStatus
+$query = "SELECT book.*, category.category_name, language.language_name
           FROM book
           INNER JOIN category ON book.category_id = category.category_id
-          INNER JOIN language ON book.language_id = language.language_id
-          INNER JOIN bookstatus ON book.Status = bookstatus.BookStatusId";
+          INNER JOIN language ON book.language_id = language.language_id";
 $SQL = mysqli_query($conn, $query);
 
 $categorySearch = "SELECT * FROM category";
@@ -105,7 +104,7 @@ if (mysqli_num_rows($languageResult) > 0) {
                         <th>Public Date</th>
                         <th>Language</th>
                         <th>Category</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         <th>Edit</th>
                         <th>Delete</th>
                       </tr>
@@ -130,9 +129,6 @@ if (mysqli_num_rows($languageResult) > 0) {
                           </td>
                           <td>
                             <?= $row["category_name"] ?>
-                          </td>
-                          <td>
-                            <?= $row["BookStatus"] ?>
                           </td>
                           <td>
                             <a class="btn btn-primary btn-sm" href="BookMaintenance.php?id=<?= $row['book_id'] ?>">

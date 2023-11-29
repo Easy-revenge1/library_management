@@ -36,8 +36,8 @@ if (isset($_POST['submit'])) {
       $category_id = $_POST['category_id'];
       $date = date("Y/m/d");
 
-      $query = "INSERT INTO `book` (book_title, book_description, book_cover, book_content, book_author, book_public_date, language_id, category_id, upload_date, Status) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, '1')";
+      $query = "INSERT INTO `book` (book_title, book_description, book_cover, book_content, book_author, book_public_date, language_id, category_id, upload_date) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       $stmt = mysqli_prepare($conn, $query);
       mysqli_stmt_bind_param($stmt, "sssssssss", $book_title, $book_description, $newFilePath1, $newFilePath2, $book_author, $book_public_date, $language_id, $category_id, $date);

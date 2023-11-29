@@ -93,8 +93,8 @@ if (!$categoryResult) {
             <div class="bookListSearch">
                 <button class="ui black button" id="searchButton" style="width:88.5%; position: absolute; bottom: 35px;" type="submit">
                     <i class="ui search icon"></i> Search</button>
-            </div>
-            <div class="ui black button" style="width:88.5%; position: absolute; bottom: 85px;">
+
+                <button class="ui black button" id="resetButton" style="width:88.5%; position: absolute; bottom: 85px;">
                     <i class="undo icon"></i> Reset</button>
             </div>
         </div>
@@ -198,12 +198,6 @@ if (!$categoryResult) {
 
 </script>
 <style>
-    #resetButton {
-        background: transparent;
-        color: #000;
-        border: 0px;
-        font-size: 20px;
-    }
 
     .bookListSearch {
         width: 100%;
