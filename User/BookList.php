@@ -56,7 +56,7 @@ if (!$categoryResult) {
         <div class="sideMenu">
             <input type="text" placeholder="Search.." class="searchInput" id="searchInput">
 
-            <div class="ui selection dropdown q-mb-md" id="languageDropdown">
+            <div class="ui selection dropdown dropDownSearch q-mb-md" id="languageDropdown">
                 <input type="hidden" name="language">
                 <i class="dropdown icon"></i>
                 <div class="default text">Language</div>
@@ -73,7 +73,7 @@ if (!$categoryResult) {
                 </div>
             </div>
 
-            <div class="ui selection dropdown q-mb-md" id="categoryDropdown">
+            <div class="ui selection dropdown dropDownSearch q-mb-md" id="categoryDropdown">
                 <input type="hidden" name="category">
                 <i class="dropdown icon"></i>
                 <div class="default text">Select Category</div>
@@ -131,7 +131,7 @@ if (!$categoryResult) {
 
 </html>
 <script>
-    $('.ui.dropdown')
+    $('.ui.dropDownSearch')
         .dropdown()
         ;
     $(document).ready(function () {
@@ -183,7 +183,7 @@ if (!$categoryResult) {
                             $('#bookList').append(bookCover);
                         });
                     } else {
-                        $('#bookList').append('<p>No matching books found.</p>');
+                        $('#bookList').append('<p class="NoMatching">No matching books found.</p>');
                     }
                 },
 
@@ -198,7 +198,22 @@ if (!$categoryResult) {
 
 </script>
 <style>
+    .title{
+        color:#000 !important;
+    }
+.navHref{
+    color:#000 !important;
+}
 
+ .NoMatching{
+        color: #252525;
+        position: absolute;
+    top: 50%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+        font-size:20px;
+        font-weight:500;
+    }
     .bookListSearch {
         width: 100%;
         margin: auto;

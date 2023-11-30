@@ -138,6 +138,12 @@ if (isset($_POST['change'])) {
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 
 <style>
+        .title{
+        color:#000 !important;
+    }
+.navHref{
+    color:#000 !important;
+}   
     .change-pass-box {
         background: #FFFBF5;
         width: 40%;

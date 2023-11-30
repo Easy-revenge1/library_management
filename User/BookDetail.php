@@ -537,6 +537,12 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 </html>
 
 <style>
+        .title{
+        color:#000 !important;
+    }
+.navHref{
+    color:#000 !important;
+}
     .ui.comments .comment .text {
         width: 1100px
     }
@@ -639,7 +645,7 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
     .addCommentBox {
         background: rgb(0, 0, 0, 0.8);
         position: fixed;
-        z-index: 7;
+        z-index: 120;
         width: 100%;
         height: 100%;
         top: 0;
