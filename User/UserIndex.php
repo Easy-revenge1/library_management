@@ -183,7 +183,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
               <p class="categoryTitle">
                 <?= $row["category_name"] ?>
               </p>
-              <img src="../pic/pyh.jpg" alt="Book Cover" class="categoryImage">
+              <img src="<?= $row['category_image']?>" alt="Book Cover" class="categoryImage">
             </div>
             <?php $counter++;
           } ?>

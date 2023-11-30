@@ -19,11 +19,12 @@ $totalReviews = $reviewCountData['total'];
 
 $BookDetail = "SELECT b.*, l.language_name, c.category_name,
     COALESCE(COUNT(wr.book_id), 0) AS total_views,
-    ROW_NUMBER() OVER (ORDER BY COALESCE(COUNT(wr.book_id), 0) DESC) AS view_rank
+    AVG(reviews.rating) AS overall_rating
 FROM `book` b
 INNER JOIN `language` l ON b.`language_id` = l.`language_id`
 INNER JOIN `category` c ON b.`category_id` = c.`category_id`
 LEFT JOIN `watch_record` wr ON b.`book_id` = wr.`book_id`
+LEFT JOIN `reviews` ON b.`book_id` = reviews.`book_id`
 WHERE b.`book_id` = ?
 GROUP BY b.`book_id`";
 
@@ -32,6 +33,7 @@ mysqli_stmt_bind_param($stmt, 'i', $bookId);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
+
 
 
 $reviewsPerPage = 8;
@@ -94,7 +96,6 @@ if (isset($_POST['favourite'])) {
 if (isset($_POST["submit"])) {
     $userId = $_SESSION["user_id"];
     $rating = $_POST["rating"];
-    // $title = $_POST["title"];
     $comment = $_POST["comment"];
 
     // Check if any of the fields are empty
@@ -156,18 +157,8 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/reset.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/site.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/container.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/grid.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/header.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/divider.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/segment.css"> -->
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/form.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/input.css">
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/button.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/list.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css"> -->
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.min.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/rating.min.css">
@@ -283,6 +274,12 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
             <div class="reviewTitleBox">
                 <div class="flex-container">
                     <h2 class="" style="font-size: 40px; margin: 0;">Review</h2>
+                    <div class="overall-rating q-ml-md q-mt-sm" style="color: #7D7C7C; font-weight: 900;">
+                        <div class="ui yellow disabled rating" data-rating="<?= $row['overall_rating'] ?>"
+                            data-max-rating="5"></div>
+                        <?php echo number_format($row['overall_rating'], 1); ?>
+                    </div>
+
                     <div class="spacer"></div>
                     <button class="ui black button" id="showButton">Add Review</button>
                 </div>
@@ -307,7 +304,7 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
                                                 <?= $rowReview['user_name'] ?>
                                             </a>
                                             <div class="metadata">
-                                                <div class="date" style="font-size:15px;">
+                                                <div class="date" style="font-size: 15px; color: #7D7C7C;">
                                                     <?php
                                                     $datePosted = $rowReview['date_posted'];
                                                     $formattedDate = date('Y-m-d H:i', strtotime($datePosted));
@@ -331,7 +328,7 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
                             if ($rowReview['user_id'] == $_SESSION['user_id']) {
                                 ?>
                                 <a class="btn btn-danger btn-sm" style="float:right"
-                                    href="BookDetail.php?id=<?php echo $bookId ?>&page=1&review_id=<?= $rowReview['review_id'] ?>&action=delete"
+                                    href="BookDetail.   ?id=<?php echo $bookId ?>&page=1&review_id=<?= $rowReview['review_id'] ?>&action=delete"
                                     onclick="handleDeleteClick(event, <?= $rowReview['review_id'] ?>)">
                                     <i class="trash icon" style="color: red;"></i>
                                 </a>
@@ -372,17 +369,8 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
             <h2 class="ui header">Add Review</h2>
             <form class="" action="BookDetail.php?id=<?php echo $bookId ?>&page=1" method="POST">
 
-                <!-- <div class="lboxcss" style="margin-bottom:30px;">
-                    <input type="text" name="title" class="lbox-input" autocomplete="off" required>
-                    <label for="text" class="label-name">
-                        <span class="content-name">
-                            Review Title
-                        </span>
-                    </label>
-                </div> -->
-
                 <div>
-                    <select class="" id="ratingForm" style="" name="rating">
+                    <select id="ratingForm" name="rating">
                         <option value="5">5 - Excellent</option>
                         <option value="4">4 - Very Good</option>
                         <option value="3">3 - Good</option>
@@ -393,7 +381,7 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 
                 <div class="ui form" style="margin-bottom:10px;">
                     <label>Comment</label>
-                    <textarea rows="2" name="comment" style="border:3px solid #000;background: transparent;"
+                    <textarea required rows="2" name="comment" style="border:3px solid #000;background: transparent;"
                         placeholder="Enter your review comment"></textarea>
                 </div>
                 <button class="ui black button" style="width:100%;" type="submit" name="submit">Post</button>

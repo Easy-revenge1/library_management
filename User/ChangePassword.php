@@ -5,6 +5,7 @@ include_once('NavigationBar.php');
 
 $userId = $_SESSION['user_id'];
 
+
 if (!isset($_SESSION['operation_status'])) {
     $_SESSION['operation_status'] = null;
 
@@ -50,6 +51,7 @@ if (isset($_POST['change'])) {
         $_SESSION['operation_status'] = "OldDontMatch";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -68,10 +70,10 @@ if (isset($_POST['change'])) {
 
 <body>
     <?php
-    if (isset($_SESSION["operation_status"])) {
-        if ($_SESSION["operation_status"] === true) {
+    if (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === true) {
             echo '<script>successToast(' . json_encode("Password Changed, Redirecting...") . ')</script>';
             header("Refresh: 1; url=Userprofile.php");
+            $_SESSION['operation_status'] = null;
             exit();
         } elseif ($_SESSION["operation_status"] === false) {
             echo '<script>failToast(' . json_encode("Password change failed. Please try again.") . ')</script>';
@@ -80,9 +82,6 @@ if (isset($_POST['change'])) {
         } elseif ($_SESSION["operation_status"] === "OldDontMatch") {
             echo '<script>failToast(' . json_encode("Old password don't match") . ')</script>';
         }
-
-        unset($_SESSION['operation_status']);
-    }
     ?>
 
 
