@@ -5,7 +5,6 @@ include_once('../db.php');
 $user_id = $_GET['user_id'];
 
 if (isset($_SESSION['operation_success'])) {
-    // unset($_SESSION['operation_success']);
     $_SESSION['operation_success'] = null;
 }
 
@@ -52,7 +51,7 @@ if (isset($_POST['submit'])) {
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = '../ProfilePic/';
         $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-        $maxFileSize = 5 * 1024 * 1024;  // 5 MB
+        $maxFileSize = 5 * 1024 * 1024;
 
         if (!in_array($_FILES['profile_picture']['type'], $allowedTypes) || $_FILES['profile_picture']['size'] > $maxFileSize) {
             echo "Invalid file. Please upload a valid image file (JPEG, PNG, JPG) with a maximum size of 5 MB.";
