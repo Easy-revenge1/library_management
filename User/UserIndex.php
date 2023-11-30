@@ -56,7 +56,7 @@ $categoryRow = mysqli_query($conn, $categoryBox);
         </div>
 
         <div class="intro-text">
-          <span class="text1">ONLINE</span><br>
+          <span class="text1">ONELINE FREE</span><br>
           <!-- <span class="text2">Online Digital Book</span> -->
         </div>
 
@@ -65,13 +65,13 @@ $categoryRow = mysqli_query($conn, $categoryBox);
       <div class="intro-design" id="introDesign">
         <div class="intro-elm">
           <div class="elm1">
-            <img src="../pic/BookShop.webp" alt="">
+            <img src="../pic/Moon-boy-white.png" alt="">
           </div>
         </div>
       </div>
       
       <div class="intro-text">
-        <span class="text2">LIBRARY</span>
+        <span class="text2">E-LIBRARY</span>
       </div>
     </div>
 
@@ -81,7 +81,7 @@ $categoryRow = mysqli_query($conn, $categoryBox);
   </div> -->
 
     <div style="position:absolute; bottom:0; width:100%;">
-      <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 160"
+      <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1"  viewBox="0 0 1600 160"
         style="z-index:7; background:transparent;" data-height="100">
         <path class="animated-path" style="opacity: 1;fill: #ddd;" d="M1040,56c0.5,0,1,0,1.6,0c-16.6-8.9-36.4-15.7-66.4-15.7c-56,0-76.8,23.7-106.9,41C881.1,89.3,895.6,96,920,96
 C979.5,96,980,56,1040,56z"></path>
@@ -122,8 +122,9 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     </div>
   </div>
 
+
   <div class="ui grid padded" id="bookshelf">
-    <div class="sixteen wide column" style="background:#ddd; border-bottom: 3px solid #45474B;">
+    <div class="sixteen wide column" style="background:#F5F7F8;">
 
       <div class="bookRowTable">
         <h2 class="ui header horizontal divider" id="content-title">MOST VIEW</h2>
@@ -191,10 +192,52 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
       </div>
     </div>
   </div>
+  <div style="position:relative; top:0; width:100%; transform: scaleY(-1);">
+      <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1"  viewBox="0 0 1600 160"
+        style="z-index:7; background:transparent;" data-height="100">
+        <path class="animated-path" style="opacity: 1;fill: #ddd;" d="M1040,56c0.5,0,1,0,1.6,0c-16.6-8.9-36.4-15.7-66.4-15.7c-56,0-76.8,23.7-106.9,41C881.1,89.3,895.6,96,920,96
+C979.5,96,980,56,1040,56z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1699.8,96l0,10H1946l-0.3-6.9c0,0,0,0-88,0s-88.6-58.8-176.5-58.8c-51.4,0-73,20.1-99.6,36.8
+c14.5,9.6,29.6,18.9,58.4,18.9C1699.8,96,1699.8,96,1699.8,96z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1400,96c19.5,0,32.7-4.3,43.7-10c-35.2-17.3-54.1-45.7-115.5-45.7c-32.3,0-52.8,7.9-70.2,17.8
+c6.4-1.3,13.6-2.1,22-2.1C1340.1,56,1340.3,96,1400,96z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M320,56c6.6,0,12.4,0.5,17.7,1.3c-17-9.6-37.3-17-68.5-17c-60.4,0-79.5,27.8-114,45.2
+c11.2,6,24.6,10.5,44.8,10.5C260,96,259.9,56,320,56z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M680,96c23.7,0,38.1-6.3,50.5-13.9C699.6,64.8,679,40.3,622.2,40.3c-30,0-49.8,6.8-66.3,15.8
+c1.3,0,2.7-0.1,4.1-0.1C619.7,56,620.2,96,680,96z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M-40,95.6c28.3,0,43.3-8.7,57.4-18C-9.6,60.8-31,40.2-83.2,40.2c-14.3,0-26.3,1.6-36.8,4.2V106h60V96L-40,95.6
+z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M504,73.4c-2.6-0.8-5.7-1.4-9.6-1.4c-19.4,0-19.6,13-39,13c-19.4,0-19.5-13-39-13c-14,0-18,6.7-26.3,10.4
+C402.4,89.9,416.7,96,440,96C472.5,96,487.5,84.2,504,73.4z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1205.4,85c-0.2,0-0.4,0-0.6,0c-19.5,0-19.5-13-39-13s-19.4,12.9-39,12.9c0,0-5.9,0-12.3,0.1
+c11.4,6.3,24.9,11,45.5,11C1180.6,96,1194.1,91.2,1205.4,85z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1447.4,83.9c-2.4,0.7-5.2,1.1-8.6,1.1c-19.3,0-19.6-13-39-13s-19.6,13-39,13c-3,0-5.5-0.3-7.7-0.8
+c11.6,6.6,25.4,11.8,46.9,11.8C1421.8,96,1435.7,90.7,1447.4,83.9z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M985.8,72c-17.6,0.8-18.3,13-37,13c-19.4,0-19.5-13-39-13c-18.2,0-19.6,11.4-35.5,12.8
+c11.4,6.3,25,11.2,45.7,11.2C953.7,96,968.5,83.2,985.8,72z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M743.8,73.5c-10.3,3.4-13.6,11.5-29,11.5c-19.4,0-19.5-13-39-13s-19.5,13-39,13c-0.9,0-1.7,0-2.5-0.1
+c11.4,6.3,25,11.1,45.7,11.1C712.4,96,727.3,84.2,743.8,73.5z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M265.5,72.3c-1.5-0.2-3.2-0.3-5.1-0.3c-19.4,0-19.6,13-39,13c-19.4,0-19.6-13-39-13
+c-15.9,0-18.9,8.7-30.1,11.9C164.1,90.6,178,96,200,96C233.7,96,248.4,83.4,265.5,72.3z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1692.3,96V85c0,0,0,0-19.5,0s-19.6-13-39-13s-19.6,13-39,13c-0.1,0-0.2,0-0.4,0c11.4,6.2,24.9,11,45.6,11
+C1669.9,96,1684.8,96,1692.3,96z"></path>
+        <path class="animated-path" style="opacity: 1;"
+          d="M25.5,72C6,72,6.1,84.9-13.5,84.9L-20,85v8.9C0.7,90.1,12.6,80.6,25.9,72C25.8,72,25.7,72,25.5,72z"></path>
+        <path class="animated-path" style="" d="M-40,95.6C20.3,95.6,20.1,56,80,56s60,40,120,40s59.9-40,120-40s60.3,40,120,40s60.3-40,120-40
+s60.2,40,120,40s60.1-40,120-40s60.5,40,120,40s60-40,120-40s60.4,40,120,40s59.9-40,120-40s60.3,40,120,40s60.2-40,120-40
+s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
-  <div style="height:300px; width:100%; z-index:1;"></div>
+        <animate attributeName="d" dur="3s" repeatCount="indefinite"
+          values="M10 80 Q 95 10 180 80; M10 80 Q 180 150 320 80; M10 80 Q 95 10 180 80" />
+      </svg>
+
+    </div>
+
+  <div style="height:250px; width:100%; z-index:1;"></div>
 
   <div class="footer" id="footer">
+
+
     <div class="contentFooter">
       <div class="footerTitle">
         <h1 class="">ONE LIBRARY</h1>
@@ -348,7 +391,7 @@ window.addEventListener('scroll',function(){
   }
 
   .svg-separator path {
-    fill: #ddd !important;
+    fill: #F5F7F8 !important;
   }
 
   .svg-separator.bottom {
@@ -377,7 +420,7 @@ window.addEventListener('scroll',function(){
   #stars:after {
     content: " ";
     position: absolute;
-    top: 2000px;
+    top: 500px;
     width: 1px;
     height: 1px;
     background: transparent;
@@ -395,7 +438,7 @@ window.addEventListener('scroll',function(){
   #stars2:after {
     content: " ";
     position: absolute;
-    top: 2000px;
+    top: 500px;
     width: 2px;
     height: 2px;
     background: transparent;
@@ -413,7 +456,7 @@ window.addEventListener('scroll',function(){
   #stars3:after {
     content: " ";
     position: absolute;
-    top: 2000px;
+    top: 500px;
     width: 3px;
     height: 3px;
     background: transparent;
@@ -462,7 +505,7 @@ window.addEventListener('scroll',function(){
     border-radius: 10px;
     bottom: 0%;
     transition: 0.4s;
-    /* z-index:2; */
+    z-index:4;
   }
 
   .book-image {
@@ -472,7 +515,7 @@ window.addEventListener('scroll',function(){
     background-repeat: no-repeat;
     background-position: center;
     transition: 0.4s;
-    /* z-index:1; */
+    z-index:1;
   }
 
   .book-title {
@@ -484,6 +527,7 @@ window.addEventListener('scroll',function(){
     transition: 0.4s;
     opacity: 1;
     font-weight: 900;
+    z-index:5;
   }
 
   .hidden-button {
@@ -496,7 +540,7 @@ window.addEventListener('scroll',function(){
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 6;
     transition: 0.4s;
     opacity: 0;
     cursor: pointer;
@@ -518,6 +562,10 @@ window.addEventListener('scroll',function(){
 
   .book-cover:hover .book-title {
     opacity: 0;
+  }
+
+  .book-cover:hover .book-image{
+    transform: scale(1.2);
   }
 
   .hidden-button:hover {
@@ -680,23 +728,25 @@ window.addEventListener('scroll',function(){
 
   .intro-text .text1 {
     color: #fff;
-    font-size: 70px;
+    font-size: 50px;
     font-weight: 900;
     font-family: 'Jost', sans-serif;
     letter-spacing: 10px;
-    padding: 0px 165px;
+    padding: 0px 140px;
     position: absolute;
+    z-index:9;
   }
 
   .intro-text .text2 {
-    color: #fff;
-    font-size: 70px;
+    color: #7752FE;
+    font-size: 50px;
     font-weight: 900;
     font-family: 'Jost', sans-serif;
     letter-spacing: 10px;
     float: right;
-    padding: 0px 30px;
+    padding: 0px 0px;
     position: absolute;
+    z-index:9;
   }
 
   .intro-design {
@@ -718,14 +768,14 @@ window.addEventListener('scroll',function(){
     /* border-radius:10px; */
     /* margin-left:100px;
   margin-top:100px; */
-    margin: 100px auto;
+    margin: 60px auto;
     position: absolute;
       transition: transform 0.5s ease-out;
   }
 
   .intro-elm .elm1 img {
-    height: 500px;
-    width: 500px;
+    height: 600px;
+    width: 600px;
     border-radius: 50%;
     filter: brightness(120%);
     object-fit: cover;
@@ -794,9 +844,10 @@ window.addEventListener('scroll',function(){
     position: fixed;
     bottom: 0;
     z-index: -20;
-    background: #FFFBF5;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #081c5e 100%);
+    /* background: #FFFBF5; */
     width: 100%;
-    height: 300px;
+    height: 600px;
     /* padding:40px 40px; */
   }
 
@@ -804,13 +855,18 @@ window.addEventListener('scroll',function(){
     /* background:#ddd; */
     /* bottom:130px; */
     width: 80%;
-    margin: auto;
+    margin:310px auto;
     display: flex;
     transition: 0.6s;
   }
 
+  .contentFooter li{
+    color:#fff;
+  }
+
   .footerTitle h1 {
     /* color:#fff; */
+    color:#fff;
     font-size: 35px;
     font-weight: 100;
     letter-spacing: 10px;
@@ -818,8 +874,8 @@ window.addEventListener('scroll',function(){
   }
 
   .footerTitle i {
+    color:#fff;
     font-size: 23px;
-    color: #000;
     padding: 20px 40px 0px 0px;
   }
 
@@ -830,13 +886,14 @@ window.addEventListener('scroll',function(){
   }
 
   .footerLink p {
+    color:#fff;
     font-size: 27px;
     font-weight: 900;
     letter-spacing: 10px;
   }
 
   .footerLink a {
-    color: #000;
+    color:#fff;
     text-decoration: none;
     transition: 0.4s;
   }

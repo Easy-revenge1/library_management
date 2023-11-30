@@ -62,7 +62,7 @@ if(isset($_SESSION['user_id'])) {
       </a>
 
       <!-- <div class="ui hidden divider"></div> -->
-      <div class="ui floating dropdown" style="padding-left:30px;">
+      <div class="ui floating dropdown " style="padding-left:30px;">
   <?php if(isset($_SESSION['user_id'])) { ?>
     <!-- 如果用户已登录，则显示用户信息 -->
     <div style="display:flex; background:#fff;" class="dropDownProfile">
@@ -98,6 +98,45 @@ $('.dropdown')
     action: 'hide'
   })
 ; 
+</script>
+<script>
+ var nav = document.getElementById('nav');
+var logo = document.querySelector('.title');
+var navLinks = document.querySelectorAll('.navHref');
+
+nav.style.background = "transparent";
+nav.style.padding = "30px 20px";
+nav.style.borderBottom = "0px solid #45474B";
+
+logo.style.color = "#fff";
+
+navLinks.forEach(function(navLink) {
+  navLink.style.color = "#fff";
+});
+
+window.onscroll = function (event) {
+  var scroll = window.pageYOffset;
+
+  if (scroll > 5) {
+    nav.style.background = "#FFFBF5";
+    nav.style.padding = "20px 20px";
+    nav.style.borderBottom = "0px solid #45474B";
+    logo.style.color = "#000";
+    
+    navLinks.forEach(function(navLink) {
+      navLink.style.color = "#000";
+    });
+  } else {
+    nav.style.background = "transparent";
+    nav.style.padding = "30px 20px";
+    nav.style.borderBottom = "0px solid transparent";
+    logo.style.color = "#fff";
+    
+    navLinks.forEach(function(navLink) {
+      navLink.style.color = "#fff";
+    });
+  }
+};
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@200&display=swap');
@@ -183,42 +222,3 @@ $('.dropdown')
     color:#fff;
   }
 </style>
-<script>
- var nav = document.getElementById('nav');
-var logo = document.querySelector('.title');
-var navLinks = document.querySelectorAll('.navHref');
-
-nav.style.background = "transparent";
-nav.style.padding = "30px 20px";
-nav.style.borderBottom = "0px solid #45474B";
-
-logo.style.color = "#fff";
-
-navLinks.forEach(function(navLink) {
-  navLink.style.color = "#fff";
-});
-
-window.onscroll = function (event) {
-  var scroll = window.pageYOffset;
-
-  if (scroll > 5) {
-    nav.style.background = "#FFFBF5";
-    nav.style.padding = "20px 20px";
-    nav.style.borderBottom = "3px solid #45474B";
-    logo.style.color = "#000";
-    
-    navLinks.forEach(function(navLink) {
-      navLink.style.color = "#000";
-    });
-  } else {
-    nav.style.background = "transparent";
-    nav.style.padding = "30px 20px";
-    nav.style.borderBottom = "3px solid transparent";
-    logo.style.color = "#fff";
-    
-    navLinks.forEach(function(navLink) {
-      navLink.style.color = "#fff";
-    });
-  }
-};
-</script>

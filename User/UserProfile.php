@@ -149,6 +149,12 @@ mysqli_close($conn);
 <script src="../Fomantic-ui/dist/semantic.min.js"></script>
 
 <style>
+        .title{
+        color:#000 !important;
+    }
+.navHref{
+    color:#000 !important;
+}
     .empty {
         height: 80px;
         width: 100%;

@@ -157,7 +157,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
                         $('.favorite-book').append(bookCover);
                     });
                     } else {
-                        $('.favorite').append('<p>No matching books found.</p>');
+                        $('.favorite').append('<p class="NoMatching2">No matching books found.</p>');
                     }
                 },
 
@@ -172,6 +172,18 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 
 
 <style>
+        .title{
+        color:#000 !important;
+    }
+.navHref{
+    color:#000 !important;
+}
+     .NoMatching2{
+        color: #252525;
+        padding:0px 20px;
+        font-size:20px;
+        font-weight:500;
+    }
     * {
         margin: 0;
         padding: 0;
@@ -182,6 +194,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
         color: #000;
         border: 0px;
         font-size: 20px;
+        cursor: pointer;
     }
 
     .user-book-info {

@@ -137,7 +137,7 @@ $(document).ready(function () {
                         $('.watchrecord_book').append(bookCover);
                     });
                 } else {
-                    $('.watchrecord_book').append('<p>No matching books found.</p>');
+                    $('.watchrecord_book').append('<p class="NoMatching2">No matching books found.</p>');
                 }
             },
             error: function (error) {
@@ -150,11 +150,24 @@ $(document).ready(function () {
 </script>
 
 <style>
+        .title{
+        color:#000 !important;
+    }
+.navHref{
+    color:#000 !important;
+}
+     .NoMatching2{
+        color: #252525;
+        padding:0px 20px;
+        font-size:20px;
+        font-weight:500;
+    }
     #resetButton {
         background: transparent;
         color: #000;
         border: 0px;
         font-size: 20px;
+        cursor: pointer;
     }
 
     .user-book-info {
