@@ -91,6 +91,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
+    <link rel="icon" href="../logo/favicon.ico" type="image/x-icon">
     <title>Edit Profile</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="Assets/plugins/sweetalert2/sweetalert2.all.js"></script>
@@ -154,7 +155,7 @@ if (isset($_POST['submit'])) {
                             value="<?php echo $row['user_email']; ?>" autocomplete="off" required>
                         <label for="text" class="label-name">
                             <span class="content-name">
-                                E-mail
+                                Email
                             </span>
                         </label>
                     </div>

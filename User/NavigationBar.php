@@ -33,6 +33,7 @@ if(isset($_SESSION['user_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
   <!-- <link rel="stylesheet" href="Css/Main.css"> -->
   <link rel="stylesheet" href="Sidebar.php">
+  <link rel="icon" href="../logo/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
