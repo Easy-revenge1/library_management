@@ -146,11 +146,11 @@ if (!isset($_SESSION['user_logged_in']) && isset($_COOKIE['remember_me'])) {
 
 <body>
 <div class="loginBG">
-<div clas="starBox">
+<!-- <div clas="starBox">
           <div id="stars"></div>
           <div id="stars2"></div>
-          <!-- <div id="stars3"></div> -->
-        </div>
+          <div id="stars3"></div>
+        </div> -->
 <div class="ui login-box">
     <!-- <div class="login-bg">
       <img src="" alt="">
@@ -204,6 +204,32 @@ if (!isset($_SESSION['user_logged_in']) && isset($_COOKIE['remember_me'])) {
       </form>
     </div>
   </div>
+
+    <div class="mountain">
+      <div class="mountain-top">
+        <div class="mountain-cap-1"></div>
+        <div class="mountain-cap-2"></div>
+        <div class="mountain-cap-3"></div>
+      </div>
+    </div>
+    <div class="mountain-two">
+      <div class="mountain-top">
+        <div class="mountain-cap-1"></div>
+        <div class="mountain-cap-2"></div>
+        <div class="mountain-cap-3"></div>
+      </div>
+    </div>
+    <div class="mountain-three">
+      <div class="mountain-top">
+        <div class="mountain-cap-1"></div>
+        <div class="mountain-cap-2"></div>
+        <div class="mountain-cap-3"></div>
+      </div>
+    </div>
+    <!-- <div class="cloud"></div> -->
+
+
+
   <div style="position:absolute; bottom:0; width:100%;">
       <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 160"
         style="z-index:7; background:transparent;" data-height="100">
@@ -389,7 +415,75 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   }
 
 
-
+  .mountain, .mountain-two, .mountain-three {
+    position: absolute;
+    bottom: 0;
+    border-left: 270px solid transparent;
+    border-right: 270px solid transparent;
+    border-bottom: 300px solid #2b9cd4;
+    z-index: 1;
+}
+.mountain-two { 
+    left: 80px;
+    bottom: 0px;
+    opacity: .3;
+    z-index: 0;
+}
+.mountain-three {
+    left: -60px;
+    bottom:0px;
+    opacity: .5;
+    z-index: 0;
+}
+.mountain-top {
+    position: absolute;
+    right: -65px;
+    border-left: 65px solid transparent;
+    border-right: 65px solid transparent;
+    border-bottom: 77px solid #ceeaf6;
+    z-index: 2;
+}
+.mountain-cap-1, .mountain-cap-2, .mountain-cap-3 {
+    position: absolute;
+    top: 70px;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 25px solid #ceeaf6;
+}
+.mountain-cap-1 { left: -55px; }
+.mountain-cap-2 { left: -25px; }
+.mountain-cap-3 { left: 5px; }
+.cloud, .cloud:before, .cloud:after {
+  position: absolute;
+  width: 150px;
+	height: 100px;
+	background: #fff;
+	-webkit-border-radius: 100px / 50px;
+	border-radius: 100px / 50px;
+}
+.cloud { 
+  bottom: 100px;
+  -webkit-animation: cloud 50s infinite linear;
+          animation: cloud 50s infinite linear;
+}
+@-webkit-keyframes cloud {
+    0%   { left: -100px; }
+    100% { left: 1000px; } 
+}
+@keyframes cloud {
+   
+    0%   { left: -100px; }
+    100% { left: 1000px; } 
+}
+.cloud:before {
+  content: '';
+  left: 50px;
+}
+.cloud:after {
+  content: '';
+  left: 25px;
+  top: -10px;
+}
 /* ............................................................................................ */
   body>.grid {
     height: 100%;
@@ -402,7 +496,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   .loginBG{
     height:100vh;
     width:100%;
-    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    background: radial-gradient(ellipse at bottom, #F6F4EB 0%, #91C8E4 100%);
   }
 
   .login-box {
@@ -414,9 +508,10 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* border: 4px solid #000; */
+    border: 4px solid #000;
     border-radius: 20px;
     display: flex;
+    z-index:10;
   }
 
   .login-bg {

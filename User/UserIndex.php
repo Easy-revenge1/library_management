@@ -55,6 +55,8 @@ $categoryRow = mysqli_query($conn, $categoryBox);
           <!-- <div id="stars3"></div> -->
         </div>
 
+        <div class="introduction"></div>
+
         <div class="intro-text">
           <span class="text1">ONELINE FREE</span><br>
           <!-- <span class="text2">Online Digital Book</span> -->
@@ -184,7 +186,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
               <p class="categoryTitle">
                 <?= $row["category_name"] ?>
               </p>
-              <img src="<?= $row['category_image']?>" alt="Book Cover" class="categoryImage">
+              <img src="../pic/pyh.jpg" alt="Book Cover" class="categoryImage">
             </div>
             <?php $counter++;
           } ?>
