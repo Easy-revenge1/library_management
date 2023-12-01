@@ -139,8 +139,8 @@ if (!isset($_SESSION['user_logged_in']) && isset($_COOKIE['remember_me'])) {
   <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.css">
   <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
   <link rel="stylesheet" href="Css/Main.css">
-  <!-- <link rel="stylesheet" type="text/css" href="Main.css"> -->
-  <!-- <link rel="stylesheet" href="Utility.css"> -->
+  <link rel="icon" href="../logo/favicon.ico" type="image/x-icon">
+
   <title>Digital Library</title>
 </head>
 
