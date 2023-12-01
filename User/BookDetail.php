@@ -217,10 +217,10 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 
                 <div class="detailInfo">
                     <div class="info">
-                        <span class="infoTitle">Author</span>
-                        <p class="infomation">
-                            <?php echo $row['book_author'] ?>
-                        </p>
+                        <span class="infoTitle">Author</span><br>
+                        <a href="AuthorBook.php?book_author=<?php echo urlencode($row['book_author']); ?>" class="infomation">
+    <?php echo $row['book_author']; ?> 
+</a>
                     </div>
 
                     <div class="info">
@@ -515,6 +515,15 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
         });
 
 
+
+        document.addEventListener('click', function (event) {
+    if (!addForm.contains(event.target) && event.target !== showButton) {
+        addCommentBox.style.opacity = "0";
+        addCommentBox.style.pointerEvents = 'none';
+    }
+});
+
+
     </script>
     <script src="../Fomantic-ui/dist/semantic.min.js"></script>
     <script src="../Fomantic-ui/dist/components/form.js"></script>
@@ -638,7 +647,9 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
         height: 100%;
         top: 0;
         left: 0;
-        transition: opacity 0.2s;
+        transition: 0.2s;
+        opacity:0;
+        pointer-events: none;
     }
 
     .addForm {

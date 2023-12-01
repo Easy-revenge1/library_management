@@ -55,6 +55,8 @@ $categoryRow = mysqli_query($conn, $categoryBox);
           <!-- <div id="stars3"></div> -->
         </div>
 
+        <div class="introduction"></div>
+
         <div class="intro-text">
           <span class="text1">ONLINE FREE</span><br>
         </div>
