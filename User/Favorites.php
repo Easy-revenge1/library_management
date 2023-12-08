@@ -1,6 +1,12 @@
 <?php
+ob_start();
 include_once("../db.php");
 include_once("NavigationBar.php");
+
+if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
+    header("Location: UserLogin.php");
+    exit();
+  }
 
 $userId = $_SESSION["user_id"];
 
@@ -63,6 +69,8 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.css">
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="Css/Utility.css">
+
+    
 </head>
 
 <body>
@@ -109,6 +117,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
             </div>
         </div>
 
+        
 </body>
 
 </html>
@@ -184,11 +193,11 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
         font-size:20px;
         font-weight:500;
     }
-    * {
+    /* * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-    }
+    } */
     #resetButton {
         background: transparent;
         color: #000;
@@ -202,7 +211,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
         border: 4px solid #000;
         flex-wrap: wrap;
         border-radius: 20px;
-        width: 90%;
+        width: 97%;
         padding: 20px 30px;
         margin: 100px auto;
         position: relative;
@@ -225,7 +234,8 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 
 
     .favorite-book {
-        margin: 20px 0px;
+        width: 100%;
+        margin: auto;
         display: flex;
         flex-wrap: wrap;
         /* justify-content: space-around; */
@@ -264,49 +274,6 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
         margin-right: 6px !important;
     }
 
-    .book-cover {
-        height: 350px;
-        width: 23%;
-        margin: 12px 12px;
-        border-radius: 20px;
-        overflow: hidden;
-        position: relative;
-        box-sizing: border-box;
-    }
-
-    .linear-bg {
-        background: linear-gradient(to top, black, transparent);
-        position: absolute;
-        height: 230px;
-        width: 100%;
-        border-radius: 10px;
-        bottom: 0%;
-        transition: 0.4s;
-        /* z-index:2; */
-    }
-
-    .book-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        transition: 0.4s;
-        /* z-index:1; */
-    }
-
-    .book-title {
-        color: #fff;
-        position: absolute;
-        bottom: -20%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        bottom: 0;
-        transition: 0.4s;
-        opacity: 1;
-        font-weight: 900;
-    }
-
     .countBook {
         float: right;
         font-size: 23px;
@@ -318,37 +285,90 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
         font-weight: bolder;
     }
 
-    .hidden-button {
-        background: transparent;
-        padding: 10px 30px;
-        position: absolute;
-        border: 3px solid #fff;
-        color: #fff;
-        border-radius: 10px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 2;
-        transition: 0.4s;
-        opacity: 0;
-    }
+    .book-cover {
+    height: 400px;
+    width: 300px;
+    margin: 15px 15px;
+    /* border: 5px solid #000; */
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+  }
 
-    .book-cover:hover .hidden-button {
-        opacity: 1;
-        display: inline;
-    }
+  .linear-bg {
+    background: linear-gradient(to top, black, transparent);
+    position: absolute;
+    height: 230px;
+    width: 100%;
+    border-radius: 10px;
+    bottom: 0%;
+    transition: 0.4s;
+    z-index: 4;
+  }
 
-    .book-cover:hover .linear-bg {
-        /* filter: brightness(50%); */
-        height: 500px;
-    }
+  .book-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 0.4s;
+    z-index: 1;
+  }
 
-    .book-cover:hover .book-title {
-        /* opacity: 0; */
-    }
+  .book-title {
+    color: #fff;
+    position: absolute;
+    bottom: 3%;
+    left: 5%;
+    /* transform: translate(-50%, -50%); */
+    transition: 0.4s;
+    opacity: 1;
+    font-weight: 900;
+    z-index: 5;
+  }
 
-    .hidden-button:hover {
-        background: #fff;
-        color: #000;
-    }
+  .hidden-button {
+    background: transparent;
+    padding: 10px 30px;
+    position: absolute;
+    border: 3px solid #fff;
+    color: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    transition: 0.4s;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .book-cover:hover {
+    filter: grayscale(0%);
+  }
+
+  .book-cover:hover .hidden-button {
+    opacity: 1;
+    display: inline;
+  }
+
+  .book-cover:hover .linear-bg {
+    /* filter: brightness(50%); */
+    height: 500px;
+  }
+
+  .book-cover:hover .book-title {
+    opacity: 0;
+  }
+
+  .book-cover:hover .book-image {
+    transform: scale(1.2);
+  }
+
+  .hidden-button:hover {
+    background: #fff;
+    color: #000;
+  }
+
 </style>

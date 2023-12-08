@@ -2,7 +2,7 @@
 session_start();
 date_default_timezone_set('Asia/Kuala_Lumpur');
 
-$server = "localhost: 3307";
+$server = "localhost";
 $name   = "root";
 $pass   ="";
 $db     ="library_management";

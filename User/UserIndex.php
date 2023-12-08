@@ -1,12 +1,9 @@
 <?php
+ob_start();
 include_once("../db.php");
 include_once("NavigationBar.php");
+// include_once("index.php");
 
-// if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
-//   echo  "Please Login First To Access This Content";
-//   header("Location: UserLogin.php");
-//   exit();
-// }
 
 $baseURL = "http://localhost/library_management/";
 
@@ -739,7 +736,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   }
 
   .intro-text .text2 {
-    color: #7752FE;
+    color: #00A9FF;
     font-size: 50px;
     font-weight: 900;
     font-family: 'Jost', sans-serif;
@@ -791,6 +788,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   margin:200px 10px;
 } */
   #content-title {
+    font-weight: 100;
     text-align: center;
     font-size: 40px;
     letter-spacing: 10px;
@@ -841,6 +839,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     margin: auto;
   }
 
+
   .footer {
     position: fixed;
     bottom: 0;
@@ -848,16 +847,19 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #081c5e 100%);
     /* background: #FFFBF5; */
     width: 100%;
-    height: 600px;
+    height: 400px;
+    
     /* padding:40px 40px; */
   }
 
   .contentFooter {
-    /* background:#ddd; */
-    /* bottom:130px; */
     width: 80%;
-    margin: 310px auto;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
+    justify-content: center;
     transition: 0.6s;
   }
 

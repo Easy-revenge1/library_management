@@ -1,6 +1,12 @@
 <?php
+ob_start();
 include_once("../db.php");
 include_once("NavigationBar.php");
+
+if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
+    header("Location: UserLogin.php");
+    exit();
+  }
 
 $bookListQuery = "SELECT * FROM book";
 $bookListStmt = mysqli_prepare($conn, $bookListQuery);
@@ -288,14 +294,14 @@ if (!$categoryResult) {
     }
 
     .book-cover {
-        height: 350px;
-        width: 300px;
-        margin: 15px 15px;
-        /* border: 5px solid #000; */
-        border-radius: 20px;
-        overflow: hidden;
-        position: relative;
-    }
+    height: 400px;
+    width: 300px;
+    margin: 15px 15px;
+    /* border: 5px solid #000; */
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+  }
 
     .ui.selection.active.dropdown .menu {
         border-color: #FFFBF5 !important;
@@ -307,36 +313,37 @@ if (!$categoryResult) {
 
 
     .linear-bg {
-        background: linear-gradient(to top, black, transparent);
-        position: absolute;
-        height: 230px;
-        width: 100%;
-        border-radius: 10px;
-        bottom: 0%;
-        transition: 0.4s;
-        /* z-index:2; */
-    }
+    background: linear-gradient(to top, black, transparent);
+    position: absolute;
+    height: 230px;
+    width: 100%;
+    border-radius: 10px;
+    bottom: 0%;
+    transition: 0.4s;
+    z-index: 4;
+  }
 
-    .book-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        transition: 0.4s;
-        /* z-index:1; */
-    }
+  .book-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 0.4s;
+    z-index: 1;
+  }
 
-    .book-title {
-        color: #fff;
-        position: absolute;
-        bottom: 0%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        transition: 0.4s;
-        opacity: 1;
-        font-weight: 900;
-    }
+  .book-title {
+    color: #fff;
+    position: absolute;
+    bottom: 3%;
+    left: 5%;
+    /* transform: translate(-50%, -50%); */
+    transition: 0.4s;
+    opacity: 1;
+    font-weight: 900;
+    z-index: 5;
+  }
 
     .countBook {
         float: right;
@@ -350,36 +357,45 @@ if (!$categoryResult) {
     }
 
     .hidden-button {
-        background: transparent;
-        padding: 10px 30px;
-        position: absolute;
-        border: 3px solid #fff;
-        color: #fff;
-        border-radius: 10px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 2;
-        transition: 0.4s;
-        opacity: 0;
-    }
+    background: transparent;
+    padding: 10px 30px;
+    position: absolute;
+    border: 3px solid #fff;
+    color: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    transition: 0.4s;
+    opacity: 0;
+    cursor: pointer;
+  }
 
-    .book-cover:hover .hidden-button {
-        opacity: 1;
-        display: inline;
-    }
+  .book-cover:hover {
+    filter: grayscale(0%);
+  }
 
-    .book-cover:hover .linear-bg {
-        /* filter: brightness(50%); */
-        height: 500px;
-    }
+  .book-cover:hover .hidden-button {
+    opacity: 1;
+    display: inline;
+  }
 
-    .book-cover:hover .book-title {
-        opacity: 0;
-    }
+  .book-cover:hover .linear-bg {
+    /* filter: brightness(50%); */
+    height: 500px;
+  }
 
-    .hidden-button:hover {
-        background: #fff;
-        color: #000;
-    }
+  .book-cover:hover .book-title {
+    opacity: 0;
+  }
+
+  .book-cover:hover .book-image {
+    transform: scale(1.2);
+  }
+
+  .hidden-button:hover {
+    background: #fff;
+    color: #000;
+  }
 </style>

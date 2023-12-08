@@ -1,16 +1,12 @@
 <?php 
 include_once('../db.php');
 
-// if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
-//   echo  "Please Login First To Access This Content";
-//   header("Location: UserLogin.php");
-//   exit();
-// }
+// Assuming session_start() is called before this point in your application
 
 if(isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
 
-  // 从数据库中获取用户信息
+  // Fetch user information from the database
   $UserProfile = "SELECT * FROM `user` WHERE `user_id` = ?";
   $stmt = mysqli_prepare($conn, $UserProfile);
   mysqli_stmt_bind_param($stmt, "i", $user_id);
@@ -22,8 +18,7 @@ if(isset($_SESSION['user_id'])) {
   }
 
   $userImage = mysqli_fetch_assoc($userAvatar);
-}
-
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +29,12 @@ if(isset($_SESSION['user_id'])) {
   <!-- <link rel="stylesheet" href="Css/Main.css"> -->
   <link rel="stylesheet" href="Sidebar.php">
   <link rel="icon" href="../logo/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+    integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+    integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -49,36 +50,46 @@ if(isset($_SESSION['user_id'])) {
               <i class="search link icon"></i>
             </div>
           </div> -->
-      <a class="ui item navHref" id="nav-a" href="BookList.php"><i class="book icon"></i>
+          <div class="navHrefBox">
+          <a class="navHref" id="nav-a" href="BookList.php"><i class="book icon"></i>
         Book
       </a>
-      <a class="ui item navHref" id="nav-a" href="Favorites.php"><i class="bookmark icon"></i>
+      <a class="navHref" id="nav-a" href="Favorites.php"><i class="bookmark icon"></i>
         Favorites
       </a>
-      <a class="ui item navHref" id="nav-a" href="#"><i class="users icon"></i>
+      <a class="navHref" id="nav-a" href="AboutUs.php"><i class="users icon"></i>
         About Us
       </a>
-      <a class="ui item navHref" id="nav-a" href="#"><i class="phone alternate icon"></i>
+      <a class="navHref" id="nav-a" href="#"><i class="phone alternate icon"></i>
         Contact Us
       </a>
+          </div>
 
       <!-- <div class="ui hidden divider"></div> -->
-      <div class="ui floating dropdown " style="padding-left:30px;">
-  <?php if(isset($_SESSION['user_id'])) { ?>
-    <!-- 如果用户已登录，则显示用户信息 -->
-    <div style="display:flex; background:#fff;" class="dropDownProfile">
-      <img src="<?php echo $userImage['user_profilepicture'] ? $userImage['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>"
-           class="navAvatar" alt="profilepic">
-      <div class="text" id="dropDownText"> <?php echo $userImage['user_name']; ?> <i class="dropdown icon"></i></div> 
-    </div>
-    <div class="menu" id="dropDownList">
-      <a class="item" href="UserProfile.php"><i class="user icon"></i> Profile</a>
-      <a class="item" href="Logout.php"><i class="log out icon"></i> Logout</a>
-    </div>
-  <?php } else { ?>
-    <!-- 如果用户未登录，则显示登录按钮 -->
-    <button onclick="window.location.href='UserLogin.php'" name="login" class="navLoginButton"><i class="user icon"></i> LOGIN</button>
-  <?php }?>
+     
+      <div style="position: relative;">
+  <div class="profileDropdown" <?php if (!isset($_SESSION['user_id'])) { echo 'style="display: none;"'; } ?>>
+    <?php if(isset($_SESSION['user_id'])) { ?>
+      <div class="userProfile">
+        <img src="<?php echo $userImage['user_profilepicture'] ? $userImage['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>"
+             class="navAvatar" alt="profilepic">
+        <div class="text" id="dropDownText"> <?php echo $userImage['user_name']; ?> <i class="dropdown icon dropIcon"></i></div> 
+      </div>
+        
+      <div class="profileOption">
+        <a class="" href="UserProfile.php"><i class="user icon"></i> Profile</a><br>
+        <hr style="border: 1px solid #e6e6e6;">
+        <a class="" href="Logout.php"><i class="log out icon"></i> Logout</a>
+      </div>
+    <?php } ?>
+  </div>
+
+  <!-- Login button -->
+  <?php if (!isset($_SESSION['user_id'])) { ?>
+    <button onclick="window.location.href='UserLogin.php'" name="login" class="navLoginButton">
+      <i class="user icon"></i> LOGIN
+    </button>
+  <?php } ?>
 </div>
 
       <!-- <a class="ui item" id="nav-a" href="UserProfile.php">
@@ -177,12 +188,16 @@ window.onscroll = function (event) {
     display:flex;
     margin:0px 20px;
     float:right;
-    
+    position: relative;
   }
   #rightMenu #nav-a{
     color:#000;
     padding-left:30px;
   }
+  .navHrefBox{
+    margin: 0px 140px;
+  }
+
   .dropDownProfile{
     border:2px solid #000;
     margin:-11px 5px;
@@ -190,12 +205,12 @@ window.onscroll = function (event) {
     border-radius:20px;
   }
   #dropDownText{
-    margin-top:5px;
+    margin-top:6px;
     padding:0px 7px;
   }
   #dropDownList{
     /* margin-top:13px; */
-    margin:16px 30px;
+    margin:16px 47px;
     border-radius:0px;
   }
   /* #dropDownList a{
@@ -212,14 +227,62 @@ window.onscroll = function (event) {
     background:#fff;
     color:#000;
     border:2px solid #000;
-    border-radius:20px;
+    border-radius:10px;
     padding:10px 20px;
     transition:0.1s;
     margin:-10px 0px;
     cursor: pointer;
+    position: fixed;
+    right: 35px;
   }
   .navLoginButton:hover{
     background:#000;
     color:#fff;
+  }
+
+  .profileDropdown{
+    height: 45px; 
+    width: auto; 
+    background:#fff;
+    border: 2px solid #000;
+    border-radius: 10px;
+    margin: -12px 0px;
+    cursor: pointer;
+    transition: 0.3s;
+    overflow: hidden;
+    position: fixed;
+    right: 20px;
+  }
+  .profileDropdown:hover{
+    height: 120px;
+  }
+  .dropIcon{
+    transition: 0.4s;
+  }
+  .profileDropdown:hover .dropIcon{
+    transform: rotate(180deg);
+  }
+  .userProfile{
+    display:flex; 
+    padding:6px; 
+    background:#fff; 
+    z-index:5;
+    position: relative;
+  }
+  .profileOption{
+    width: 100%;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+  }
+  .profileOption a{
+    color: #000;
+    font-size: 15px;
+    padding: 20px 5px;
+    transition: 0.2s;
+  }
+  .profileOption a:hover{
+    color: #000;
   }
 </style>

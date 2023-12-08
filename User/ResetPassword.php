@@ -1,6 +1,11 @@
 <?php
 include_once("../db.php");
 
+if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
+  header("Location: UserLogin.php");
+  exit();
+}
+
 $resetToken = $_GET['token'];
 
 if (isset($_POST["submit"])) {
@@ -163,27 +168,34 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
         <animate attributeName="d" dur="3s" repeatCount="indefinite"
           values="M10 80 Q 95 10 180 80; M10 80 Q 180 150 320 80; M10 80 Q 95 10 180 80" />
       </svg>
+      </div>
 
       <div class="mountain">
+
       <div class="mountain-top">
         <div class="mountain-cap-1"></div>
         <div class="mountain-cap-2"></div>
         <div class="mountain-cap-3"></div>
       </div>
+
     </div>
     <div class="mountain-two">
+
       <div class="mountain-top">
         <div class="mountain-cap-1"></div>
         <div class="mountain-cap-2"></div>
         <div class="mountain-cap-3"></div>
       </div>
+
     </div>
     <div class="mountain-three">
+
       <div class="mountain-top">
         <div class="mountain-cap-1"></div>
         <div class="mountain-cap-2"></div>
         <div class="mountain-cap-3"></div>
       </div>
+
     </div>
     <!-- <div class="cloud"></div> -->
     

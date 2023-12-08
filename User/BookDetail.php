@@ -3,6 +3,11 @@ include('../db.php');
 ob_start();
 include_once("NavigationBar.php");
 
+if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
+    header("Location: UserLogin.php");
+    exit();
+  }
+
 $bookId = $_GET['id'];
 $baseURL = "http://localhost/library_management/";
 
@@ -218,8 +223,8 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
                 <div class="detailInfo">
                     <div class="info">
                         <span class="infoTitle">Author</span><br>
-                        <a href="AuthorBook.php?book_author=<?php echo urlencode($row['book_author']); ?>" class="infomation">
-    <?php echo $row['book_author']; ?> 
+                        <a href="AuthorBook.php?book_author=<?php echo urlencode($row['book_author']); ?>" class="infomation authorName">
+    <?php echo $row['book_author']; ?>  
 </a>
                     </div>
 
@@ -727,6 +732,10 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
     .detailInfo .info .infomation {
         color: #7D7C7C;
         font-weight: 900;
+    }
+
+    .detailInfo .info .authorName{
+        color: #0099e6;
     }
 
     .description {
