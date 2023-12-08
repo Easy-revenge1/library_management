@@ -48,26 +48,10 @@ if ($existingWatchRecord->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Include PDF.js library -->
+  
     <title>Watch</title>
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/reset.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/site.css">
-
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/container.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/grid.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/header.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/image.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/menu.css">
-
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/divider.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/segment.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/form.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/input.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/button.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/list.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.css">
-    <link rel="stylesheet" type="text/css" href="Css/Utility.css">
+ 
     <style>
         body {
             margin: 0;
@@ -84,7 +68,7 @@ if ($existingWatchRecord->num_rows > 0) {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #FFF;
+            background-color: #000;
         }
 
         #pdf-object {
@@ -94,8 +78,8 @@ if ($existingWatchRecord->num_rows > 0) {
             align-items: center;
             justify-content: center;
             /* background-color: #333; */
-            border: 4px solid #555;
-            border-radius: 12px;
+            /* border: 4px solid #555;
+            border-radius: 12px; */
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
             overflow: hidden;
         }
@@ -108,7 +92,7 @@ if ($existingWatchRecord->num_rows > 0) {
 </head>
 
 <body>
-    <div id="pdf-container" class="ui container">
+    <div id="pdf-container" class="">
         <div id="pdf-object" class="ui raised segment">
             <object type="application/pdf" data="<?php echo $filePath; ?>" class="pdf-viewer">
                 Your browser does not support embedded PDF files.
@@ -122,7 +106,3 @@ if ($existingWatchRecord->num_rows > 0) {
 </body>
 
 </html>
-
-<script src="../Fomantic-ui/dist/semantic.min.js"></script>
-<script src="../Fomantic-ui/dist/components/form.js"></script>
-<script src="../Fomantic-ui/dist/components/transition.js"></script>

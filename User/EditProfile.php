@@ -2,6 +2,11 @@
 include_once('../db.php');
 // include_once('NavigationBar.php');
 
+if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
+    header("Location: UserLogin.php");
+    exit();
+  }
+
 $user_id = $_GET['user_id'];
 
 if (isset($_SESSION['operation_success'])) {
