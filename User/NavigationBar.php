@@ -1,8 +1,6 @@
 <?php 
 include_once('../db.php');
 
-// Assuming session_start() is called before this point in your application
-
 if(isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
 
@@ -26,8 +24,6 @@ if(isset($_SESSION['user_id'])) {
 <head>
   <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
-  <!-- <link rel="stylesheet" href="Css/Main.css"> -->
-  <link rel="stylesheet" href="Sidebar.php">
   <link rel="icon" href="../logo/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
     integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
