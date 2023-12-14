@@ -1,11 +1,6 @@
 <?php
 include_once("../db.php");
 
-if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
-  header("Location: UserLogin.php");
-  exit();
-}
-
 $resetToken = $_GET['token'];
 
 if (isset($_POST["submit"])) {
@@ -44,8 +39,6 @@ if (isset($_POST["submit"])) {
                     $stmt->bind_param("sss", $password_hash, $resetEmail, $resetToken);
 
                     if ($stmt->execute()) {
-                        // Password updated successfully
-                        // Now reset the 'reset_token' and 'reset_token_expiration' to NULL
                         $ResetTokenToNull = "UPDATE `user` SET `reset_token` = NULL, `reset_token_expiration` = NULL WHERE user_email = ?";
                         $resetTokenNullStmt = $conn->prepare($ResetTokenToNull);
                         $resetTokenNullStmt->bind_param("s", $resetEmail);

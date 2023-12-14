@@ -2,7 +2,6 @@
 ob_start();
 include_once("../db.php");
 include_once("NavigationBar.php");
-// include_once("index.php");
 
 
 $baseURL = "http://localhost/library_management/";

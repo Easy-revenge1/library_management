@@ -146,15 +146,7 @@ if (!isset($_SESSION['user_logged_in']) && isset($_COOKIE['remember_me'])) {
 
 <body>
 <div class="loginBG">
-<!-- <div clas="starBox">
-          <div id="stars"></div>
-          <div id="stars2"></div>
-          <div id="stars3"></div>
-        </div> -->
 <div class="ui login-box">
-    <!-- <div class="login-bg">
-      <img src="" alt="">
-    </div> -->
     <div class="login-form">
       <form class="" action="UserLogin.php" method="POST">
         <div class="login-text">
