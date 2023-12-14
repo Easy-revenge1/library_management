@@ -218,14 +218,6 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 <script src="Assets/plugins/toastr/toastr.min.js"></script>
 
 <script>
-
-var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 1000
-    });
-
   const passwordInput = document.getElementById("passwordInput");
   const showPasswordButton = document.getElementById("showPasswordButton");
   const showPasswordIcon = document.getElementById("showPasswordIcon");

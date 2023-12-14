@@ -3,7 +3,7 @@ var Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: 1000
+    timer: 2000
 });
 
 function alertSuccessToast(message) {
@@ -14,7 +14,7 @@ function alertSuccessToast(message) {
         toast: true,
         position: 'top-end',
         showConfirmButton: true,
-        timer: 1000
+        timer: 2000
     });
 }
 
@@ -27,7 +27,7 @@ function alertErrorToast(message) {
         toast: true,
         position: 'top-end',
         showConfirmButton: true,
-        timer: 1000
+        timer: 2000
     });
 }
 
