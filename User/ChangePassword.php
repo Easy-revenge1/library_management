@@ -55,6 +55,7 @@ if (isset($_POST['change'])) {
         // Old password doesn't match
         $_SESSION['operation_status'] = "OldDontMatch";
     }
+  
 }
 
 ?>
@@ -91,17 +92,17 @@ if (isset($_POST['change'])) {
 
 
     <div class="change-pass-box">
-        <a href="UserProfile.php" style="position:absolute; left:20px; top:35px; color:#000; font-size:20px;"><i class="arrow left icon"></i></a>
+        <a href="UserProfile.php" style="position:absolute; left:20px; top:36px; color:#000; font-size:20px;"><i class="arrow left icon"></i></a>
         <div class="change-pass-form">
             <h1 class="ui header" id="change-password">Change Password</h1>
-            <form action="ChangePassword.php" method="POST" novalidate>
+            <form action="ChangePassword.php" method="POST"> 
+            <!-- novalidate -->
 
                 <div class="lboxcss">
                 <button class="showPasswordButton" id="showPasswordButton" type="button">
               <i id="showPasswordIcon" class="showPasswordIcon eye slash icon"></i>
             </button>
-                    <input type="password" class="lbox-input" name="old_password" id="passwordInput" autocomplete="off"
-                        required>
+                    <input type="password" class="lbox-input" name="old_password" id="passwordInput" autocomplete="off" required>
                         <label for="passwordInput" class="label-name">
                         <span class="content-name">
                             Old Password
@@ -113,8 +114,7 @@ if (isset($_POST['change'])) {
                 <button class="showPasswordButton" id="showPasswordButton2" type="button">
               <i id="showPasswordIcon2" class="showPasswordIcon eye slash icon"></i>
             </button>
-                    <input type="password" class="lbox-input" name="new_password" id="passwordInput2" autocomplete="off"
-                        required>
+                    <input type="password" class="lbox-input" name="new_password" id="passwordInput2" autocomplete="off" required>
                     <label for="passwordInput2" class="label-name">
                         <span class="content-name">
                             New Password
@@ -126,8 +126,7 @@ if (isset($_POST['change'])) {
                 <button class="showPasswordButton" id="showPasswordButton3" type="button">
               <i id="showPasswordIcon3" class="showPasswordIcon eye slash icon"></i>
             </button>
-                    <input type="password" class="lbox-input" name="confirm_password" id="passwordInput3"
-                        autocomplete="off" required>
+                    <input type="password" class="lbox-input" name="confirm_password" id="passwordInput3" autocomplete="off" required>
                         <label for="passwordInput3" class="label-name">
                         <span class="content-name">
                             Confirm Password

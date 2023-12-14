@@ -735,7 +735,8 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   }
 
   .intro-text .text2 {
-    color: #00A9FF;
+    color: #fff;
+    /* #00A9FF */
     font-size: 50px;
     font-weight: 900;
     font-family: 'Jost', sans-serif;

@@ -3,10 +3,6 @@ ob_start();
 include_once("../db.php");
 include_once("NavigationBar.php");
 
-if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
-    header("Location: UserLogin.php");
-    exit();
-  }
 
 $bookListQuery = "SELECT * FROM book";
 $bookListStmt = mysqli_prepare($conn, $bookListQuery);

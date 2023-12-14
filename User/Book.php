@@ -1,6 +1,11 @@
 <?php
 include_once("../db.php");
 
+if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
+    header("Location: UserLogin.php");
+    exit();
+  }
+
 $bookId = $_GET['id'];
 $userId = $_SESSION['user_id'];
 

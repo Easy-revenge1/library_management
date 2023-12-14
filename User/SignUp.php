@@ -401,6 +401,10 @@ var Toast = Swal.mixin({
     left: 50px;
   }
 
+    .login-form{
+      width:100%;
+      padding:20px 20px;
+    }
   .cloud:after {
     content: '';
     left: 25px;

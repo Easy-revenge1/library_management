@@ -95,7 +95,7 @@ c6.4-1.3,13.6-2.1,22-2.1C1340.1,56,1340.3,96,1400,96z"></path>
 c11.2,6,24.6,10.5,44.8,10.5C260,96,259.9,56,320,56z"></path>
                         <path  style="opacity: 1;" d="M680,96c23.7,0,38.1-6.3,50.5-13.9C699.6,64.8,679,40.3,622.2,40.3c-30,0-49.8,6.8-66.3,15.8
 c1.3,0,2.7-0.1,4.1-0.1C619.7,56,620.2,96,680,96z"></path>
-                        <path class="animated-path" style="opacity: 1;" d="M-40,95.6c28.3,0,43.3-8.7,57.4-18C-9.6,60.8-31,40.2-83.2,40.2c-14.3,0-26.3,1.6-36.8,4.2V106h60V96L-40,95.6
+                        <path class="" style="opacity: 1;" d="M-40,95.6c28.3,0,43.3-8.7,57.4-18C-9.6,60.8-31,40.2-83.2,40.2c-14.3,0-26.3,1.6-36.8,4.2V106h60V96L-40,95.6
 z"></path>
                         <path  style="opacity: 1;" d="M504,73.4c-2.6-0.8-5.7-1.4-9.6-1.4c-19.4,0-19.6,13-39,13c-19.4,0-19.5-13-39-13c-14,0-18,6.7-26.3,10.4
 C402.4,89.9,416.7,96,440,96C472.5,96,487.5,84.2,504,73.4z"></path>
@@ -183,6 +183,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
                 <span class="view-more"><a href="Favorites.php" class="view-more">View More</a></span>
                 <div class="favorite-book">
                     <?php
+                   if (mysqli_num_rows($favoriteresult) > 0) {
                     while ($row = mysqli_fetch_assoc($favoriteresult)) {
                         echo '<div class="book-cover">';
                         echo '<div class="linear-bg"></div>';
@@ -190,7 +191,13 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
                         echo '<button type="button" class="hidden-button" onclick="location.href=\'BookDetail.php?id=' . $row['book_id'] . '&page=1\'">View Detail</button>';
                         echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
                         echo '</div>';
+                        // You can display other columns from the result as well
                     }
+                } else {
+                    echo '<div style="text-align: center; width: 100%;">
+                    <span class="noBookAvailble">It looks like you don’t have any favorite book yet</span>
+                    </div>';
+                }
                     ?>
                     <!-- <button class="viewMore" type="button">MORE <i class="angle right icon"></i></button> -->
                 </div>
@@ -200,17 +207,24 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
                     <span class="ui favorite-title horizontal divider">WATCH RECORD</span>
                     <span class="view-more"><a href="WatchRecord.php" class="view-more">View More</a></span>
                     <div class="favorite-book">
-                        <?php
-                        while ($row = mysqli_fetch_assoc($recordResult)) {
-                            echo '<div class="book-cover">';
-                            echo '<div class="linear-bg"></div>';
-                            echo '<p class="book-title">' . $row['book_title'] . '</p>';
-                            echo '<button type="button" class="hidden-button" onclick="location.href=\'BookDetail.php?id=' . $row['book_id'] . '&page=1\'">View Detail</button>';
-                            echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
-                            echo '</div>';
-                            // You can display other columns from the result as well
-                        }
-                        ?>
+                    <?php
+        if (mysqli_num_rows($recordResult) > 0) {
+            while ($row = mysqli_fetch_assoc($recordResult)) {
+                echo '<div class="book-cover">';
+                echo '<div class="linear-bg"></div>';
+                echo '<p class="book-title">' . $row['book_title'] . '</p>';
+                echo '<button type="button" class="hidden-button" onclick="location.href=\'BookDetail.php?id=' . $row['book_id'] . '&page=1\'">View Detail</button>';
+                echo '<img class="book-image" src="' . $row['book_cover'] . '" alt="Book Cover">';
+                echo '</div>';
+                // You can display other columns from the result as well
+            }
+        } else {
+            echo '<div style="text-align: center; width: 100%;">
+            <span class="noBookAvailble">It looks like you don’t have any viewing history yet</span>
+            </div>';
+        }
+        ?>
+        <!-- You can go to <a href="BookList.php"> this page </a> to watch books -->
                     </div>
 
 
@@ -688,13 +702,11 @@ body{
     }
 
     .favorite {
-        /* height:700px; */
-        /* margin-top: 30px; */
         text-align:center;
     }
 
     .favorite-book {
-        width:90%;
+        width:100%;
         height: 400px;
         margin: 20px 0px;
         display: flex;
@@ -716,4 +728,14 @@ body{
     /* transform: scale(1.3); */
     font-size: 23px;
   }
+  .favorite-book .noBookAvailble {
+    font-family: 'Jost', sans-serif;
+    color: #8c8c8c;
+    font-size: 25px;
+    height: 100%; /* 确保容器高度充足 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+}
+
 </style>
