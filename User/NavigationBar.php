@@ -60,7 +60,7 @@ if(isset($_SESSION['user_id'])) {
       <a class="navHref" id="nav-a" href="AboutUs.php"><i class="users icon"></i>
         About Us
       </a>
-      <a class="navHref" id="nav-a" href="#"><i class="phone alternate icon"></i>
+      <a class="navHref" id="nav-a" href="ContactUs.php"><i class="phone alternate icon"></i>
         Contact Us
       </a>
           </div>
@@ -73,7 +73,8 @@ if(isset($_SESSION['user_id'])) {
       <div class="userProfile">
         <img src="<?php echo $userImage['user_profilepicture'] ? $userImage['user_profilepicture'] : '../ProfilePic/tom.jpg'; ?>"
              class="navAvatar" alt="profilepic">
-        <div class="text" id="dropDownText"> <?php echo $userImage['user_name']; ?> <i class="dropdown icon dropIcon"></i></div> 
+        <div class="text" id="dropDownText"> <?php echo $userImage['user_name']; ?></div>
+        <div class="navIconBox"><i class="dropdown icon dropIcon"></i> </div>
       </div>
         
       <div class="profileOption">
@@ -170,6 +171,7 @@ window.onscroll = function (event) {
   }
 
   .title {
+    font-family: 'Jost', sans-serif;
     font-size: 20px;
     position: absolute;
     padding: 0px 30px;
@@ -205,8 +207,11 @@ window.onscroll = function (event) {
     border-radius:20px;
   }
   #dropDownText{
+   width: 100%;
     margin-top:6px;
     padding:0px 7px;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   #dropDownList{
     /* margin-top:13px; */
@@ -242,7 +247,7 @@ window.onscroll = function (event) {
 
   .profileDropdown{
     height: 45px; 
-    width: auto; 
+    width: 135px; 
     background:#fff;
     border: 2px solid #000;
     border-radius: 10px;
@@ -252,6 +257,8 @@ window.onscroll = function (event) {
     overflow: hidden;
     position: fixed;
     right: 20px;
+    white-space: nowrap; /* 防止文本换行 */
+  overflow: hidden;  /* 显示省略号 */
   }
   .profileDropdown:hover{
     height: 120px;
@@ -284,5 +291,8 @@ window.onscroll = function (event) {
   }
   .profileOption a:hover{
     color: #000;
+  }
+  .navIconBox{
+    padding:5px 0px;
   }
 </style>

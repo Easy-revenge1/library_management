@@ -1,813 +1,480 @@
-<?php 
+<?php
 include_once('NavigationBar.php');
 ?>
 
 <!DOCTYPE html>
-<!--[if IE 6]>
-<html id="ie6" lang="en-US">
-	<![endif]-->
-<!--[if IE 7]>
-	<html id="ie7" lang="en-US">
-		<![endif]-->
-<!--[if IE 8]>
-		<html id="ie8" lang="en-US">
-			<![endif]-->
-<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]>
-			<!-->
-<html lang="en-US">
-  <!--
-				<![endif]-->
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--[if lt IE 9]>
-						<script src="https://www.elegantthemes.com/layouts/wp-content/themes/Divi/js/html5.js" type="text/javascript"></script>
-						<![endif]-->
-    <script type="text/javascript">
-      document.documentElement.className = 'js';
-    </script>
-    <meta name="robots" content="noindex, follow" />
-    <title>About</title>
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Real Estate About - Elegant Themes" />
-    <meta property="og:url" content="https://www.elegantthemes.com/layouts/services/real-estate-about-page/live-demo" />
-    <meta property="og:site_name" content="Elegant Themes" />
-    <meta property="article:publisher" content="https://www.facebook.com/elegantthemes" />
-    <meta property="article:modified_time" content="2018-04-26T22:55:34+00:00" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@elegantthemes" />
-    <script type="application/ld+json" class="yoast-schema-graph">
-      {
-        "@context": "https://schema.org",
-        "@graph": [{
-          "@type": "WebPage",
-          "@id": "https://www.elegantthemes.com/layouts/services/real-estate-about-page/live-demo",
-          "url": "https://www.elegantthemes.com/layouts/services/real-estate-about-page/live-demo",
-          "name": "Real Estate About - Elegant Themes",
-          "isPartOf": {
-            "@id": "https://www.elegantthemes.com/layouts/#website"
-          },
-          "datePublished": "2018-04-26T22:47:40+00:00",
-          "dateModified": "2018-04-26T22:55:34+00:00",
-          "breadcrumb": {
-            "@id": "https://www.elegantthemes.com/layouts/services/real-estate-about-page/live-demo#breadcrumb"
-          },
-          "inLanguage": "en-US",
-          "potentialAction": [{
-            "@type": "ReadAction",
-            "target": ["https://www.elegantthemes.com/layouts/services/real-estate-about-page/live-demo"]
-          }]
-        }, {
-          "@type": "BreadcrumbList",
-          "@id": "https://www.elegantthemes.com/layouts/services/real-estate-about-page/live-demo#breadcrumb",
-          "itemListElement": [{
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.elegantthemes.com/layouts"
-          }, {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Real Estate About"
-          }]
-        }, {
-          "@type": "WebSite",
-          "@id": "https://www.elegantthemes.com/layouts/#website",
-          "url": "https://www.elegantthemes.com/layouts/",
-          "name": "Elegant Themes",
-          "description": "Free Divi Layouts &amp; Layout Packs Designed by Elegant Themes.",
-          "potentialAction": [{
-            "@type": "SearchAction",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": "https://www.elegantthemes.com/layouts/?s={search_term_string}"
-            },
-            "query-input": "required name=search_term_string"
-          }],
-          "inLanguage": "en-US"
-        }]
-      }
-    </script>
-    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-    <link rel="alternate" type="application/rss+xml" title="Elegant Themes &raquo; Feed" href="https://www.elegantthemes.com/layouts/feed" />
-    <link rel="alternate" type="application/rss+xml" title="Elegant Themes &raquo; Comments Feed" href="https://www.elegantthemes.com/layouts/comments/feed" />
-    <meta content="Divi v.4.23.0" name="generator" />
-    <style id="wp-block-library-theme-inline-css" type="text/css">
-      .wp-block-audio figcaption {
-        color: #555;
-        font-size: 13px;
-        text-align: center
-      }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+</head>
+<body>
+    <div class="FirstBox">
 
-      .is-dark-theme .wp-block-audio figcaption {
-        color: hsla(0, 0%, 100%, .65)
-      }
-
-      .wp-block-audio {
-        margin: 0 0 1em
-      }
-
-      .wp-block-code {
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-family: Menlo, Consolas, monaco, monospace;
-        padding: .8em 1em
-      }
-
-      .wp-block-embed figcaption {
-        color: #555;
-        font-size: 13px;
-        text-align: center
-      }
-
-      .is-dark-theme .wp-block-embed figcaption {
-        color: hsla(0, 0%, 100%, .65)
-      }
-
-      .wp-block-embed {
-        margin: 0 0 1em
-      }
-
-      .blocks-gallery-caption {
-        color: #555;
-        font-size: 13px;
-        text-align: center
-      }
-
-      .is-dark-theme .blocks-gallery-caption {
-        color: hsla(0, 0%, 100%, .65)
-      }
-
-      .wp-block-image figcaption {
-        color: #555;
-        font-size: 13px;
-        text-align: center
-      }
-
-      .is-dark-theme .wp-block-image figcaption {
-        color: hsla(0, 0%, 100%, .65)
-      }
-
-      .wp-block-image {
-        margin: 0 0 1em
-      }
-
-      .wp-block-pullquote {
-        border-bottom: 4px solid;
-        border-top: 4px solid;
-        color: currentColor;
-        margin-bottom: 1.75em
-      }
-
-      .wp-block-pullquote cite,
-      .wp-block-pullquote footer,
-      .wp-block-pullquote__citation {
-        color: currentColor;
-        font-size: .8125em;
-        font-style: normal;
-        text-transform: uppercase
-      }
-
-      .wp-block-quote {
-        border-left: .25em solid;
-        margin: 0 0 1.75em;
-        padding-left: 1em
-      }
-
-      .wp-block-quote cite,
-      .wp-block-quote footer {
-        color: currentColor;
-        font-size: .8125em;
-        font-style: normal;
-        position: relative
-      }
-
-      .wp-block-quote.has-text-align-right {
-        border-left: none;
-        border-right: .25em solid;
-        padding-left: 0;
-        padding-right: 1em
-      }
-
-      .wp-block-quote.has-text-align-center {
-        border: none;
-        padding-left: 0
-      }
-
-      .wp-block-quote.is-large,
-      .wp-block-quote.is-style-large,
-      .wp-block-quote.is-style-plain {
-        border: none
-      }
-
-      .wp-block-search .wp-block-search__label {
-        font-weight: 700
-      }
-
-      .wp-block-search__button {
-        border: 1px solid #ccc;
-        padding: .375em .625em
-      }
-
-      :where(.wp-block-group.has-background) {
-        padding: 1.25em 2.375em
-      }
-
-      .wp-block-separator.has-css-opacity {
-        opacity: .4
-      }
-
-      .wp-block-separator {
-        border: none;
-        border-bottom: 2px solid;
-        margin-left: auto;
-        margin-right: auto
-      }
-
-      .wp-block-separator.has-alpha-channel-opacity {
-        opacity: 1
-      }
-
-      .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
-        width: 100px
-      }
-
-      .wp-block-separator.has-background:not(.is-style-dots) {
-        border-bottom: none;
-        height: 1px
-      }
-
-      .wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots) {
-        height: 2px
-      }
-
-      .wp-block-table {
-        margin: 0 0 1em
-      }
-
-      .wp-block-table td,
-      .wp-block-table th {
-        word-break: normal
-      }
-
-      .wp-block-table figcaption {
-        color: #555;
-        font-size: 13px;
-        text-align: center
-      }
-
-      .is-dark-theme .wp-block-table figcaption {
-        color: hsla(0, 0%, 100%, .65)
-      }
-
-      .wp-block-video figcaption {
-        color: #555;
-        font-size: 13px;
-        text-align: center
-      }
-
-      .is-dark-theme .wp-block-video figcaption {
-        color: hsla(0, 0%, 100%, .65)
-      }
-
-      .wp-block-video {
-        margin: 0 0 1em
-      }
-
-      .wp-block-template-part.has-background {
-        margin-bottom: 0;
-        margin-top: 0;
-        padding: 1.25em 2.375em
-      }
-    </style>
-    <link rel="stylesheet" id="woocommerce-layout-css" href="https://www.elegantthemes.com/layouts/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=8.2.1" type="text/css" media="all" />
-    <link rel="stylesheet" id="woocommerce-smallscreen-css" href="https://www.elegantthemes.com/layouts/wp-content/plugins/woocommerce/assets/css/woocommerce-smallscreen.css?ver=8.2.1" type="text/css" media="only screen and (max-width: 768px)" />
-    <link rel="stylesheet" id="woocommerce-general-css" href="https://www.elegantthemes.com/layouts/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=8.2.1" type="text/css" media="all" />
-    <style id="woocommerce-inline-inline-css" type="text/css">
-      .woocommerce form .form-row .required {
-        visibility: visible;
-      }
-    </style>
-    <link rel="stylesheet" id="et-divi-open-sans-css" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&#038;subset=latin,latin-ext&#038;display=swap" type="text/css" media="all" />
-    <link rel="stylesheet" id="et-builder-googlefonts-cached-css" href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic|Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic&#038;subset=latin,latin-ext&#038;display=swap" type="text/css" media="all" />
-    <link rel="stylesheet" id="divi-style-css" href="https://www.elegantthemes.com/layouts/wp-content/themes/Divi/style-static.min.css?ver=4.23.0" type="text/css" media="all" />
-    <script type="text/javascript" src="https://www.elegantthemes.com/layouts/wp-includes/js/jquery/jquery.min.js?ver=3.7.0" id="jquery-core-js"></script>
-    <script type="text/javascript" src="https://www.elegantthemes.com/layouts/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
-    <link rel="https://api.w.org/" href="https://www.elegantthemes.com/layouts/wp-json/" />
-    <link rel="alternate" type="application/json" href="https://www.elegantthemes.com/layouts/wp-json/wp/v2/pages/212289" />
-    <meta name="generator" content="WordPress 6.3.2" />
-    <meta name="generator" content="WooCommerce 8.2.1" />
-    <link rel="shortlink" href="https://www.elegantthemes.com/layouts/?p=212289" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <noscript>
-      <style>
-        .woocommerce-product-gallery {
-          opacity: 1 !important;
-        }
-      </style>
-    </noscript>
-    <link rel="icon" href="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/logo.png" sizes="32x32" />
-    <link rel="icon" href="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/logo.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/logo.png" />
-    <meta name="msapplication-TileImage" content="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/logo.png" />
-    <style id="et-critical-inline-css">
-      .et_header_style_centered .mobile_nav .select_page,
-      .et_header_style_split .mobile_nav .select_page,
-      .et_nav_text_color_light #top-menu>li>a,
-      .et_nav_text_color_dark #top-menu>li>a,
-      #top-menu a,
-      .et_mobile_menu li a,
-      .et_nav_text_color_light .et_mobile_menu li a,
-      .et_nav_text_color_dark .et_mobile_menu li a,
-      #et_search_icon:before,
-      .et_search_form_container input,
-      span.et_close_search_field:after,
-      #et-top-navigation .et-cart-info {
-        color: #20292f
-      }
-
-      .et_search_form_container input::-moz-placeholder {
-        color: #20292f
-      }
-
-      .et_search_form_container input::-webkit-input-placeholder {
-        color: #20292f
-      }
-
-      .et_search_form_container input:-ms-input-placeholder {
-        color: #20292f
-      }
-
-      #top-menu li a {
-        font-size: 15px
-      }
-
-      body.et_vertical_nav .container.et_search_form_container .et-search-form input {
-        font-size: 15px !important
-      }
-
-      @media only screen and (min-width:981px) {
-
-        .et-fixed-header #top-menu a,
-        .et-fixed-header #et_search_icon:before,
-        .et-fixed-header #et_top_search .et-search-form input,
-        .et-fixed-header .et_search_form_container input,
-        .et-fixed-header .et_close_search_field:after,
-        .et-fixed-header #et-top-navigation .et-cart-info {
-          color: #20292f !important
-        }
-
-        .et-fixed-header .et_search_form_container input::-moz-placeholder {
-          color: #20292f !important
-        }
-
-        .et-fixed-header .et_search_form_container input::-webkit-input-placeholder {
-          color: #20292f !important
-        }
-
-        .et-fixed-header .et_search_form_container input:-ms-input-placeholder {
-          color: #20292f !important
-        }
-      }
-
-      @media only screen and (min-width:1350px) {
-        .et_pb_row {
-          padding: 27px 0
-        }
-
-        .et_pb_section {
-          padding: 54px 0
-        }
-
-        .single.et_pb_pagebuilder_layout.et_full_width_page .et_post_meta_wrapper {
-          padding-top: 81px
-        }
-
-        .et_pb_fullwidth_section {
-          padding: 0
-        }
-      }
-
-      #main-header,
-      #et-top-navigation {
-        font-family: 'Poppins', Helvetica, Arial, Lucida, sans-serif
-      }
-
-      .et_divi_theme.et_fixed_nav.et_show_nav #page-container {
-        padding-top: 64px
-      }
-
-      .et_divi_theme .title_container h1 {
-        font-family: Poppins, sans-serif;
-        float: left;
-        font-size: 23px;
-        color: #20292f;
-        padding-top: 27px;
-        font-weight: 600;
-        padding-bottom: 0;
-        transition: padding-top 0.3s linear
-      }
-
-      .et_divi_theme #et-top-navigation a {
-        font-weight: 500 !important
-      }
-
-      .et_divi_theme #top-menu li.current-menu-item>a {
-        font-weight: 600 !important;
-        color: #20292f
-      }
-
-      .et_divi_theme #top-menu-nav>ul>li>a:hover {
-        color: #71818c !important;
-        opacity: 1
-      }
-
-      @media (min-width:981px) {
-        .et_divi_theme.et_fullwidth_nav #main-header .container {
-          padding-right: 40px;
-          padding-left: 40px
-        }
-      }
-
-      .et_divi_theme #main-header {
-        box-shadow: 0 0 30px rgba(7, 51, 84, 0.17) !important
-      }
-
-      .et_divi_theme .et-fixed-header h1 {
-        padding-top: 17px
-      }
-    </style>
-    <link rel="preload" as="style" id="et-core-unified-deferred-212289-cached-inline-styles" href="https://www.elegantthemes.com/layouts/wp-content/et-cache/212289/et-core-unified-deferred-212289.min.css?ver=1696546423" onload="this.onload=null;this.rel='stylesheet';" />
-  </head>
-  <body class="page-template-default page page-id-212289 theme-Divi woocommerce-no-js et_pb_button_helper_class et_fullwidth_nav et_fixed_nav et_show_nav et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_header_style_left et_pb_footer_columns4 et_cover_background et_pb_gutter windows et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db">
-    <div id="page-container">
-     
-
-      <div id="et-main-area">
-        <div id="main-content">
-          <article id="post-212289" class="post-212289 page type-page status-publish hentry">
-            <div class="entry-content">
-              <div class="et-l et-l--post">
-                <div class="et_builder_inner_content et_pb_gutters3">
-                  <div class="et_pb_section et_pb_section_0 et_pb_with_background et_section_regular">
-                    <div class="et_pb_row et_pb_row_0">
-                      <div class="et_pb_column et_pb_column_2_3 et_pb_column_0  et_pb_css_mix_blend_mode_passthrough">
-                        <div class="et_pb_module et_pb_text et_pb_text_0 et_animated  et_pb_text_align_left et_pb_bg_layout_dark">
-                          <div class="et_pb_text_inner">
-                            <h1>About Us</h1>
-                            <p>Welcome to our digital library! This electronic sanctuary is an ethereal world of knowledge, and cutting-edge research convene in an unparalleled harmony of information. As you embark on this literary odyssey, you'll traverse virtual aisles brimming with an infinite array of texts.But fear not, for the magic of storytelling and the pursuit of knowledge remain as vivid as ever. Shall we begin this enchanting journey? </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="et_pb_column et_pb_column_1_3 et_pb_column_1  et_pb_css_mix_blend_mode_passthrough et-last-child et_pb_column_empty"></div>
-                    </div>
-                  </div>
-                  <div class="et_pb_section et_pb_section_1 et_section_regular">
-                    <div class="et_pb_row et_pb_row_1">
-                      <div class="et_pb_column et_pb_column_1_3 et_pb_column_2  et_pb_css_mix_blend_mode_passthrough">
-                        <div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated  et_pb_text_align_center  et_pb_blurb_position_top et_pb_bg_layout_light">
-                          <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image">
-                              <span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
-                                <img decoding="async" fetchpriority="high" width="512" height="467" src="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-01-1.png" alt srcset="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-01-1.png 512w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-01-1-254x232.png 254w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-01-1-510x465.png 510w" sizes="(max-width: 512px) 100vw, 512px" class="et-waypoint et_pb_animation_off et_pb_animation_off_tablet et_pb_animation_off_phone wp-image-212275" />
-                              </span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                              <h4 class="et_pb_module_header">
-                                <span>Search and Navigation Features</span>
-                              </h4>
-                              <div class="et_pb_blurb_description">Our e-library's search function and navigation system offer advanced search and filtering options to make it easier for users to find what they need.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="et_pb_column et_pb_column_1_3 et_pb_column_3  et_pb_css_mix_blend_mode_passthrough">
-                        <div class="et_pb_module et_pb_blurb et_pb_blurb_1 et_animated  et_pb_text_align_center  et_pb_blurb_position_top et_pb_bg_layout_light">
-                          <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image">
-                              <span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
-                                <img decoding="async" width="512" height="467" src="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-03-3.png" alt srcset="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-03-3.png 512w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-03-3-254x232.png 254w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-03-3-510x465.png 510w" sizes="(max-width: 512px) 100vw, 512px" class="et-waypoint et_pb_animation_off et_pb_animation_off_tablet et_pb_animation_off_phone wp-image-212266" />
-                              </span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                              <h4 class="et_pb_module_header">
-                                <span>Free reading feature</span>
-                              </h4>
-                              <div class="et_pb_blurb_description">
-                                <p>Free downloads are available here so that you can read them both online and offline</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="et_pb_column et_pb_column_1_3 et_pb_column_4  et_pb_css_mix_blend_mode_passthrough et-last-child">
-                        <div class="et_pb_module et_pb_blurb et_pb_blurb_2 et_animated  et_pb_text_align_center  et_pb_blurb_position_top et_pb_bg_layout_light">
-                          <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image">
-                              <span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
-                                <img decoding="async" width="512" height="467" src="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-02-1.png" alt srcset="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-02-1.png 512w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-02-1-254x232.png 254w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/04/real-estate-illustration-02-1-510x465.png 510w" sizes="(max-width: 512px) 100vw, 512px" class="et-waypoint et_pb_animation_off et_pb_animation_off_tablet et_pb_animation_off_phone wp-image-212276" />
-                              </span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                              <h4 class="et_pb_module_header">
-                                <span>Social interaction</span>
-                              </h4>
-                              <div class="et_pb_blurb_description">
-                                <p>Our e-library may include elements of social interaction, such as comments, ratings, sharing, and discussion boards. This enhances communication between users and a sense of community with resources</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="et_pb_section et_pb_section_2 et_pb_with_background et_section_regular">
-                    <div class="et_pb_row et_pb_row_2">
-                      <div class="et_pb_column et_pb_column_4_4 et_pb_column_5  et_pb_css_mix_blend_mode_passthrough et-last-child">
-                        <div class="et_pb_module et_pb_text et_pb_text_1  et_pb_text_align_center et_pb_bg_layout_light">
-                          <div class="et_pb_text_inner">
-                            <h2>Our Story</h2>
-                            <p>In the wave of digitalization, a group of young people who are passionate about knowledge dissemination have come together with a simple but firm belief: knowledge should be accessible. So, in 2023, eLibrary came into being. In the beginning, we were a small but energetic team with big challenges. We want to create a digital academic resource platform that transcends geographical, cultural and linguistic barriers. This is an uncharted field, but we firmly believe that through innovation and struggle, we can create a unique electronic library for the world.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="et_pb_section et_pb_section_3 et_section_regular">
-                    <div class="et_pb_row et_pb_row_3">
-                      <div class="et_pb_column et_pb_column_4_4 et_pb_column_6  et_pb_css_mix_blend_mode_passthrough et-last-child">
-                        <div class="et_pb_module et_pb_text et_pb_text_2  et_pb_text_align_center et_pb_bg_layout_light">
-                          <div class="et_pb_text_inner">
-                            <h2>Creative Team</h2>
-                          </div>
-                        </div>
-                      </div> 
-                    </div>
-                    <div class="et_pb_with_border et_pb_row et_pb_row_4 et_animated">
-                      <div class="et_pb_column et_pb_column_1_3 et_pb_column_7  et_pb_css_mix_blend_mode_passthrough">
-                        <div class="et_pb_module et_pb_blurb et_pb_blurb_3  et_pb_text_align_center  et_pb_blurb_position_top et_pb_bg_layout_light">
-                          <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image">
-                              <span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
-                                <img decoding="async" loading="lazy" width="400" height="400" src="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-03.jpg" alt srcset="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-03.jpg 400w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-03-254x254.jpg 254w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-03-100x100.jpg 100w" sizes="(max-width: 400px) 100vw, 400px" class="et-waypoint et_pb_animation_off et_pb_animation_off_tablet et_pb_animation_off_phone wp-image-211558" />
-                              </span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                              <h4 class="et_pb_module_header">
-                                <span>Chiew Hao Er</span>
-                              </h4>
-                              <div class="et_pb_blurb_description">
-                                <p>Programmer, programming</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="et_pb_column et_pb_column_1_3 et_pb_column_8  et_pb_css_mix_blend_mode_passthrough">
-                        <div class="et_pb_module et_pb_blurb et_pb_blurb_4  et_pb_text_align_center  et_pb_blurb_position_top et_pb_bg_layout_light">
-                          <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image">
-                              <span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
-                                <img decoding="async" loading="lazy" width="400" height="400" src="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-11.jpg" alt srcset="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-11.jpg 400w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-11-254x254.jpg 254w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-11-100x100.jpg 100w" sizes="(max-width: 400px) 100vw, 400px" class="et-waypoint et_pb_animation_off et_pb_animation_off_tablet et_pb_animation_off_phone wp-image-211678" />
-                              </span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                              <h4 class="et_pb_module_header">
-                                <span>Lau Wei Cheng</span>
-                              </h4>
-                              <div class="et_pb_blurb_description">
-                                <p>Tech Support, Elegant Themes</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="et_pb_column et_pb_column_1_3 et_pb_column_9  et_pb_css_mix_blend_mode_passthrough">
-                        <div class="et_pb_module et_pb_blurb et_pb_blurb_5  et_pb_text_align_center  et_pb_blurb_position_top et_pb_bg_layout_light">
-                          <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image">
-                              <span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
-                                <img decoding="async" loading="lazy" width="400" height="400" src="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-05.jpg" alt srcset="https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-05.jpg 400w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-05-254x254.jpg 254w, https://www.elegantthemes.com/layouts/wp-content/uploads/2018/03/portrait-square-05-100x100.jpg 100w" sizes="(max-width: 400px) 100vw, 400px" class="et-waypoint et_pb_animation_off et_pb_animation_off_tablet et_pb_animation_off_phone wp-image-211557" />
-                              </span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                              <h4 class="et_pb_module_header">
-                                <span>Low Yong Sheng </span>
-                              </h4>
-                              <div class="et_pb_blurb_description">
-                                <p>Designer, Elegant Themes</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="et_pb_row et_pb_row_5">
-                      <div class="et_pb_column et_pb_column_4_4 et_pb_column_11  et_pb_css_mix_blend_mode_passthrough et-last-child">
-                        <div class="et_pb_button_module_wrapper et_pb_button_0_wrapper et_pb_button_alignment_center et_pb_module ">
-                          <a class="et_pb_button et_pb_button_0 et_hover_enabled et_pb_bg_layout_dark" href>Contact An Agent</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="et_pb_section et_pb_section_4 et_pb_with_background et_section_regular">
-                    <div class="et_pb_row et_pb_row_6">
-                      <div class="et_pb_column et_pb_column_4_4 et_pb_column_12  et_pb_css_mix_blend_mode_passthrough et-last-child">
-                        <div class="et_pb_module et_pb_cta_0 et_animated et_hover_enabled et_pb_promo  et_pb_text_align_center et_pb_bg_layout_dark et_pb_no_bg">
-                          <div class="et_pb_promo_description">
-                            <h2 class="et_pb_module_header">Start Your Search Today</h2>
-                            <div></div>
-                          </div>
-                          <div class="et_pb_button_wrapper">
-                            <a class="et_pb_button et_pb_promo_button" href="#">Browse Listings</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
+    <div class="textBox">
+    <div class="FirstBoxText" id="FirstBoxTextBox">
+        <p class="ui header horizontal divider" id="aboutUs">About Us</p>
+        <p class="aboutUsIntro">Welcome to our digital library! This electronic sanctuary is an ethereal world of knowledge, and cutting-edge research convene in an unparalleled harmony of information. As you embark on this literary odyssey, you'll traverse virtual aisles brimming with an infinite array of texts.But fear not, for the magic of storytelling and the pursuit of knowledge remain as vivid as ever. Shall we begin this enchanting journey? </p>
         </div>
-        <footer id="main-footer">
-          <div id="footer-bottom">
-            <div class="container clearfix">
-              <ul class="et-social-icons">
-                <li class="et-social-icon et-social-facebook">
-                  <a href="#" class="icon">
-                    <span>Facebook</span>
-                  </a>
-                </li>
-                <li class="et-social-icon et-social-twitter">
-                  <a href="#" class="icon">
-                    <span>X</span>
-                  </a>
-                </li>
-                <li class="et-social-icon et-social-rss">
-                  <a href="https://www.elegantthemes.com/layouts/feed" class="icon">
-                    <span>RSS</span>
-                  </a>
-                </li>
-              </ul>
-              <p id="footer-info">Designed by <a href="https://www.elegantthemes.com" title="Premium WordPress Themes">Elegant Themes</a> | Powered by <a href="https://www.wordpress.org">WordPress</a>
-              </p>
-            </div>
-          </div>
-        </footer>
+</div>
+
+    <div style="position:absolute; bottom:0; width:100%;">
+      <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 160"
+        style="z-index:7; background:transparent;" data-height="100">
+        <path class="animated-path" style="opacity: 1;fill: #ddd;" d="M1040,56c0.5,0,1,0,1.6,0c-16.6-8.9-36.4-15.7-66.4-15.7c-56,0-76.8,23.7-106.9,41C881.1,89.3,895.6,96,920,96
+C979.5,96,980,56,1040,56z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1699.8,96l0,10H1946l-0.3-6.9c0,0,0,0-88,0s-88.6-58.8-176.5-58.8c-51.4,0-73,20.1-99.6,36.8
+c14.5,9.6,29.6,18.9,58.4,18.9C1699.8,96,1699.8,96,1699.8,96z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1400,96c19.5,0,32.7-4.3,43.7-10c-35.2-17.3-54.1-45.7-115.5-45.7c-32.3,0-52.8,7.9-70.2,17.8
+c6.4-1.3,13.6-2.1,22-2.1C1340.1,56,1340.3,96,1400,96z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M320,56c6.6,0,12.4,0.5,17.7,1.3c-17-9.6-37.3-17-68.5-17c-60.4,0-79.5,27.8-114,45.2
+c11.2,6,24.6,10.5,44.8,10.5C260,96,259.9,56,320,56z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M680,96c23.7,0,38.1-6.3,50.5-13.9C699.6,64.8,679,40.3,622.2,40.3c-30,0-49.8,6.8-66.3,15.8
+c1.3,0,2.7-0.1,4.1-0.1C619.7,56,620.2,96,680,96z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M-40,95.6c28.3,0,43.3-8.7,57.4-18C-9.6,60.8-31,40.2-83.2,40.2c-14.3,0-26.3,1.6-36.8,4.2V106h60V96L-40,95.6
+z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M504,73.4c-2.6-0.8-5.7-1.4-9.6-1.4c-19.4,0-19.6,13-39,13c-19.4,0-19.5-13-39-13c-14,0-18,6.7-26.3,10.4
+C402.4,89.9,416.7,96,440,96C472.5,96,487.5,84.2,504,73.4z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1205.4,85c-0.2,0-0.4,0-0.6,0c-19.5,0-19.5-13-39-13s-19.4,12.9-39,12.9c0,0-5.9,0-12.3,0.1
+c11.4,6.3,24.9,11,45.5,11C1180.6,96,1194.1,91.2,1205.4,85z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1447.4,83.9c-2.4,0.7-5.2,1.1-8.6,1.1c-19.3,0-19.6-13-39-13s-19.6,13-39,13c-3,0-5.5-0.3-7.7-0.8
+c11.6,6.6,25.4,11.8,46.9,11.8C1421.8,96,1435.7,90.7,1447.4,83.9z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M985.8,72c-17.6,0.8-18.3,13-37,13c-19.4,0-19.5-13-39-13c-18.2,0-19.6,11.4-35.5,12.8
+c11.4,6.3,25,11.2,45.7,11.2C953.7,96,968.5,83.2,985.8,72z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M743.8,73.5c-10.3,3.4-13.6,11.5-29,11.5c-19.4,0-19.5-13-39-13s-19.5,13-39,13c-0.9,0-1.7,0-2.5-0.1
+c11.4,6.3,25,11.1,45.7,11.1C712.4,96,727.3,84.2,743.8,73.5z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M265.5,72.3c-1.5-0.2-3.2-0.3-5.1-0.3c-19.4,0-19.6,13-39,13c-19.4,0-19.6-13-39-13
+c-15.9,0-18.9,8.7-30.1,11.9C164.1,90.6,178,96,200,96C233.7,96,248.4,83.4,265.5,72.3z"></path>
+        <path class="animated-path" style="opacity: 1;" d="M1692.3,96V85c0,0,0,0-19.5,0s-19.6-13-39-13s-19.6,13-39,13c-0.1,0-0.2,0-0.4,0c11.4,6.2,24.9,11,45.6,11
+C1669.9,96,1684.8,96,1692.3,96z"></path>
+        <path class="animated-path" style="opacity: 1;"
+          d="M25.5,72C6,72,6.1,84.9-13.5,84.9L-20,85v8.9C0.7,90.1,12.6,80.6,25.9,72C25.8,72,25.7,72,25.5,72z"></path>
+        <path class="animated-path" style="" d="M-40,95.6C20.3,95.6,20.1,56,80,56s60,40,120,40s59.9-40,120-40s60.3,40,120,40s60.3-40,120-40
+s60.2,40,120,40s60.1-40,120-40s60.5,40,120,40s60-40,120-40s60.4,40,120,40s59.9-40,120-40s60.3,40,120,40s60.2-40,120-40
+s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
+
+        <animate attributeName="d" dur="3s" repeatCount="indefinite"
+          values="M10 80 Q 95 10 180 80; M10 80 Q 180 150 320 80; M10 80 Q 95 10 180 80" />
+      </svg>
+
+    </div>
+
+    <div class="mountain">
+      <div class="mountain-top">
+        <div class="mountain-cap-1"></div>
+        <div class="mountain-cap-2"></div>
+        <div class="mountain-cap-3"></div>
       </div>
     </div>
-    <script type="text/javascript">
-      var et_animation_data = [{
-        "class": "et_pb_text_0",
-        "style": "fold",
-        "repeat": "once",
-        "duration": "1000ms",
-        "delay": "0ms",
-        "intensity": "50%",
-        "starting_opacity": "0%",
-        "speed_curve": "ease-in-out"
-      }, {
-        "class": "et_pb_blurb_0",
-        "style": "slideBottom",
-        "repeat": "once",
-        "duration": "1000ms",
-        "delay": "0ms",
-        "intensity": "4%",
-        "starting_opacity": "0%",
-        "speed_curve": "ease-in-out"
-      }, {
-        "class": "et_pb_blurb_1",
-        "style": "slideBottom",
-        "repeat": "once",
-        "duration": "1000ms",
-        "delay": "100ms",
-        "intensity": "4%",
-        "starting_opacity": "0%",
-        "speed_curve": "ease-in-out"
-      }, {
-        "class": "et_pb_blurb_2",
-        "style": "slideBottom",
-        "repeat": "once",
-        "duration": "1000ms",
-        "delay": "200ms",
-        "intensity": "4%",
-        "starting_opacity": "0%",
-        "speed_curve": "ease-in-out"
-      }, {
-        "class": "et_pb_row_4",
-        "style": "slideBottom",
-        "repeat": "once",
-        "duration": "1000ms",
-        "delay": "0ms",
-        "intensity": "6%",
-        "starting_opacity": "100%",
-        "speed_curve": "ease-in-out"
-      }, {
-        "class": "et_pb_cta_0",
-        "style": "fold",
-        "repeat": "once",
-        "duration": "1000ms",
-        "delay": "0ms",
-        "intensity": "50%",
-        "starting_opacity": "0%",
-        "speed_curve": "ease-in-out"
-      }];
-    </script>
-    <script type="text/javascript">
-      (function() {
-        var c = document.body.className;
-        c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
-        document.body.className = c;
-      })();
-    </script>
-    <script type="text/javascript" src="https://www.elegantthemes.com/layouts/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.7.0-wc.8.2.1" id="jquery-blockui-js"></script>
-    <script type="text/javascript" id="wc-add-to-cart-js-extra">
-      /* 
-							<![CDATA[ */
-      var wc_add_to_cart_params = {
-        "ajax_url": "\/layouts\/wp-admin\/admin-ajax.php",
-        "wc_ajax_url": "\/layouts\/?wc-ajax=%%endpoint%%",
-        "i18n_view_cart": "View cart",
-        "cart_url": "https:\/\/www.elegantthemes.com\/layouts\/cart",
-        "is_cart": "",
-        "cart_redirect_after_add": "no"
-      };
-      /* ]]> */
-    </script>
-    <script type="text/javascript" src="https://www.elegantthemes.com/layouts/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=8.2.1" id="wc-add-to-cart-js"></script>
-    <script type="text/javascript" src="https://www.elegantthemes.com/layouts/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4-wc.8.2.1" id="js-cookie-js"></script>
-    <script type="text/javascript" id="woocommerce-js-extra">
-      /* 
-							<![CDATA[ */
-      var woocommerce_params = {
-        "ajax_url": "\/layouts\/wp-admin\/admin-ajax.php",
-        "wc_ajax_url": "\/layouts\/?wc-ajax=%%endpoint%%"
-      };
-      /* ]]> */
-    </script>
-    <script type="text/javascript" src="https://www.elegantthemes.com/layouts/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=8.2.1" id="woocommerce-js"></script>
-    <script type="text/javascript" id="divi-custom-script-js-extra">
-      /* 
-							<![CDATA[ */
-      var DIVI = {
-        "item_count": "%d Item",
-        "items_count": "%d Items"
-      };
-      var et_builder_utils_params = {
-        "condition": {
-          "diviTheme": true,
-          "extraTheme": false
-        },
-        "scrollLocations": ["app", "top"],
-        "builderScrollLocations": {
-          "desktop": "app",
-          "tablet": "app",
-          "phone": "app"
-        },
-        "onloadScrollLocation": "app",
-        "builderType": "fe"
-      };
-      var et_frontend_scripts = {
-        "builderCssContainerPrefix": "#et-boc",
-        "builderCssLayoutPrefix": "#et-boc .et-l"
-      };
-      var et_pb_custom = {
-        "ajaxurl": "https:\/\/www.elegantthemes.com\/layouts\/wp-admin\/admin-ajax.php",
-        "images_uri": "https:\/\/www.elegantthemes.com\/layouts\/wp-content\/themes\/Divi\/images",
-        "builder_images_uri": "https:\/\/www.elegantthemes.com\/layouts\/wp-content\/themes\/Divi\/includes\/builder\/images",
-        "et_frontend_nonce": "3e3be8415d",
-        "subscription_failed": "Please, check the fields below to make sure you entered the correct information.",
-        "et_ab_log_nonce": "a3ffb4fe04",
-        "fill_message": "Please, fill in the following fields:",
-        "contact_error_message": "Please, fix the following errors:",
-        "invalid": "Invalid email",
-        "captcha": "Captcha",
-        "prev": "Prev",
-        "previous": "Previous",
-        "next": "Next",
-        "wrong_captcha": "You entered the wrong number in captcha.",
-        "wrong_checkbox": "Checkbox",
-        "ignore_waypoints": "no",
-        "is_divi_theme_used": "1",
-        "widget_search_selector": ".widget_search",
-        "ab_tests": [],
-        "is_ab_testing_active": "",
-        "page_id": "212289",
-        "unique_test_id": "",
-        "ab_bounce_rate": "5",
-        "is_cache_plugin_active": "no",
-        "is_shortcode_tracking": "",
-        "tinymce_uri": "https:\/\/www.elegantthemes.com\/layouts\/wp-content\/themes\/Divi\/includes\/builder\/frontend-builder\/assets\/vendors",
-        "accent_color": "#7EBEC5",
-        "waypoints_options": []
-      };
-      var et_pb_box_shadow_elements = [];
-      /* ]]> */
-    </script>
-    <script type="text/javascript" src="https://www.elegantthemes.com/layouts/wp-content/themes/Divi/js/scripts.min.js?ver=4.23.0" id="divi-custom-script-js"></script>
-    <script type="text/javascript" src="https://www.elegantthemes.com/layouts/wp-content/themes/Divi/core/admin/js/common.js?ver=4.22.2" id="et-core-common-js"></script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8223179eec38a856","version":"2023.10.0","token":"a595f655f9be4d8cba21c8023304252d"}' crossorigin="anonymous"></script>
-  </body>
+    <div class="mountain-two">
+      <div class="mountain-top">
+        <div class="mountain-cap-1"></div>
+        <div class="mountain-cap-2"></div>
+        <div class="mountain-cap-3"></div>
+      </div>
+    </div>
+    <div class="mountain-three">
+      <div class="mountain-top">
+        <div class="mountain-cap-1"></div>
+        <div class="mountain-cap-2"></div>
+        <div class="mountain-cap-3"></div>
+      </div>
+    </div>
+    <!-- <div class="cloud"></div> -->
+
+
+    </div>
+
+
+    <div class="AboutContent">
+       <div class="aboutInfoBox" >
+
+          <div class="FirstFeatures">
+                <img src="../pic/1.png" alt="">
+                <h4>Search and Navigation Features</h4>
+                <p>Catering to diverse reading preferences, our e-library prides itself on a sophisticated search function and a user-friendly navigation system. With an array of advanced search tools and comprehensive filtering options, users can effortlessly navigate through our extensive collection, ensuring a seamless and personalized experience in discovering the content they seek.</p>
+          </div>
+
+          <div class="SecondFeatures">
+                <img src="../pic/2.png" alt="">
+                <h4>Free reading feature</h4>
+                <p>The 'Free Reading Feature' allows users to access certain content without any charges. It's a service offered by platforms, apps, or websites, granting limited access to books, articles, or materials to entice users. It serves as a teaser, encouraging users to consider subscription or purchase for complete access.</p>
+          </div>
+
+          <div class="ThirdFeatures">
+          <img src="../pic/3.png" alt="">
+                <h4>Book interaction</h4>
+                <p>Catering to book enthusiasts, our platform boasts an array of engaging features. Users effortlessly delve into comprehensive book details, spanning summaries, author insights, and publication particulars. Through shared reviews, a vibrant community interaction thrives, while the option to provide overall ratings empowers informed decision-making based on collective feedback.</p>
+          </div>
+
+       </div>
+    </div>
+
+    <div class="teamMember">
+
+        <div class="memberTitle">
+        <h2 class="ui header horizontal divider" id="developerTitle">DEVELOPER</h2>
+        </div>
+
+        <div class="memberInfo">
+
+                <div class="leader">
+                     <img src="../ProfilePic/Eren.jpg" alt="">
+                     <p class="memberName">Chiew Hao Er</p>
+                     <np class="memberPosition">Backend Developer</p>
+                </div>
+
+                <div class="member1">
+                     <img src="../ProfilePic/Gojo.jpg" alt="">
+                     <p class="memberName">Johnson Low</p>
+                     <p class="memberPosition">Frontend Developer</p>
+                </div>
+
+                <div class="member2">
+                <img src="../ProfilePic/luffy.jpg" alt="">
+                     <p class="memberName">Lau Wei Cheng</p>
+                     <p class="memberPosition">Support</p>
+                </div>
+        </div>
+    </div>
+
+
+
+    
+</body>
 </html>
+<script>
+      let elmDesign = document.getElementById('FirstBoxTextBox');
+
+window.addEventListener('scroll', function () {
+  let value = window.scrollY;
+  elmDesign.style.top = value * 0.30 + 'px';
+})
+</script>
+<style>
+  .title{
+        color:#000 !important;
+    }
+.navHref{
+    color:#000 !important;
+}
+
+     @keyframes move {
+    0% {
+      transform: translateX(0);
+    }
+
+    50% {
+      transform: translateX(-90px);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .animated-path {
+    animation: move 16s ease-in-out infinite;
+  }
+    .svg-separator {
+        display: block;
+        background: 0 0;
+        position: relative;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 20;
+        -webkit-transform: translateY(0%) translateY(2px);
+        transform: translateY(0%) translateY(2px);
+        width: 100%;
+        filter: unset;
+    }
+
+    .svg-separator path {
+        fill: #F5F7F8 !important;
+    }
+
+    .svg-separator.bottom {
+        top: auto;
+        bottom: 0;
+    }
+
+    .sep1 {
+        transform: translateY(0%) translateY(0px) scale(1, 1);
+        transform-origin: top;
+    }
+
+
+    .mountain, .mountain-two, .mountain-three {
+    position: absolute;
+    bottom: 0;
+    border-left: 270px solid transparent;
+    border-right: 270px solid transparent;
+    border-bottom: 300px solid #2b9cd4;
+    z-index: 1;
+}
+.mountain-two { 
+    left: 80px;
+    bottom: 0px;
+    opacity: .3;
+    z-index: 0;
+}
+.mountain-three {
+    left: -60px;
+    bottom:0px;
+    opacity: .5;
+    z-index: 0;
+}
+.mountain-top {
+    position: absolute;
+    right: -65px;
+    border-left: 65px solid transparent;
+    border-right: 65px solid transparent;
+    border-bottom: 77px solid #ceeaf6;
+    z-index: 2;
+}
+.mountain-cap-1, .mountain-cap-2, .mountain-cap-3 {
+    position: absolute;
+    top: 70px;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 25px solid #ceeaf6;
+}
+.mountain-cap-1 { left: -55px; }
+.mountain-cap-2 { left: -25px; }
+.mountain-cap-3 { left: 5px; }
+.cloud, .cloud:before, .cloud:after {
+  position: absolute;
+  width: 150px;
+	height: 100px;
+	background: #fff;
+	-webkit-border-radius: 100px / 50px;
+	border-radius: 100px / 50px;
+}
+.cloud { 
+  bottom: 100px;
+  -webkit-animation: cloud 50s infinite linear;
+          animation: cloud 50s infinite linear;
+}
+@-webkit-keyframes cloud {
+    0%   { left: -100px; }
+    100% { left: 1000px; } 
+}
+@keyframes cloud {
+   
+    0%   { left: -100px; }
+    100% { left: 1000px; } 
+}
+.cloud:before {
+  content: '';
+  left: 50px;
+}
+.cloud:after {
+  content: '';
+  left: 25px;
+  top: -10px;
+}
+
+
+
+
+    .footer {
+    position: fixed;
+    bottom: 0;
+    z-index: -20;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #081c5e 100%);
+    /* background: #FFFBF5; */
+    width: 100%;
+    height: 400px;
+    
+    /* padding:40px 40px; */
+  }
+
+  .contentFooter {
+    width: 80%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    transition: 0.6s;
+  }
+
+  .contentFooter li {
+    color: #fff;
+  }
+
+  .footerTitle h1 {
+    /* color:#fff; */
+    color: #fff;
+    font-size: 35px;
+    font-weight: 100;
+    letter-spacing: 10px;
+    margin: 100px 0px 0px 0px;
+  }
+
+  .footerTitle i {
+    color: #fff;
+    font-size: 23px;
+    padding: 20px 40px 0px 0px;
+  }
+
+  .footerLink {
+    margin-left: auto;
+    display: flex;
+    padding: 80px 0px;
+  }
+
+  .footerLink p {
+    color: #fff;
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 10px;
+  }
+
+  .footerLink a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.4s;
+  }
+
+  .footerLink a:hover {
+    color: #B4B4B3;
+    text-decoration: none;
+  }
+
+  .footerLink .link1 {
+    padding: 0px 40px;
+  }
+
+  .footerLink .link2 {
+    border-left: 3px solid #D0D4CA;
+    padding: 0px 40px;
+    /* margin-left:100px; */
+  }
+/* ........................................................................................................................... */
+.FirstBox{
+  background: radial-gradient(ellipse at bottom, #F6F4EB -20%, #91C8E4 100%);
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+.textBox{
+    width: 90%;
+    position: relative;
+    top: 35%;   
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.FirstBoxText{
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    color: #000;
+    position: absolute;
+    /* top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+}
+.FirstBoxText #aboutUs{
+    color:#000;
+    font-family: 'Jost', sans-serif;
+    font-size: 40px;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 20px;
+}
+.FirstBoxText .aboutUsIntro{
+    font-size: 23px;
+}
+.AboutContent{
+    background: #F5F7F8;
+    width: 100%;
+}
+.aboutInfoBox{
+        padding-top: 50px;
+        width: 90%;
+        margin: auto;
+        display: flex;
+}
+.aboutInfoBox img{
+       width: 70%;
+}
+.FirstFeatures{
+        text-align: center;
+        width: 100%;
+}
+.SecondFeatures{
+        text-align: center;
+        width: 100%;
+        margin-top: -50px;
+}
+.ThirdFeatures{
+        text-align: center;
+        width: 100%;
+}
+
+.FirstFeatures,
+.SecondFeatures,
+.ThirdFeatures {
+  padding: 50px; /* 这里添加了50px的内边距，你可以根据需要调整 */
+}
+
+.FirstFeatures h4,
+.SecondFeatures h4,
+.ThirdFeatures h4{
+        font-family: 'Jost', sans-serif;
+        text-transform: uppercase;
+   font-size: 20px;
+   letter-spacing: 3px;
+   font-weight: 900;
+}
+.teamMember{
+        background: #F5F7F8;
+        width: 100%;
+        padding-top: 60px;
+        padding-bottom: 70px;
+}
+.teamMember .memberInfo{
+        width: 90%;
+        border: 4px solid #000;
+        border-radius: 20px;
+        margin: auto;
+        display: flex;
+        text-align: center
+}
+.teamMember .memberInfo img{
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
+        border: 4px solid #000;
+        border-radius: 50%;
+}
+.leader,
+.member1,
+.member2 {
+        width: 100%;
+  padding: 50px; /* 这里添加了50px的内边距，你可以根据需要调整 */
+}
+.memberName{
+        font-family: 'Jost', sans-serif;
+        font-weight: 900;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+}
+.memberTitle{
+        margin: auto;
+        width: 90%;
+}
+#developerTitle{
+        font-size: 30px;
+        padding-bottom: 50px;
+        letter-spacing: 10px;
+}
+.memberPosition{
+        font-size: 16px;
+}
+</style>

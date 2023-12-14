@@ -160,7 +160,7 @@ if (!isset($_SESSION['user_logged_in']) && isset($_COOKIE['remember_me'])) {
         <div class="login-text">
 
           <div class="logo">
-            <p>LOGIN</p>
+            <p class="ui header horizontal divider" id="login">LOGIN</p>
           </div>
 
           <div class="lboxcss">
@@ -421,9 +421,6 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   top: -10px;
 }
 /* ............................................................................................ */
-  body>.grid {
-    height: 100%;
-  }
 
   body{
     background:#000;
@@ -432,7 +429,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   .loginBG{
     height:100vh;
     width:100%;
-    background: radial-gradient(ellipse at bottom, #91C8E4 0%, #91C8E4 100%);
+    background: radial-gradient(ellipse at bottom, #F6F4EB 0%, #91C8E4 100%);
   }
 
   .login-box {
@@ -491,7 +488,9 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     text-align: center;
   }
 
-  .logo p {
+  .logo #login {
+    padding-top: 10px;
+    padding-bottom: 40px;
     font-size: 30px;
     font-weight: 900;
     letter-spacing: 10px;

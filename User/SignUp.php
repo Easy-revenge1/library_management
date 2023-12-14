@@ -109,8 +109,8 @@ if (isset($_POST['submit'])) {
 
 
   <div class="ui login-box">
-    <a href="UserLogin.php" style="position:absolute; top:20px; color:#000; font-size:20px;"><i class="arrow left icon"></i></a>
       <div class="login-form">
+      <a href="UserLogin.php" style="position:absolute; top:40px; color:#000; font-size:20px;"><i class="arrow left icon"></i></a>
       <form action="SignUp.php" method="POST" class="ui">
         <h1 class="ui header" id="header">SIGN UP</h1>
 
@@ -409,6 +409,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
       border:4px solid #000;
       border-radius:20px;
       display:flex;
+      z-index:10;
     }
 
     .login-bg{
@@ -422,7 +423,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
     .login-form{
       width:100%;
-      padding:20px 50px;
+      padding:20px 20px;
     }
 
     .login-form #header{
