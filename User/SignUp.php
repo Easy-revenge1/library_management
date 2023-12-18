@@ -6,41 +6,41 @@ if (!isset($_SESSION['operation_status'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $user_name = $_POST['user_name'];
-    $user_email = $_POST['user_email'];
+  $user_name = $_POST['user_name'];
+  $user_email = $_POST['user_email'];
 
-    // Add password validation
-    $password = $_POST['user_password'];
-    $confirm_password = $_POST['confirm_password'];
+  // Add password validation
+  $password = $_POST['user_password'];
+  $confirm_password = $_POST['confirm_password'];
 
-    if (strlen($password) < 8 || $password !== $confirm_password) {
-        $_SESSION['operation_status'] = 'InvalidPassword';
-    } else {
-        // Password meets the minimum length requirement and matches the confirm password
-        $user_password = password_hash($password, PASSWORD_DEFAULT);
+  if (strlen($password) < 8 || $password !== $confirm_password) {
+    $_SESSION['operation_status'] = 'InvalidPassword';
+  } else {
+    // Password meets the minimum length requirement and matches the confirm password
+    $user_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Your existing code for database insertion
-        $user_contact = $_POST['user_contact'];
-        $user_signupdate = date("Y-m-d");
-        $user_status = 'Active';
+    // Your existing code for database insertion
+    $user_contact = $_POST['user_contact'];
+    $user_signupdate = date("Y-m-d");
+    $user_status = 'Active';
 
-        $SignUp = "INSERT INTO user (`user_name`, `user_email`, `user_password`, `user_contact`, `user_signupdate`, `user_status`) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $SignUp);
+    $SignUp = "INSERT INTO user (`user_name`, `user_email`, `user_password`, `user_contact`, `user_signupdate`, `user_status`) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $SignUp);
 
-        if ($stmt === false) {
-            die("mysqli_prepare failed: " . mysqli_error($conn));
-        }
-
-        mysqli_stmt_bind_param($stmt, "ssssss", $user_name, $user_email, $user_password, $user_contact, $user_signupdate, $user_status);
-
-        if (mysqli_stmt_execute($stmt)) {
-            $_SESSION['operation_status'] = true;
-        } else {
-            $_SESSION['operation_status'] = 'error';
-        }
-
-        mysqli_stmt_close($stmt);
+    if ($stmt === false) {
+      die("mysqli_prepare failed: " . mysqli_error($conn));
     }
+
+    mysqli_stmt_bind_param($stmt, "ssssss", $user_name, $user_email, $user_password, $user_contact, $user_signupdate, $user_status);
+
+    if (mysqli_stmt_execute($stmt)) {
+      $_SESSION['operation_status'] = true;
+    } else {
+      $_SESSION['operation_status'] = 'error';
+    }
+
+    mysqli_stmt_close($stmt);
+  }
 }
 ?>
 
@@ -56,28 +56,28 @@ if (isset($_POST['submit'])) {
   <title>Digital Library</title>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
   <script src="Assets/plugins/sweetalert2/sweetalert2.all.js"></script>
-    <script src="Assets/plugins/toastr/toastr.min.js"></script>
-    <script src="Assets/js/SweetAlert.js"></script>
+  <script src="Assets/plugins/toastr/toastr.min.js"></script>
+  <script src="Assets/js/SweetAlert.js"></script>
 </head>
 
 <body>
 
-<?php
-if (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === true) {
-  echo '<script>successToast(' . json_encode("Sign Up Success, Redirecting...") . ')</script>';
-  header("Refresh: 1; url=UserLogin.php");
+  <?php
+  if (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === true) {
+    echo '<script>successToast(' . json_encode("Sign Up Success, Redirecting...") . ')</script>';
+    header("Refresh: 1; url=UserLogin.php");
+    $_SESSION['operation_status'] = null;
+    exit();
+  } elseif (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === 'InvalidPassword') {
+    echo '<script>failToast(' . json_encode("Password must be at least 8 characters long and match Confirm Password.") . ')</script>';
+  } elseif (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === 'error') {
+    echo '<script>failToast(' . json_encode("An error occurred during sign up.") . ')</script>';
+  }
+
+
+  // Reset session variable
   $_SESSION['operation_status'] = null;
-  exit();
-} elseif (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === 'InvalidPassword') {
-  echo '<script>failToast(' . json_encode("Password must be at least 8 characters long and match Confirm Password.") . ')</script>';
-} elseif (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === 'error') {
-  echo '<script>failToast(' . json_encode("An error occurred during sign up.") . ')</script>';
-}
-
-
-// Reset session variable
-$_SESSION['operation_status'] = null;
-?>
+  ?>
 
   <div class="mountain">
     <div class="mountain-top">
@@ -103,9 +103,9 @@ $_SESSION['operation_status'] = null;
 
 
   <div class="ui login-box">
-    <a href="UserLogin.php" style="position:absolute; top:20px; color:#000; font-size:20px;"><i
-        class="arrow left icon"></i></a>
     <div class="login-form">
+      <a href="UserLogin.php" style="position:absolute; top:39px; color:#000; font-size:20px;"><i
+          class="arrow left icon"></i></a>
       <form action="SignUp.php" method="POST" class="ui">
         <h1 class="ui header" id="header">SIGN UP</h1>
 
@@ -393,10 +393,6 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     left: 50px;
   }
 
-    .login-form{
-      width:100%;
-      padding:20px 20px;
-    }
   .cloud:after {
     content: '';
     left: 25px;
@@ -438,7 +434,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
   .login-form {
     width: 100%;
-    padding: 20px 50px;
+    padding: 20px 20px;
   }
 
   .login-form #header {

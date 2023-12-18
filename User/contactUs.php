@@ -441,6 +441,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     padding: 10px;
     border: 0px;
     border-radius: 3px;
+    margin-top: 10px;
 }
 .contactForm .userInfo .userInfoTitle,
 .userInfoEmail{

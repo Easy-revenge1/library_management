@@ -48,7 +48,7 @@ $categoryRow = mysqli_query($conn, $categoryBox);
         <div clas="starBox">
           <div id="stars"></div>
           <div id="stars2"></div>
-          <!-- <div id="stars3"></div> -->
+          <div id="stars3"></div>
         </div>
 
         <div class="introduction"></div>
@@ -72,6 +72,9 @@ $categoryRow = mysqli_query($conn, $categoryBox);
       </div>
     </div>
 
+    <div class="ViewIndexButton">
+      <a href="#bookshelf"><i class="angle down icon"></i></a>
+    </div>
 
     <!-- <div class="blueCircleBox">
   <div class="blueCircle"></div>
@@ -173,22 +176,24 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
         <h2 class="ui header horizontal divider" id="content-title" style="padding:0px 40px;">CATEGORY</h2>
         <div class="categoryBox">
           <?php
-          $counter = 1;
+          $counter = 1; 
           while ($row = mysqli_fetch_assoc($categoryRow)) { ?>
-            <div class="categoryCover <?php if ($counter % 3 == 0)
-              echo 'fullWidth'; ?>">
-              <div class="categoryLinear"></div>
-              <p class="categoryTitle">
-                <?= $row["category_name"] ?>
-              </p>
-              <img src="<?= $row['category_image'] ?>" alt="Book Cover" class="categoryImage">
-            </div>
+            <a href="ShowBook.php?category=<?= $row['category_id'] ?>" class="categoryCover <?php if ($counter % 3 == 0) echo 'fullWidth'; ?>" id="myDiv">
+  <div class="categoryLinear"></div>
+  <p class="categoryTitle">
+    <?= $row["category_name"] ?>
+  </p>
+  <img src="<?= $row['category_image'] ?>" alt="Book Cover" class="categoryImage">
+</a>
+
             <?php $counter++;
           } ?>
         </div>
       </div>
     </div>
   </div>
+
+  
   <div style="position:relative; top:0; width:100%; transform: scaleY(-1);">
     <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 160"
       style="z-index:7; background:transparent;" data-height="100">
@@ -230,42 +235,35 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
   </div>
 
-  <div style="height:250px; width:100%; z-index:1;"></div>
+  <div style="height:250px; width:100%; z-index:-30; position: relative;"></div>
 
   <div class="footer" id="footer">
 
 
-    <div class="contentFooter">
-      <div class="footerTitle">
-        <h1 class="">ONE LIBRARY</h1>
-        <a href=""><i class="facebook icon"></i></a>
-        <a href=""><i class="instagram icon"></i></a>
-        <a href=""><i class="twitter icon"></i></a>
-      </div>
-      <!-- <div>
-    <a href=""><i class="facebook icon"></i></a>
-    </div> -->
-      <div class="footerLink">
-        <div class="link1">
-          <p>ABOUT</p>
-          <ul class="a">
-            <li><a href="">TEST</a></li>
-            <li><a href="">TEST</a></li>
-            <li><a href="">TEST</a></li>
-          </ul>
-        </div>
+<div class="footer" id="footer">
 
-        <div class="link2">
-          <p>CONTACT US</p>
-          <ul class="a">
-            <li><a href="">TEST</a></li>
-            <li><a href="">TEST</a></li>
-            <li><a href="">TEST</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+
+<div class="contentFooter">
+<div class="footerTitle">
+  <h1 class="">ONE LIBRARY</h1>
+  <!-- <a href=""><i class="facebook icon"></i></a>
+  <a href=""><i class="instagram icon"></i></a>
+  <a href=""><i class="twitter icon"></i></a> -->
+</div>
+<!-- <div>
+<a href=""><i class="facebook icon"></i></a>
+</div> -->
+<div class="footerLink">
+
+  <div class="link2">
+    <p>CONTACT US</p>
+    <ul class="a">
+      <li><a href=""><i class="envelope outline icon"></i> onelibraryofficial@gmail.com</a></li>
+      <li><a href=""><i class="phone alternate icon"></i> 011-2146 9831</a></li>
+    </ul>
   </div>
+</div>
+</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
     integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
@@ -283,36 +281,19 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   }
 
 
-  // var footer = document.getElementsByClassName('contentFooter')[0];
-
-  // footer.style.opacity = "0";
-
-  // window.onscroll = function (event) {
-  //     var scroll2 = window.pageYOffset;
-
-  //     if (scroll2 >3450) {
-  //       footer.style.opacity = "1";
-  //     } else {
-  //       footer.style.opacity = "0";
-  //     }
-  //   };
-
-
-
-  //   const div = document.querySelector('.elm1');
-
-  // window.addEventListener('scroll', () => {
-  //   const scrollY = window.scrollY;
-  //   div.style.transform = `translateY(-${scrollY}px)`; // 根据滚动位置来移动 div 元素
-  // });
-
-
   let elmDesign = document.getElementById('introDesign');
 
   window.addEventListener('scroll', function () {
     let value = window.scrollY;
     elmDesign.style.top = value * 0.30 + 'px';
   })
+
+
+  document.getElementById("myDiv").addEventListener("click", function() {
+  // Replace 'category_id' with the correct value you want to send
+  window.location.href = 'ShowBook.php';
+});
+
 
 </script>
 
@@ -471,9 +452,13 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   }
 
   /* ................................................................................................ */
-
-  #bookList {
+  .bookRowTable {
+    background: #F5F7F8;
     width: 100%;
+    margin: auto;
+  }
+  #bookList {
+    width: 90%;
     height: 100%;
     /* margin-left: 430px; */
     display: flex;
@@ -481,7 +466,6 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     /* justify-content: space-around; */
     margin: auto;
     margin-bottom: 100px;
-    border-radius: 20px;
   }
 
   .book-cover {
@@ -803,40 +787,29 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     z-index: 4;
   }
 
-  .blueCircleBox {
+  .ViewIndexButton{
     position: absolute;
-    top: 0px;
-    right: 50%;
-    z-index: -1;
+    bottom: 90px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+    animation: ViewButton 1s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    opacity: 0;
   }
-
-  .blueCircle {
-    background: blue;
-    height: 650px;
-    width: 650px;
-    /* transform: rotate(100deg) skew(0deg); */
-    border-radius: 50%;
-    z-index: 1;
-    /* animation: circleBlue 20s infinite; */
+  .ViewIndexButton a{
+    color: #fff;
+   font-size: 60px;
+   cursor: pointer;
   }
-
-  @keyframes circleBlue {
-    0% {
-      transform: rotate(250deg) skew(0deg);
+  @keyframes ViewButton {
+    0%{
+      opacity:0;
     }
-
-    50% {
-      transform: rotate(70deg) skew(0deg);
+    100%{
+      opacity:1;
     }
-
-    100% {
-      transform: rotate(250deg) skew(0deg);
-    }
-  }
-
-  .bookRowTable {
-    width: 90%;
-    margin: auto;
   }
 
 
@@ -853,9 +826,9 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   }
 
   .contentFooter {
-    width: 80%;
+    width: 70%;
     position: absolute;
-    bottom: 0;
+    bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -870,10 +843,10 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   .footerTitle h1 {
     /* color:#fff; */
     color: #fff;
-    font-size: 35px;
+    font-size: 40px;
     font-weight: 100;
     letter-spacing: 10px;
-    margin: 100px 0px 0px 0px;
+    padding: 35px 0px;
   }
 
   .footerTitle i {
@@ -885,7 +858,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   .footerLink {
     margin-left: auto;
     display: flex;
-    padding: 80px 0px;
+    padding: 0px 0px;
   }
 
   .footerLink p {
@@ -899,6 +872,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     color: #fff;
     text-decoration: none;
     transition: 0.4s;
+    /* padding-bottom: 50px; */
   }
 
   .footerLink a:hover {
@@ -907,12 +881,15 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   }
 
   .footerLink .link1 {
-    padding: 0px 40px;
+    padding: 0px 0px;
   }
 
   .footerLink .link2 {
-    border-left: 3px solid #D0D4CA;
-    padding: 0px 40px;
+    /* border-left: 3px solid #D0D4CA; */
+    padding: 0px 0px;
     /* margin-left:100px; */
+  }
+  .footerLink .link2 li{
+    padding-bottom: 15px;
   }
 </style>

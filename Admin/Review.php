@@ -68,7 +68,6 @@ $SQL = mysqli_query($conn, $query);
                                                 <th>Book</th>
                                                 <th>User</th>
                                                 <th>Rating</th>
-                                                <th>Title</th>
                                                 <th>Comment</th>
                                                 <th>Date Post</th>
                                                 <th>Manage</th>
@@ -92,9 +91,6 @@ $SQL = mysqli_query($conn, $query);
                                                     </td>
                                                     <td>
                                                         <?= $row["rating"] ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= $row["title"] ?>
                                                     </td>
                                                     <td>
                                                         <?= $row["comment"] ?>
