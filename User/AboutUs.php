@@ -121,20 +121,26 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
                 <div class="leader">
                      <img src="../ProfilePic/Eren.jpg" alt="">
-                     <p class="memberName">Chiew Hao Er</p>
-                     <np class="memberPosition">Backend Developer</p>
+                     <div style="padding-top: 20px;"> 
+                     <span class="memberName">Chiew Hao Er</span><br>
+                     <span class="memberPosition">Backend Developer</span>
+                     </div>
                 </div>
 
                 <div class="member1">
                      <img src="../ProfilePic/Gojo.jpg" alt="">
-                     <p class="memberName">Johnson Low</p>
-                     <p class="memberPosition">Frontend Developer</p>
+                     <div style="padding-top: 20px;"> 
+                     <span class="memberName">Johnson Low</span><br>
+                     <span class="memberPosition">Frontend Developer</span>
+                     </div>
                 </div>
 
                 <div class="member2">
                 <img src="../ProfilePic/luffy.jpg" alt="">
-                     <p class="memberName">Lau Wei Cheng</p>
-                     <p class="memberPosition">Support</p>
+                <div style="padding-top: 20px;"> 
+                     <span class="memberName">Lau Wei Cheng</span><br>
+                     <span class="memberPosition">Support</span>
+                     </div>
                 </div>
         </div>
     </div>
@@ -443,7 +449,8 @@ window.addEventListener('scroll', function () {
         border-radius: 20px;
         margin: auto;
         display: flex;
-        text-align: center
+        text-align: center;
+        padding: 40px 0px;
 }
 .teamMember .memberInfo img{
         height: 200px;
@@ -455,8 +462,7 @@ window.addEventListener('scroll', function () {
 .leader,
 .member1,
 .member2 {
-        width: 100%;
-  padding: 50px; /* 这里添加了50px的内边距，你可以根据需要调整 */
+        width: 100%; /* 这里添加了50px的内边距，你可以根据需要调整 */
 }
 .memberName{
         font-family: 'Jost', sans-serif;
@@ -464,6 +470,7 @@ window.addEventListener('scroll', function () {
         font-size: 20px;
         text-transform: uppercase;
         letter-spacing: 3px;
+        padding-top:;
 }
 .memberTitle{
         margin: auto;

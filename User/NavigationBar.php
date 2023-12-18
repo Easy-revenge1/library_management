@@ -247,7 +247,7 @@ window.onscroll = function (event) {
     background:#fff;
     border: 2px solid #000;
     border-radius: 10px;
-    margin: -12px 0px;
+    margin: -13px 0px;
     cursor: pointer;
     transition: 0.3s;
     overflow: hidden;
