@@ -93,7 +93,8 @@ if (!$categoryResult) {
             </div>
 
             <div class="bookListSearch">
-                <button class="ui black button" id="searchButton" style="width:88.5%; position: absolute; bottom: 35px;" type="submit">
+                <button class="ui black button" id="searchButton" style="width:88.5%; position: absolute; bottom: 35px;"
+                    type="submit">
                     <i class="ui search icon"></i> Search</button>
 
                 <button class="ui black button" id="resetButton" style="width:88.5%; position: absolute; bottom: 85px;">
@@ -102,6 +103,7 @@ if (!$categoryResult) {
         </div>
 
 
+        <div style="height:100%; width: 45%;"></div>
 
 
         <div class="ui three column bookList" id="bookList">
@@ -200,22 +202,24 @@ if (!$categoryResult) {
 
 </script>
 <style>
-    .title{
-        color:#000 !important;
+    .title {
+        color: #000 !important;
     }
-.navHref{
-    color:#000 !important;
-}
 
- .NoMatching{
+    .navHref {
+        color: #000 !important;
+    }
+
+    .NoMatching {
         color: #252525;
         position: absolute;
-    top: 50%;
-    left: 65%;
-    transform: translate(-50%, -50%);
-        font-size:20px;
-        font-weight:500;
+        top: 50%;
+        left: 65%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        font-weight: 500;
     }
+
     .bookListSearch {
         width: 100%;
         margin: auto;
@@ -238,9 +242,10 @@ if (!$categoryResult) {
 
     #bookList {
         width: 100%;
-        margin-left: 430px;
+
         display: flex;
         flex-wrap: wrap;
+        position: ;
         /* justify-content: space-around; */
         /* margin: auto; */
     }
@@ -290,14 +295,14 @@ if (!$categoryResult) {
     }
 
     .book-cover {
-    height: 400px;
-    width: 300px;
-    margin: 15px 15px;
-    /* border: 5px solid #000; */
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-  }
+        height: 400px;
+        width: 300px;
+        margin: 15px 15px;
+        /* border: 5px solid #000; */
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+    }
 
     .ui.selection.active.dropdown .menu {
         border-color: #FFFBF5 !important;
@@ -309,37 +314,37 @@ if (!$categoryResult) {
 
 
     .linear-bg {
-    background: linear-gradient(to top, black, transparent);
-    position: absolute;
-    height: 230px;
-    width: 100%;
-    border-radius: 10px;
-    bottom: 0%;
-    transition: 0.4s;
-    z-index: 4;
-  }
+        background: linear-gradient(to top, black, transparent);
+        position: absolute;
+        height: 230px;
+        width: 100%;
+        border-radius: 10px;
+        bottom: 0%;
+        transition: 0.4s;
+        z-index: 4;
+    }
 
-  .book-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: 0.4s;
-    z-index: 1;
-  }
+    .book-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: 0.4s;
+        z-index: 1;
+    }
 
-  .book-title {
-    color: #fff;
-    position: absolute;
-    bottom: 3%;
-    left: 5%;
-    /* transform: translate(-50%, -50%); */
-    transition: 0.4s;
-    opacity: 1;
-    font-weight: 900;
-    z-index: 5;
-  }
+    .book-title {
+        color: #fff;
+        position: absolute;
+        bottom: 3%;
+        left: 5%;
+        /* transform: translate(-50%, -50%); */
+        transition: 0.4s;
+        opacity: 1;
+        font-weight: 900;
+        z-index: 5;
+    }
 
     .countBook {
         float: right;
@@ -353,45 +358,45 @@ if (!$categoryResult) {
     }
 
     .hidden-button {
-    background: transparent;
-    padding: 10px 30px;
-    position: absolute;
-    border: 3px solid #fff;
-    color: #fff;
-    border-radius: 10px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 6;
-    transition: 0.4s;
-    opacity: 0;
-    cursor: pointer;
-  }
+        background: transparent;
+        padding: 10px 30px;
+        position: absolute;
+        border: 3px solid #fff;
+        color: #fff;
+        border-radius: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 6;
+        transition: 0.4s;
+        opacity: 0;
+        cursor: pointer;
+    }
 
-  .book-cover:hover {
-    filter: grayscale(0%);
-  }
+    .book-cover:hover {
+        filter: grayscale(0%);
+    }
 
-  .book-cover:hover .hidden-button {
-    opacity: 1;
-    display: inline;
-  }
+    .book-cover:hover .hidden-button {
+        opacity: 1;
+        display: inline;
+    }
 
-  .book-cover:hover .linear-bg {
-    /* filter: brightness(50%); */
-    height: 500px;
-  }
+    .book-cover:hover .linear-bg {
+        /* filter: brightness(50%); */
+        height: 500px;
+    }
 
-  .book-cover:hover .book-title {
-    opacity: 0;
-  }
+    .book-cover:hover .book-title {
+        opacity: 0;
+    }
 
-  .book-cover:hover .book-image {
-    transform: scale(1.2);
-  }
+    .book-cover:hover .book-image {
+        transform: scale(1.2);
+    }
 
-  .hidden-button:hover {
-    background: #fff;
-    color: #000;
-  }
+    .hidden-button:hover {
+        background: #fff;
+        color: #000;
+    }
 </style>

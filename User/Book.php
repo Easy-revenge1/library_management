@@ -4,7 +4,7 @@ include_once("../db.php");
 if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
     header("Location: UserLogin.php");
     exit();
-  }
+}
 
 $bookId = $_GET['id'];
 $userId = $_SESSION['user_id'];
@@ -53,10 +53,10 @@ if ($existingWatchRecord->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Include PDF.js library -->
-  
+    <!-- Include PDF.js library -->
+
     <title>Watch</title>
- 
+
     <style>
         body {
             margin: 0;

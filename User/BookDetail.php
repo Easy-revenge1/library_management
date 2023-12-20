@@ -6,7 +6,7 @@ include_once("NavigationBar.php");
 if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
     header("Location: UserLogin.php");
     exit();
-  }
+}
 
 $bookId = $_GET['id'];
 $baseURL = "http://localhost/library_management/";
@@ -151,6 +151,23 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
         $_SESSION['review_operation'] = "PermissionDelete";
     }
 }
+
+
+
+
+$currentCategoryId = $row['category_id'];
+
+$relatedBooksQuery = "SELECT b.*, l.language_name, c.category_name
+    FROM `book` b
+    INNER JOIN `language` l ON b.`language_id` = l.`language_id`
+    INNER JOIN `category` c ON b.`category_id` = c.`category_id`
+    WHERE b.`category_id` = ? AND b.`book_id` != ? ";
+
+$stmtRelatedBooks = mysqli_prepare($conn, $relatedBooksQuery);
+mysqli_stmt_bind_param($stmtRelatedBooks, "ii", $currentCategoryId, $bookId);
+mysqli_stmt_execute($stmtRelatedBooks);
+$relatedBooksResult = mysqli_stmt_get_result($stmtRelatedBooks);
+
 ?>
 
 
@@ -223,9 +240,10 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
                 <div class="detailInfo">
                     <div class="info">
                         <span class="infoTitle">Author</span><br>
-                        <a href="AuthorBook.php?book_author=<?php echo urlencode($row['book_author']); ?>" class="infomation authorName">
-    <?php echo $row['book_author']; ?>  
-</a>
+                        <a href="AuthorBook.php?book_author=<?php echo urlencode($row['book_author']); ?>"
+                            class="infomation authorName">
+                            <?php echo $row['book_author']; ?>
+                        </a>
                     </div>
 
                     <div class="info">
@@ -397,10 +415,38 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
     </div>
     </div>
 
+
+    <div class="relatedBookBox">
+        <div class="relatedTitle">
+            <h2 class="ui header horizontal divider" id="content-title">RELATED BOOKS</h2>
+        </div>
+        <div class="slider" id="bookList">
+            <?php while ($relatedBook = mysqli_fetch_assoc($relatedBooksResult)) { ?>
+                <?php
+                $coverImagePath = $relatedBook['book_cover'];
+                ?>
+                <div class="book-cover">
+                    <div class="linear-bg"></div>
+                    <p class="book-title">
+                        <?php echo $relatedBook['book_title']; ?>
+                    </p>
+                    <button class="hidden-button" onclick="redirectToBookDetails(<?= $row['book_id'] ?>)">View
+                        Detail</button>
+                    <img src="<?php echo $coverImagePath; ?>" alt="Book Cover" class="book-image">
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+
     <div style="height:10px;"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function redirectToBookDetails(bookId) {
+            window.location.href = 'BookDetail.php?id=' + bookId + '&page=1';
+        }
+
+
         $(document).ready(function () {
             $('.ui.rating').rating({
                 maxRating: 5,
@@ -522,11 +568,11 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 
 
         document.addEventListener('click', function (event) {
-    if (!addForm.contains(event.target) && event.target !== showButton) {
-        addCommentBox.style.opacity = "0";
-        addCommentBox.style.pointerEvents = 'none';
-    }
-});
+            if (!addForm.contains(event.target) && event.target !== showButton) {
+                addCommentBox.style.opacity = "0";
+                addCommentBox.style.pointerEvents = 'none';
+            }
+        });
 
 
     </script>
@@ -539,12 +585,119 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
 </html>
 
 <style>
-        .title{
-        color:#000 !important;
+    #content-title {
+        font-weight: 100;
+        text-align: center;
+        font-size: 30px;
+        letter-spacing: 10px;
+        font-family: 'Jost', sans-serif;
     }
-.navHref{
-    color:#000 !important;
-}
+
+    #bookList {
+        width: 100%;
+        height: 100%;
+        /* margin-left: 430px; */
+        display: flex;
+        flex-wrap: wrap;
+        /* justify-content: space-around; */
+        margin: auto;
+    }
+
+    .book-cover {
+        height: 400px;
+        width: 300px;
+        margin: 15px 10px;
+        /* border: 5px solid #000; */
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .linear-bg {
+        background: linear-gradient(to top, black, transparent);
+        position: absolute;
+        height: 230px;
+        width: 100%;
+        border-radius: 10px;
+        bottom: 0%;
+        transition: 0.4s;
+        z-index: 4;
+    }
+
+    .book-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: 0.4s;
+        z-index: 1;
+    }
+
+    .book-title {
+        color: #fff;
+        position: absolute;
+        bottom: 3%;
+        left: 5%;
+        /* transform: translate(-50%, -50%); */
+        transition: 0.4s;
+        opacity: 1;
+        font-weight: 900;
+        z-index: 5;
+    }
+
+    .hidden-button {
+        background: transparent;
+        padding: 10px 30px;
+        position: absolute;
+        border: 3px solid #fff;
+        color: #fff;
+        border-radius: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 6;
+        transition: 0.4s;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .book-cover:hover {
+        filter: grayscale(0%);
+    }
+
+    .book-cover:hover .hidden-button {
+        opacity: 1;
+        display: inline;
+    }
+
+    .book-cover:hover .linear-bg {
+        /* filter: brightness(50%); */
+        height: 500px;
+    }
+
+    .book-cover:hover .book-title {
+        opacity: 0;
+    }
+
+    .book-cover:hover .book-image {
+        transform: scale(1.2);
+    }
+
+    .hidden-button:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    /* ............................................................................................... */
+    .title {
+        color: #000 !important;
+    }
+
+    .navHref {
+        color: #000 !important;
+    }
+
     .ui.comments .comment .text {
         width: 1100px
     }
@@ -653,7 +806,7 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
         top: 0;
         left: 0;
         transition: 0.2s;
-        opacity:0;
+        opacity: 0;
         pointer-events: none;
     }
 
@@ -699,7 +852,7 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
     .detailBox {
         background: #FFFBF5;
         width: 90%;
-        margin: 100px auto;
+        margin: 100px auto 20px auto;
         padding: 20px;
         border: 4px solid #000;
         border-radius: 20px;
@@ -734,7 +887,7 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
         font-weight: 900;
     }
 
-    .detailInfo .info .authorName{
+    .detailInfo .info .authorName {
         color: #0099e6;
     }
 
@@ -817,5 +970,23 @@ if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'd
         border-radius: 50%;
         height: 45px;
         width: 45px;
+    }
+
+    .relatedBookBox {
+        background: #FFFBF5;
+        width: 90%;
+        margin: 0px auto 30px auto;
+        padding: 20px;
+        border: 4px solid #000;
+        border-radius: 20px;
+    }
+
+    .relatedTitle {
+        margin: 10px 0px 20px 0px;
+    }
+
+    .relatedBookContent {
+        width: 98%;
+        margin: auto;
     }
 </style>

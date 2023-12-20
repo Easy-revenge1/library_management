@@ -6,7 +6,7 @@ include_once("NavigationBar.php");
 if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
     header("Location: UserLogin.php");
     exit();
-  }
+}
 
 $userId = $_SESSION["user_id"];
 
@@ -58,7 +58,7 @@ $stmt->close();
     <div class="user-book-info">
         <div class="favorite">
 
-        <div class="titleBox">
+            <div class="titleBox">
                 <span class="book-mark-title">Watch Record</span>
             </div>
 
@@ -102,72 +102,75 @@ $stmt->close();
 <script src="../Fomantic-ui/dist/components/form.js"></script>
 <script src="../Fomantic-ui/dist/components/transition.js"></script>
 <script>
-$(document).ready(function () {
-    $('#resetButton').on('click', function () {
-        // Refresh the page
-        location.reload();
-    });
+    $(document).ready(function () {
+        $('#resetButton').on('click', function () {
+            // Refresh the page
+            location.reload();
+        });
 
-    $('#searchBox button').on('click', function () {
-        // Get the search query from the input field
-        var query = $('#searchInput').val();
+        $('#searchBox button').on('click', function () {
+            // Get the search query from the input field
+            var query = $('#searchInput').val();
 
-        // Empty the .watchrecord_book div before making the request
-        $('.watchrecord_book').empty();
+            // Empty the .watchrecord_book div before making the request
+            $('.watchrecord_book').empty();
 
-        $.ajax({
-            url: 'Ajax/watchRecordSearch.php',
-            method: 'GET',
-            data: { query: query },
-            dataType: 'json',
-            beforeSend: function () {
-                // You can show a loading indicator here if needed
-            },
-            success: function (data) {
-                if (data.length > 0) {
-                    $.each(data, function (index, book) {
-                        var bookCover = $('<div class="book-cover"></div>');
-                        bookCover.append('<div class="linear-bg"></div>');
-                        bookCover.append('<p class="book-title">' + book.book_title + '</p>');
+            $.ajax({
+                url: 'Ajax/watchRecordSearch.php',
+                method: 'GET',
+                data: { query: query },
+                dataType: 'json',
+                beforeSend: function () {
+                    // You can show a loading indicator here if needed
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        $.each(data, function (index, book) {
+                            var bookCover = $('<div class="book-cover"></div>');
+                            bookCover.append('<div class="linear-bg"></div>');
+                            bookCover.append('<p class="book-title">' + book.book_title + '</p>');
 
-                        // Dynamically create the button using JavaScript
-                        var viewDetailButton = $('<button type="button" class="hidden-button">View Detail</button>');
-                        viewDetailButton.on('click', function () {
-                            // Redirect to the BookDetail.php page with the book_id as a parameter
-                            location.href = 'BookDetail.php?id=' + book.book_id + '&page=1';
+                            // Dynamically create the button using JavaScript
+                            var viewDetailButton = $('<button type="button" class="hidden-button">View Detail</button>');
+                            viewDetailButton.on('click', function () {
+                                // Redirect to the BookDetail.php page with the book_id as a parameter
+                                location.href = 'BookDetail.php?id=' + book.book_id + '&page=1';
+                            });
+                            bookCover.append(viewDetailButton);
+
+                            bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
+
+                            $('.watchrecord_book').append(bookCover);
                         });
-                        bookCover.append(viewDetailButton);
-
-                        bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
-
-                        $('.watchrecord_book').append(bookCover);
-                    });
-                } else {
-                    $('.watchrecord_book').append('<p class="NoMatching2">No matching books found.</p>');
+                    } else {
+                        $('.watchrecord_book').append('<p class="NoMatching2">No matching books found.</p>');
+                    }
+                },
+                error: function (error) {
+                    console.error('AJAX Error:', error);
                 }
-            },
-            error: function (error) {
-                console.error('AJAX Error:', error);
-            }
+            });
         });
     });
-});
 
 </script>
 
 <style>
-        .title{
-        color:#000 !important;
+    .title {
+        color: #000 !important;
     }
-.navHref{
-    color:#000 !important;
-}
-     .NoMatching2{
+
+    .navHref {
+        color: #000 !important;
+    }
+
+    .NoMatching2 {
         color: #252525;
-        padding:0px 20px;
-        font-size:20px;
-        font-weight:500;
+        padding: 0px 20px;
+        font-size: 20px;
+        font-weight: 500;
     }
+
     #resetButton {
         background: transparent;
         color: #000;
@@ -208,7 +211,7 @@ $(document).ready(function () {
         display: flex;
         flex-wrap: wrap;
         /* justify-content: space-around; */
-    
+
     }
 
     #searchBox {
