@@ -145,59 +145,60 @@ if (!isset($_SESSION['user_logged_in']) && isset($_COOKIE['remember_me'])) {
 </head>
 
 <body>
-<div class="loginBG">
-<div class="ui login-box">
-    <div class="login-form">
-      <form class="" action="UserLogin.php" method="POST">
-        <div class="login-text">
+  <div class="loginBG">
+    <div class="ui login-box">
+      <div class="login-form">
+        <form class="" action="UserLogin.php" method="POST">
+          <div class="login-text">
 
-          <div class="logo">
-            <p class="ui header horizontal divider" id="login">LOGIN</p>
-          </div>
-
-          <div class="lboxcss">
-            <input type="text" class="lbox-input" name="user_name" autocomplete="off"
-              value="<?= isset($defaultUserName) ? $defaultUserName : '' ?>" required>
-            <label for="text" class="label-name">
-              <span class="content-name">
-                Username
-              </span>
-            </label>
-          </div>
-
-          <div class="lboxcss" style="margin-top: 20px;">
-            <button id="showPasswordButton" type="button">
-              <i id="showPasswordIcon" class="eye icon"></i>
-            </button>
-            <input type="password" id="passwordInput" class="lbox-input" name="user_pass" autocomplete="off" required>
-            <label for="passwordInput" class="label-name">
-              <span class="content-name">
-                Password
-              </span>
-            </label>
-          </div>
-
-          
-          <div class="ui checkbox">
-            <input type="checkbox" name="remember_me" <?php echo isset($rememberMeChecked) ? $rememberMeChecked : ''; ?>>
-            <label>Remember Me</label>
-          </div>
-          <a class="forgot-password" href="ForgotPassword.php">Forgot Password</a>
-
-          <div class="login-function">
-            <button type='submit' name='submit' value='submit' class="ui black button" id="login-button">Login</button>
-            <div class="ui horizontal divider">
-              Or
+            <div class="logo">
+              <p class="ui header horizontal divider" id="login">LOGIN</p>
             </div>
-            <span>New to us? <a class="signup" href="SignUp.php">Sign Up</a></span>
 
+            <div class="lboxcss">
+              <input type="text" class="lbox-input" name="user_name" autocomplete="off"
+                value="<?= isset($defaultUserName) ? $defaultUserName : '' ?>" required>
+              <label for="text" class="label-name">
+                <span class="content-name">
+                  Username
+                </span>
+              </label>
+            </div>
+
+            <div class="lboxcss" style="margin-top: 20px;">
+              <button id="showPasswordButton" type="button">
+                <i id="showPasswordIcon" class="eye icon"></i>
+              </button>
+              <input type="password" id="passwordInput" class="lbox-input" name="user_pass" autocomplete="off" required>
+              <label for="passwordInput" class="label-name">
+                <span class="content-name">
+                  Password
+                </span>
+              </label>
+            </div>
+
+
+            <div class="ui checkbox">
+              <input type="checkbox" name="remember_me" <?php echo isset($rememberMeChecked) ? $rememberMeChecked : ''; ?>>
+              <label>Remember Me</label>
+            </div>
+            <a class="forgot-password" href="ForgotPassword.php">Forgot Password</a>
+
+            <div class="login-function">
+              <button type='submit' name='submit' value='submit' class="ui black button"
+                id="login-button">Login</button>
+              <div class="ui horizontal divider">
+                Or
+              </div>
+              <span>New to us? <a class="signup" href="SignUp.php">Sign Up</a></span>
+
+            </div>
+
+            <!-- <div class="ui error message"></div> -->
           </div>
-
-          <!-- <div class="ui error message"></div> -->
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
 
     <div class="mountain">
       <div class="mountain-top">
@@ -224,7 +225,7 @@ if (!isset($_SESSION['user_logged_in']) && isset($_COOKIE['remember_me'])) {
 
 
 
-  <div style="position:absolute; bottom:0; width:100%;">
+    <div style="position:absolute; bottom:0; width:100%;">
       <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 160"
         style="z-index:7; background:transparent;" data-height="100">
         <path class="animated-path" style="opacity: 1;fill: #ddd;" d="M1040,56c0.5,0,1,0,1.6,0c-16.6-8.9-36.4-15.7-66.4-15.7c-56,0-76.8,23.7-106.9,41C881.1,89.3,895.6,96,920,96
@@ -264,8 +265,8 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
       </svg>
 
     </div>
-</div>
-<!-- <div style="height:500px; width:100%; background:#ddd; z-index:10;">
+  </div>
+  <!-- <div style="height:500px; width:100%; background:#ddd; z-index:10;">
 
 </div>
   -->
@@ -289,9 +290,9 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   });
 </script>
 <style type="text/css">
-/* ............................................................................................ */
-/* no need add to main css */
-@keyframes move {
+  /* ............................................................................................ */
+  /* no need add to main css */
+  @keyframes move {
     0% {
       transform: translateX(0);
     }
@@ -343,84 +344,120 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
 
 
-  .mountain, .mountain-two, .mountain-three {
+  .mountain,
+  .mountain-two,
+  .mountain-three {
     position: absolute;
     bottom: 0;
     border-left: 270px solid transparent;
     border-right: 270px solid transparent;
     border-bottom: 300px solid #2b9cd4;
     z-index: 1;
-}
-.mountain-two { 
+  }
+
+  .mountain-two {
     left: 80px;
     bottom: 0px;
     opacity: .3;
     z-index: 0;
-}
-.mountain-three {
+  }
+
+  .mountain-three {
     left: -60px;
-    bottom:0px;
+    bottom: 0px;
     opacity: .5;
     z-index: 0;
-}
-.mountain-top {
+  }
+
+  .mountain-top {
     position: absolute;
     right: -65px;
     border-left: 65px solid transparent;
     border-right: 65px solid transparent;
     border-bottom: 77px solid #ceeaf6;
     z-index: 2;
-}
-.mountain-cap-1, .mountain-cap-2, .mountain-cap-3 {
+  }
+
+  .mountain-cap-1,
+  .mountain-cap-2,
+  .mountain-cap-3 {
     position: absolute;
     top: 70px;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
     border-top: 25px solid #ceeaf6;
-}
-.mountain-cap-1 { left: -55px; }
-.mountain-cap-2 { left: -25px; }
-.mountain-cap-3 { left: 5px; }
-.cloud, .cloud:before, .cloud:after {
-  position: absolute;
-  width: 150px;
-	height: 100px;
-	background: #fff;
-	-webkit-border-radius: 100px / 50px;
-	border-radius: 100px / 50px;
-}
-.cloud { 
-  bottom: 100px;
-  -webkit-animation: cloud 50s infinite linear;
-          animation: cloud 50s infinite linear;
-}
-@-webkit-keyframes cloud {
-    0%   { left: -100px; }
-    100% { left: 1000px; } 
-}
-@keyframes cloud {
-   
-    0%   { left: -100px; }
-    100% { left: 1000px; } 
-}
-.cloud:before {
-  content: '';
-  left: 50px;
-}
-.cloud:after {
-  content: '';
-  left: 25px;
-  top: -10px;
-}
-/* ............................................................................................ */
-
-  body{
-    background:#000;
   }
 
-  .loginBG{
-    height:100vh;
-    width:100%;
+  .mountain-cap-1 {
+    left: -55px;
+  }
+
+  .mountain-cap-2 {
+    left: -25px;
+  }
+
+  .mountain-cap-3 {
+    left: 5px;
+  }
+
+  .cloud,
+  .cloud:before,
+  .cloud:after {
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    background: #fff;
+    -webkit-border-radius: 100px / 50px;
+    border-radius: 100px / 50px;
+  }
+
+  .cloud {
+    bottom: 100px;
+    -webkit-animation: cloud 50s infinite linear;
+    animation: cloud 50s infinite linear;
+  }
+
+  @-webkit-keyframes cloud {
+    0% {
+      left: -100px;
+    }
+
+    100% {
+      left: 1000px;
+    }
+  }
+
+  @keyframes cloud {
+
+    0% {
+      left: -100px;
+    }
+
+    100% {
+      left: 1000px;
+    }
+  }
+
+  .cloud:before {
+    content: '';
+    left: 50px;
+  }
+
+  .cloud:after {
+    content: '';
+    left: 25px;
+    top: -10px;
+  }
+
+  /* ............................................................................................ */
+
+  body {
+    background: #000;
+  }
+
+  .loginBG {
+    height: 100vh;
+    width: 100%;
     background: radial-gradient(ellipse at bottom, #F6F4EB 0%, #91C8E4 100%);
   }
 
@@ -436,7 +473,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     border: 4px solid #000;
     border-radius: 20px;
     display: flex;
-    z-index:10;
+    z-index: 10;
   }
 
   .login-bg {
@@ -450,7 +487,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
   .login-form {
     width: 100%;
-    position:relative;
+    position: relative;
   }
 
   .login-text {
@@ -585,7 +622,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     width: calc(100% - 40px);
     text-align: center;
     /* margin: 180px 0px; */
-    bottom:10px;
+    bottom: 10px;
   }
 
   .login-function #login-button {

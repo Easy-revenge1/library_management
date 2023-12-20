@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Properly handle errors and warnings
 error_reporting(E_ALL);
 ini_set('display_errors', true);
@@ -7,7 +7,7 @@ ini_set('display_errors', true);
 require_once('../db.php');
 
 // Check if the session is active before destroying it
-if(session_status() === PHP_SESSION_ACTIVE) {
+if (session_status() === PHP_SESSION_ACTIVE) {
     session_destroy();
 }
 

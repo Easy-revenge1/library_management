@@ -4,20 +4,26 @@ include_once('NavigationBar.php');
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
 </head>
+
 <body>
-    <div class="FirstBox">
+  <div class="FirstBox">
 
     <div class="textBox">
-    <div class="FirstBoxText" id="FirstBoxTextBox">
+      <div class="FirstBoxText" id="FirstBoxTextBox">
         <p class="ui header horizontal divider" id="aboutUs">About Us</p>
-        <p class="aboutUsIntro">Welcome to our digital library! This electronic sanctuary is an ethereal world of knowledge, and cutting-edge research convene in an unparalleled harmony of information. As you embark on this literary odyssey, you'll traverse virtual aisles brimming with an infinite array of texts.But fear not, for the magic of storytelling and the pursuit of knowledge remain as vivid as ever. Shall we begin this enchanting journey? </p>
-        </div>
-</div>
+        <p class="aboutUsIntro">Welcome to our digital library! This electronic sanctuary is an ethereal world of
+          knowledge, and cutting-edge research convene in an unparalleled harmony of information. As you embark on this
+          literary odyssey, you'll traverse virtual aisles brimming with an infinite array of texts.But fear not, for
+          the magic of storytelling and the pursuit of knowledge remain as vivid as ever. Shall we begin this enchanting
+          journey? </p>
+      </div>
+    </div>
 
     <div style="position:absolute; bottom:0; width:100%;">
       <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 160"
@@ -84,89 +90,99 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     <!-- <div class="cloud"></div> -->
 
 
+  </div>
+
+
+  <div class="AboutContent">
+    <div class="aboutInfoBox">
+
+      <div class="FirstFeatures">
+        <img src="../pic/1.png" alt="">
+        <h4>Search and Navigation Features</h4>
+        <p>Catering to diverse reading preferences, our e-library prides itself on a sophisticated search function and a
+          user-friendly navigation system. With an array of advanced search tools and comprehensive filtering options,
+          users can effortlessly navigate through our extensive collection, ensuring a seamless and personalized
+          experience in discovering the content they seek.</p>
+      </div>
+
+      <div class="SecondFeatures">
+        <img src="../pic/2.png" alt="">
+        <h4>Free reading feature</h4>
+        <p>The 'Free Reading Feature' allows users to access certain content without any charges. It's a service offered
+          by platforms, apps, or websites, granting limited access to books, articles, or materials to entice users. It
+          serves as a teaser, encouraging users to consider subscription or purchase for complete access.</p>
+      </div>
+
+      <div class="ThirdFeatures">
+        <img src="../pic/3.png" alt="">
+        <h4>Book interaction</h4>
+        <p>Catering to book enthusiasts, our platform boasts an array of engaging features. Users effortlessly delve
+          into comprehensive book details, spanning summaries, author insights, and publication particulars. Through
+          shared reviews, a vibrant community interaction thrives, while the option to provide overall ratings empowers
+          informed decision-making based on collective feedback.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="teamMember">
+
+    <div class="memberTitle">
+      <h2 class="ui header horizontal divider" id="developerTitle">DEVELOPER</h2>
     </div>
 
+    <div class="memberInfo">
 
-    <div class="AboutContent">
-       <div class="aboutInfoBox" >
-
-          <div class="FirstFeatures">
-                <img src="../pic/1.png" alt="">
-                <h4>Search and Navigation Features</h4>
-                <p>Catering to diverse reading preferences, our e-library prides itself on a sophisticated search function and a user-friendly navigation system. With an array of advanced search tools and comprehensive filtering options, users can effortlessly navigate through our extensive collection, ensuring a seamless and personalized experience in discovering the content they seek.</p>
-          </div>
-
-          <div class="SecondFeatures">
-                <img src="../pic/2.png" alt="">
-                <h4>Free reading feature</h4>
-                <p>The 'Free Reading Feature' allows users to access certain content without any charges. It's a service offered by platforms, apps, or websites, granting limited access to books, articles, or materials to entice users. It serves as a teaser, encouraging users to consider subscription or purchase for complete access.</p>
-          </div>
-
-          <div class="ThirdFeatures">
-          <img src="../pic/3.png" alt="">
-                <h4>Book interaction</h4>
-                <p>Catering to book enthusiasts, our platform boasts an array of engaging features. Users effortlessly delve into comprehensive book details, spanning summaries, author insights, and publication particulars. Through shared reviews, a vibrant community interaction thrives, while the option to provide overall ratings empowers informed decision-making based on collective feedback.</p>
-          </div>
-
-       </div>
-    </div>
-
-    <div class="teamMember">
-
-        <div class="memberTitle">
-        <h2 class="ui header horizontal divider" id="developerTitle">DEVELOPER</h2>
+      <div class="leader">
+        <img src="../ProfilePic/Eren.jpg" alt="">
+        <div style="padding-top: 20px;">
+          <span class="memberName">Chiew Hao Er</span><br>
+          <span class="memberPosition">Backend Developer</span>
         </div>
+      </div>
 
-        <div class="memberInfo">
-
-                <div class="leader">
-                     <img src="../ProfilePic/Eren.jpg" alt="">
-                     <div style="padding-top: 20px;"> 
-                     <span class="memberName">Chiew Hao Er</span><br>
-                     <span class="memberPosition">Backend Developer</span>
-                     </div>
-                </div>
-
-                <div class="member1">
-                     <img src="../ProfilePic/Gojo.jpg" alt="">
-                     <div style="padding-top: 20px;"> 
-                     <span class="memberName">Johnson Low</span><br>
-                     <span class="memberPosition">Frontend Developer</span>
-                     </div>
-                </div>
-
-                <div class="member2">
-                <img src="../ProfilePic/luffy.jpg" alt="">
-                <div style="padding-top: 20px;"> 
-                     <span class="memberName">Lau Wei Cheng</span><br>
-                     <span class="memberPosition">Support</span>
-                     </div>
-                </div>
+      <div class="member1">
+        <img src="../ProfilePic/Gojo.jpg" alt="">
+        <div style="padding-top: 20px;">
+          <span class="memberName">Johnson Low</span><br>
+          <span class="memberPosition">Frontend Developer</span>
         </div>
+      </div>
+
+      <div class="member2">
+        <img src="../ProfilePic/luffy.jpg" alt="">
+        <div style="padding-top: 20px;">
+          <span class="memberName">Lau Wei Cheng</span><br>
+          <span class="memberPosition">Support</span>
+        </div>
+      </div>
     </div>
+  </div>
 
 
 
-    
+
 </body>
+
 </html>
 <script>
-      let elmDesign = document.getElementById('FirstBoxTextBox');
+  let elmDesign = document.getElementById('FirstBoxTextBox');
 
-window.addEventListener('scroll', function () {
-  let value = window.scrollY;
-  elmDesign.style.top = value * 0.30 + 'px';
-})
+  window.addEventListener('scroll', function () {
+    let value = window.scrollY;
+    elmDesign.style.top = value * 0.30 + 'px';
+  })
 </script>
 <style>
-  .title{
-        color:#000 !important;
-    }
-.navHref{
-    color:#000 !important;
-}
+  .title {
+    color: #000 !important;
+  }
 
-     @keyframes move {
+  .navHref {
+    color: #000 !important;
+  }
+
+  @keyframes move {
     0% {
       transform: translateX(0);
     }
@@ -183,109 +199,145 @@ window.addEventListener('scroll', function () {
   .animated-path {
     animation: move 16s ease-in-out infinite;
   }
-    .svg-separator {
-        display: block;
-        background: 0 0;
-        position: relative;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 20;
-        -webkit-transform: translateY(0%) translateY(2px);
-        transform: translateY(0%) translateY(2px);
-        width: 100%;
-        filter: unset;
-    }
 
-    .svg-separator path {
-        fill: #F5F7F8 !important;
-    }
+  .svg-separator {
+    display: block;
+    background: 0 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    -webkit-transform: translateY(0%) translateY(2px);
+    transform: translateY(0%) translateY(2px);
+    width: 100%;
+    filter: unset;
+  }
 
-    .svg-separator.bottom {
-        top: auto;
-        bottom: 0;
-    }
+  .svg-separator path {
+    fill: #F5F7F8 !important;
+  }
 
-    .sep1 {
-        transform: translateY(0%) translateY(0px) scale(1, 1);
-        transform-origin: top;
-    }
+  .svg-separator.bottom {
+    top: auto;
+    bottom: 0;
+  }
+
+  .sep1 {
+    transform: translateY(0%) translateY(0px) scale(1, 1);
+    transform-origin: top;
+  }
 
 
-    .mountain, .mountain-two, .mountain-three {
+  .mountain,
+  .mountain-two,
+  .mountain-three {
     position: absolute;
     bottom: 0;
     border-left: 270px solid transparent;
     border-right: 270px solid transparent;
     border-bottom: 300px solid #2b9cd4;
     z-index: 1;
-}
-.mountain-two { 
+  }
+
+  .mountain-two {
     left: 80px;
     bottom: 0px;
     opacity: .3;
     z-index: 0;
-}
-.mountain-three {
+  }
+
+  .mountain-three {
     left: -60px;
-    bottom:0px;
+    bottom: 0px;
     opacity: .5;
     z-index: 0;
-}
-.mountain-top {
+  }
+
+  .mountain-top {
     position: absolute;
     right: -65px;
     border-left: 65px solid transparent;
     border-right: 65px solid transparent;
     border-bottom: 77px solid #ceeaf6;
     z-index: 2;
-}
-.mountain-cap-1, .mountain-cap-2, .mountain-cap-3 {
+  }
+
+  .mountain-cap-1,
+  .mountain-cap-2,
+  .mountain-cap-3 {
     position: absolute;
     top: 70px;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
     border-top: 25px solid #ceeaf6;
-}
-.mountain-cap-1 { left: -55px; }
-.mountain-cap-2 { left: -25px; }
-.mountain-cap-3 { left: 5px; }
-.cloud, .cloud:before, .cloud:after {
-  position: absolute;
-  width: 150px;
-	height: 100px;
-	background: #fff;
-	-webkit-border-radius: 100px / 50px;
-	border-radius: 100px / 50px;
-}
-.cloud { 
-  bottom: 100px;
-  -webkit-animation: cloud 50s infinite linear;
-          animation: cloud 50s infinite linear;
-}
-@-webkit-keyframes cloud {
-    0%   { left: -100px; }
-    100% { left: 1000px; } 
-}
-@keyframes cloud {
-   
-    0%   { left: -100px; }
-    100% { left: 1000px; } 
-}
-.cloud:before {
-  content: '';
-  left: 50px;
-}
-.cloud:after {
-  content: '';
-  left: 25px;
-  top: -10px;
-}
+  }
+
+  .mountain-cap-1 {
+    left: -55px;
+  }
+
+  .mountain-cap-2 {
+    left: -25px;
+  }
+
+  .mountain-cap-3 {
+    left: 5px;
+  }
+
+  .cloud,
+  .cloud:before,
+  .cloud:after {
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    background: #fff;
+    -webkit-border-radius: 100px / 50px;
+    border-radius: 100px / 50px;
+  }
+
+  .cloud {
+    bottom: 100px;
+    -webkit-animation: cloud 50s infinite linear;
+    animation: cloud 50s infinite linear;
+  }
+
+  @-webkit-keyframes cloud {
+    0% {
+      left: -100px;
+    }
+
+    100% {
+      left: 1000px;
+    }
+  }
+
+  @keyframes cloud {
+
+    0% {
+      left: -100px;
+    }
+
+    100% {
+      left: 1000px;
+    }
+  }
+
+  .cloud:before {
+    content: '';
+    left: 50px;
+  }
+
+  .cloud:after {
+    content: '';
+    left: 25px;
+    top: -10px;
+  }
 
 
 
 
-    .footer {
+  .footer {
     position: fixed;
     bottom: 0;
     z-index: -20;
@@ -293,7 +345,7 @@ window.addEventListener('scroll', function () {
     /* background: #FFFBF5; */
     width: 100%;
     height: 400px;
-    
+
     /* padding:40px 40px; */
   }
 
@@ -360,21 +412,24 @@ window.addEventListener('scroll', function () {
     padding: 0px 40px;
     /* margin-left:100px; */
   }
-/* ........................................................................................................................... */
-.FirstBox{
-  background: radial-gradient(ellipse at bottom, #F6F4EB -20%, #91C8E4 100%);
+
+  /* ........................................................................................................................... */
+  .FirstBox {
+    background: radial-gradient(ellipse at bottom, #F6F4EB -20%, #91C8E4 100%);
     position: relative;
     height: 100vh;
     width: 100%;
-}
-.textBox{
+  }
+
+  .textBox {
     width: 90%;
     position: relative;
-    top: 35%;   
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-.FirstBoxText{
+  }
+
+  .FirstBoxText {
     text-align: center;
     height: 100%;
     width: 100%;
@@ -383,105 +438,123 @@ window.addEventListener('scroll', function () {
     /* top: 40%;
     left: 50%;
     transform: translate(-50%, -50%); */
-}
-.FirstBoxText #aboutUs{
-    color:#000;
+  }
+
+  .FirstBoxText #aboutUs {
+    color: #000;
     font-family: 'Jost', sans-serif;
     font-size: 40px;
     font-weight: 100;
     text-transform: uppercase;
     letter-spacing: 20px;
-}
-.FirstBoxText .aboutUsIntro{
+  }
+
+  .FirstBoxText .aboutUsIntro {
     font-size: 23px;
-}
-.AboutContent{
+  }
+
+  .AboutContent {
     background: #F5F7F8;
     width: 100%;
-}
-.aboutInfoBox{
-        padding-top: 50px;
-        width: 90%;
-        margin: auto;
-        display: flex;
-}
-.aboutInfoBox img{
-       width: 70%;
-}
-.FirstFeatures{
-        text-align: center;
-        width: 100%;
-}
-.SecondFeatures{
-        text-align: center;
-        width: 100%;
-        margin-top: -50px;
-}
-.ThirdFeatures{
-        text-align: center;
-        width: 100%;
-}
+  }
 
-.FirstFeatures,
-.SecondFeatures,
-.ThirdFeatures {
-  padding: 50px; /* 这里添加了50px的内边距，你可以根据需要调整 */
-}
+  .aboutInfoBox {
+    padding-top: 50px;
+    width: 90%;
+    margin: auto;
+    display: flex;
+  }
 
-.FirstFeatures h4,
-.SecondFeatures h4,
-.ThirdFeatures h4{
-        font-family: 'Jost', sans-serif;
-        text-transform: uppercase;
-   font-size: 20px;
-   letter-spacing: 3px;
-   font-weight: 900;
-}
-.teamMember{
-        background: #F5F7F8;
-        width: 100%;
-        padding-top: 60px;
-        padding-bottom: 70px;
-}
-.teamMember .memberInfo{
-        width: 90%;
-        border: 4px solid #000;
-        border-radius: 20px;
-        margin: auto;
-        display: flex;
-        text-align: center;
-        padding: 40px 0px;
-}
-.teamMember .memberInfo img{
-        height: 200px;
-        width: 200px;
-        object-fit: cover;
-        border: 4px solid #000;
-        border-radius: 50%;
-}
-.leader,
-.member1,
-.member2 {
-        width: 100%; /* 这里添加了50px的内边距，你可以根据需要调整 */
-}
-.memberName{
-        font-family: 'Jost', sans-serif;
-        font-weight: 900;
-        font-size: 20px;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        padding-top:;
-}
-.memberTitle{
-        margin: auto;
-        width: 90%;
-}
-#developerTitle{
-        font-size: 30px;
-        padding-bottom: 50px;
-        letter-spacing: 10px;
-}
-.memberPosition{
-        font-size: 16px;
-}
+  .aboutInfoBox img {
+    width: 70%;
+  }
+
+  .FirstFeatures {
+    text-align: center;
+    width: 100%;
+  }
+
+  .SecondFeatures {
+    text-align: center;
+    width: 100%;
+    margin-top: -50px;
+  }
+
+  .ThirdFeatures {
+    text-align: center;
+    width: 100%;
+  }
+
+  .FirstFeatures,
+  .SecondFeatures,
+  .ThirdFeatures {
+    padding: 50px;
+    /* 这里添加了50px的内边距，你可以根据需要调整 */
+  }
+
+  .FirstFeatures h4,
+  .SecondFeatures h4,
+  .ThirdFeatures h4 {
+    font-family: 'Jost', sans-serif;
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 3px;
+    font-weight: 900;
+  }
+
+  .teamMember {
+    background: #F5F7F8;
+    width: 100%;
+    padding-top: 60px;
+    padding-bottom: 70px;
+  }
+
+  .teamMember .memberInfo {
+    width: 90%;
+    border: 4px solid #000;
+    border-radius: 20px;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    padding: 40px 0px;
+  }
+
+  .teamMember .memberInfo img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border: 4px solid #000;
+    border-radius: 50%;
+  }
+
+  .leader,
+  .member1,
+  .member2 {
+    width: 100%;
+    /* 这里添加了50px的内边距，你可以根据需要调整 */
+  }
+
+  .memberName {
+    font-family: 'Jost', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding-top: ;
+  }
+
+  .memberTitle {
+    margin: auto;
+    width: 90%;
+  }
+
+  #developerTitle {
+    font-size: 30px;
+    padding-bottom: 50px;
+    letter-spacing: 10px;
+  }
+
+  .memberPosition {
+    font-size: 16px;
+  }
 </style>

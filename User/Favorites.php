@@ -6,7 +6,7 @@ include_once("NavigationBar.php");
 if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
     header("Location: UserLogin.php");
     exit();
-  }
+}
 
 $userId = $_SESSION["user_id"];
 
@@ -70,7 +70,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
     <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="Css/Utility.css">
 
-    
+
 </head>
 
 <body>
@@ -117,7 +117,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
             </div>
         </div>
 
-        
+
 </body>
 
 </html>
@@ -149,22 +149,22 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
                 success: function (data) {
                     if (data.length > 0) {
                         $.each(data, function (index, book) {
-                        var bookCover = $('<div class="book-cover"></div>');
-                        bookCover.append('<div class="linear-bg"></div>');
-                        bookCover.append('<p class="book-title">' + book.book_title + '</p>');
+                            var bookCover = $('<div class="book-cover"></div>');
+                            bookCover.append('<div class="linear-bg"></div>');
+                            bookCover.append('<p class="book-title">' + book.book_title + '</p>');
 
-                        // Dynamically create the button using JavaScript
-                        var viewDetailButton = $('<button type="button" class="hidden-button">View Detail</button>');
-                        viewDetailButton.on('click', function () {
-                            // Redirect to the BookDetail.php page with the book_id as a parameter
-                            location.href = 'BookDetail.php?id=' + book.book_id + '&page=1';
+                            // Dynamically create the button using JavaScript
+                            var viewDetailButton = $('<button type="button" class="hidden-button">View Detail</button>');
+                            viewDetailButton.on('click', function () {
+                                // Redirect to the BookDetail.php page with the book_id as a parameter
+                                location.href = 'BookDetail.php?id=' + book.book_id + '&page=1';
+                            });
+                            bookCover.append(viewDetailButton);
+
+                            bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
+
+                            $('.favorite-book').append(bookCover);
                         });
-                        bookCover.append(viewDetailButton);
-
-                        bookCover.append('<img class="book-image" src="../cover/' + book.book_cover + '" alt="Book Cover">');
-
-                        $('.favorite-book').append(bookCover);
-                    });
                     } else {
                         $('.favorite').append('<p class="NoMatching2">No matching books found.</p>');
                     }
@@ -181,18 +181,21 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
 
 
 <style>
-        .title{
-        color:#000 !important;
+    .title {
+        color: #000 !important;
     }
-.navHref{
-    color:#000 !important;
-}
-     .NoMatching2{
+
+    .navHref {
+        color: #000 !important;
+    }
+
+    .NoMatching2 {
         color: #252525;
-        padding:0px 20px;
-        font-size:20px;
-        font-weight:500;
+        padding: 0px 20px;
+        font-size: 20px;
+        font-weight: 500;
     }
+
     /* * {
         margin: 0;
         padding: 0;
@@ -239,7 +242,7 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
         display: flex;
         flex-wrap: wrap;
         /* justify-content: space-around; */
-    
+
     }
 
     #searchBox {
@@ -286,89 +289,88 @@ if ($Countstmt = mysqli_prepare($conn, $CountBook)) {
     }
 
     .book-cover {
-    height: 400px;
-    width: 300px;
-    margin: 15px 15px;
-    /* border: 5px solid #000; */
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-  }
+        height: 400px;
+        width: 300px;
+        margin: 15px 15px;
+        /* border: 5px solid #000; */
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+    }
 
-  .linear-bg {
-    background: linear-gradient(to top, black, transparent);
-    position: absolute;
-    height: 230px;
-    width: 100%;
-    border-radius: 10px;
-    bottom: 0%;
-    transition: 0.4s;
-    z-index: 4;
-  }
+    .linear-bg {
+        background: linear-gradient(to top, black, transparent);
+        position: absolute;
+        height: 230px;
+        width: 100%;
+        border-radius: 10px;
+        bottom: 0%;
+        transition: 0.4s;
+        z-index: 4;
+    }
 
-  .book-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: 0.4s;
-    z-index: 1;
-  }
+    .book-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: 0.4s;
+        z-index: 1;
+    }
 
-  .book-title {
-    color: #fff;
-    position: absolute;
-    bottom: 3%;
-    left: 5%;
-    /* transform: translate(-50%, -50%); */
-    transition: 0.4s;
-    opacity: 1;
-    font-weight: 900;
-    z-index: 5;
-  }
+    .book-title {
+        color: #fff;
+        position: absolute;
+        bottom: 3%;
+        left: 5%;
+        /* transform: translate(-50%, -50%); */
+        transition: 0.4s;
+        opacity: 1;
+        font-weight: 900;
+        z-index: 5;
+    }
 
-  .hidden-button {
-    background: transparent;
-    padding: 10px 30px;
-    position: absolute;
-    border: 3px solid #fff;
-    color: #fff;
-    border-radius: 10px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 6;
-    transition: 0.4s;
-    opacity: 0;
-    cursor: pointer;
-  }
+    .hidden-button {
+        background: transparent;
+        padding: 10px 30px;
+        position: absolute;
+        border: 3px solid #fff;
+        color: #fff;
+        border-radius: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 6;
+        transition: 0.4s;
+        opacity: 0;
+        cursor: pointer;
+    }
 
-  .book-cover:hover {
-    filter: grayscale(0%);
-  }
+    .book-cover:hover {
+        filter: grayscale(0%);
+    }
 
-  .book-cover:hover .hidden-button {
-    opacity: 1;
-    display: inline;
-  }
+    .book-cover:hover .hidden-button {
+        opacity: 1;
+        display: inline;
+    }
 
-  .book-cover:hover .linear-bg {
-    /* filter: brightness(50%); */
-    height: 500px;
-  }
+    .book-cover:hover .linear-bg {
+        /* filter: brightness(50%); */
+        height: 500px;
+    }
 
-  .book-cover:hover .book-title {
-    opacity: 0;
-  }
+    .book-cover:hover .book-title {
+        opacity: 0;
+    }
 
-  .book-cover:hover .book-image {
-    transform: scale(1.2);
-  }
+    .book-cover:hover .book-image {
+        transform: scale(1.2);
+    }
 
-  .hidden-button:hover {
-    background: #fff;
-    color: #000;
-  }
-
+    .hidden-button:hover {
+        background: #fff;
+        color: #000;
+    }
 </style>

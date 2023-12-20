@@ -39,22 +39,22 @@ $categoryRow = mysqli_query($conn, $categoryBox);
   <title>Homepage</title>
 </head>
 
-<body>
+<body background="">
 
   <div class="intro">
     <div class="introBigBox">
       <div class="firstIntroBox">
-
+        <!-- 
         <div clas="starBox">
           <div id="stars"></div>
           <div id="stars2"></div>
           <div id="stars3"></div>
-        </div>
+        </div> -->
 
         <div class="introduction"></div>
 
         <div class="intro-text">
-          <span class="text1">ONLINE FREE</span><br>
+          <span class="text1">ONE LIBRARY</span>
         </div>
 
       </div>
@@ -67,9 +67,9 @@ $categoryRow = mysqli_query($conn, $categoryBox);
         </div>
       </div>
 
-      <div class="intro-text">
+      <!-- <div class="intro-text">
         <span class="text2">E-LIBRARY</span>
-      </div>
+      </div> -->
     </div>
 
     <div class="ViewIndexButton">
@@ -80,7 +80,7 @@ $categoryRow = mysqli_query($conn, $categoryBox);
   <div class="blueCircle"></div>
   </div> -->
 
-    <div style="position:absolute; bottom:0; width:100%;">
+    <div style="position:absolute; bottom:0; width:100%;" id="svg">
       <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 160"
         style="z-index:7; background:transparent;" data-height="100">
         <path class="animated-path" style="opacity: 1;fill: #ddd;" d="M1040,56c0.5,0,1,0,1.6,0c-16.6-8.9-36.4-15.7-66.4-15.7c-56,0-76.8,23.7-106.9,41C881.1,89.3,895.6,96,920,96
@@ -123,68 +123,79 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   </div>
 
 
-  <div class="ui grid padded" id="bookshelf">
+  <div class="ui grid padded" style="padding-top: 55px;" id="bookshelf">
     <div class="sixteen wide column" style="background:#F5F7F8;">
 
-      <div class="bookRowTable">
+      <div class="bookRowTable" id="show">
         <h2 class="ui header horizontal divider" id="content-title">MOST VIEW</h2>
 
-        <div class="slider mostView" id="bookList">
-          <?php while ($row = mysqli_fetch_assoc($BookView)) { ?>
-            <?php
-            $bookCoverPath = str_replace('..', '', $row["book_cover"]);
-            $bookCoverUrl = $baseURL . $bookCoverPath;
-            // $bookCoverPath = $row["book_cover"];
-            // $bookCoverUrl = $baseURL . $bookCoverPath;
-            ?>
-            <div class="book-cover">
-              <div class="linear-bg"></div>
-              <p class="book-title">
-                <?= $row["book_title"] ?>
-              </p>
-              <button class="hidden-button" onclick="redirectToBookDetails(<?= $row['book_id'] ?>)">View Detail</button>
-              <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="book-image">
-            </div>
-          <?php } ?>
+        <div style="position: relative;">
+          <div class="slider mostView" id="bookList">
+            <?php while ($row = mysqli_fetch_assoc($BookView)) { ?>
+              <?php
+              $bookCoverPath = str_replace('..', '', $row["book_cover"]);
+              $bookCoverUrl = $baseURL . $bookCoverPath;
+              // $bookCoverPath = $row["book_cover"];
+              // $bookCoverUrl = $baseURL . $bookCoverPath;
+              ?>
+              <div class="book-cover">
+                <div class="linear-bg"></div>
+                <p class="book-title">
+                  <?= $row["book_title"] ?>
+                </p>
+                <button class="hidden-button" onclick="redirectToBookDetails(<?= $row['book_id'] ?>)">View Detail</button>
+                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="book-image">
+              </div>
+            <?php } ?>
+          </div>
+
+          <div class="ViewIndexButton2">
+            <a href="#NewUpdate"><i class="angle down icon"></i></a>
+          </div>
         </div>
 
+        <div style="padding-top: 70px; position: relative;" id="NewUpdate">
+          <h2 class="ui header horizontal divider" id="content-title">NEWEST UPDATE</h2>
 
+          <div class="slider" id="bookList">
+            <?php while ($row = mysqli_fetch_assoc($NewestBook)) { ?>
+              <?php
+              $bookCoverPath = str_replace('..', '', $row["book_cover"]);
+              $bookCoverUrl = $baseURL . $bookCoverPath;
+              ?>
+              <div class="book-cover">
+                <div class="linear-bg"></div>
+                <p class="book-title">
+                  <?= $row["book_title"] ?>
+                </p>
+                <button class="hidden-button" onclick="redirectToBookDetails(<?= $row['book_id'] ?>)">View Detail</button>
+                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="book-image">
+              </div>
+            <?php } ?>
+          </div>
 
-        <h2 class="ui header horizontal divider" id="content-title">NEWEST UPDATE</h2>
-
-        <div class="slider" id="bookList">
-          <?php while ($row = mysqli_fetch_assoc($NewestBook)) { ?>
-            <?php
-            $bookCoverPath = str_replace('..', '', $row["book_cover"]);
-            $bookCoverUrl = $baseURL . $bookCoverPath;
-            ?>
-            <div class="book-cover">
-              <div class="linear-bg"></div>
-              <p class="book-title">
-                <?= $row["book_title"] ?>
-              </p>
-              <button class="hidden-button" onclick="redirectToBookDetails(<?= $row['book_id'] ?>)">View Detail</button>
-              <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="book-image">
-            </div>
-          <?php } ?>
+          <div class="ViewIndexButton2">
+            <a href="#collectionBox"><i class="angle down icon"></i></a>
+          </div>
         </div>
-
 
       </div>
 
-      <div class="collection">
+      <div class="collection" id="collectionBox">
         <h2 class="ui header horizontal divider" id="content-title" style="padding:0px 40px;">CATEGORY</h2>
         <div class="categoryBox">
           <?php
-          $counter = 1; 
+          $counter = 1;
           while ($row = mysqli_fetch_assoc($categoryRow)) { ?>
-            <a href="ShowBook.php?category=<?= $row['category_id'] ?>" class="categoryCover <?php if ($counter % 3 == 0) echo 'fullWidth'; ?>" id="myDiv">
-  <div class="categoryLinear"></div>
-  <p class="categoryTitle">
-    <?= $row["category_name"] ?>
-  </p>
-  <img src="<?= $row['category_image'] ?>" alt="Book Cover" class="categoryImage">
-</a>
+            <a href="CategoryBook.php?category=<?= $row['category_id'] ?>"
+              class="categoryCover <?php if ($counter % 3 == 0)
+                echo 'fullWidth'; ?>" id="myDiv">
+              <div class="categoryLinear"></div>
+              <p class="categoryTitle">
+                <?= $row["category_name"] ?>
+              </p>
+              <img src="<?= $row['category_image'] ?>" alt="Book Cover" class="categoryImage">
+            </a>
 
             <?php $counter++;
           } ?>
@@ -193,7 +204,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     </div>
   </div>
 
-  
+
   <div style="position:relative; top:0; width:100%; transform: scaleY(-1);">
     <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 160"
       style="z-index:7; background:transparent;" data-height="100">
@@ -240,34 +251,34 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   <div class="footer" id="footer">
 
 
-<div class="footer" id="footer">
+    <div class="footer" id="footer">
 
 
-<div class="contentFooter">
-<div class="footerTitle">
-  <h1 class="">ONE LIBRARY</h1>
-  <!-- <a href=""><i class="facebook icon"></i></a>
+      <div class="contentFooter">
+        <div class="footerTitle">
+          <h1 class="">ONE LIBRARY</h1>
+          <!-- <a href=""><i class="facebook icon"></i></a>
   <a href=""><i class="instagram icon"></i></a>
   <a href=""><i class="twitter icon"></i></a> -->
-</div>
-<!-- <div>
+        </div>
+        <!-- <div>
 <a href=""><i class="facebook icon"></i></a>
 </div> -->
-<div class="footerLink">
+        <div class="footerLink">
 
-  <div class="link2">
-    <p>CONTACT US</p>
-    <ul class="a">
-      <li><a href=""><i class="envelope outline icon"></i> onelibraryofficial@gmail.com</a></li>
-      <li><a href=""><i class="phone alternate icon"></i> 011-2146 9831</a></li>
-    </ul>
-  </div>
-</div>
-</div>
+          <div class="link2">
+            <p>CONTACT US</p>
+            <ul class="a">
+              <li><a href=""><i class="envelope outline icon"></i> onelibraryofficial@gmail.com</a></li>
+              <li><a href=""><i class="phone alternate icon"></i> 011-2146 9831</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
-    integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+        integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>
@@ -285,16 +296,36 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
   window.addEventListener('scroll', function () {
     let value = window.scrollY;
-    elmDesign.style.top = value * 0.30 + 'px';
+    elmDesign.style.top = value * 0.15 + 'px';
   })
 
 
-  document.getElementById("myDiv").addEventListener("click", function() {
-  // Replace 'category_id' with the correct value you want to send
-  window.location.href = 'ShowBook.php';
-});
+  document.getElementById("myDiv").addEventListener("click", function () {
+    // Replace 'category_id' with the correct value you want to send
+    window.location.href = 'ShowBook.php';
+  });
 
 
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const scrollToButtons = document.querySelectorAll('.ViewIndexButton a, .ViewIndexButton2 a');
+
+    scrollToButtons.forEach(function (button) {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          const offsetTop = targetElement.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  });
 </script>
 
 <script>
@@ -457,6 +488,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     width: 100%;
     margin: auto;
   }
+
   #bookList {
     width: 90%;
     height: 100%;
@@ -562,6 +594,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     margin: auto;
     border-radius: 20px;
     width: 95%;
+    padding-top: 70px;
   }
 
   /* CSS */
@@ -708,14 +741,16 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   }
 
   .intro-text .text1 {
-    color: #fff;
-    font-size: 50px;
-    font-weight: 900;
+    color: transparent;
+    font-size: 100px;
+    font-weight: 100;
     font-family: 'Jost', sans-serif;
     letter-spacing: 10px;
     padding: 0px 140px;
     position: absolute;
     z-index: 9;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
   }
 
   .intro-text .text2 {
@@ -780,14 +815,14 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   }
 
   #bookshelf {
-    background: #dddddd;
+    background: #F5F7F8;
     width: 100%;
     margin: auto;
     position: relative;
     z-index: 4;
   }
 
-  .ViewIndexButton{
+  .ViewIndexButton {
     position: absolute;
     bottom: 90px;
     left: 50%;
@@ -798,19 +833,41 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     animation-fill-mode: forwards;
     opacity: 0;
   }
-  .ViewIndexButton a{
+
+  .ViewIndexButton a {
     color: #fff;
-   font-size: 60px;
-   cursor: pointer;
+    font-size: 60px;
+    cursor: pointer;
   }
+
+  .ViewIndexButton2 {
+    position: absolute;
+    bottom: -130px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+    animation: ViewButton2 1s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+  }
+
+  .ViewIndexButton2 a {
+    color: #000;
+    font-size: 60px;
+    cursor: pointer;
+  }
+
   @keyframes ViewButton {
-    0%{
-      opacity:0;
+    0% {
+      opacity: 0;
     }
-    100%{
-      opacity:1;
+
+    100% {
+      opacity: 1;
     }
   }
+
 
 
   .footer {
@@ -821,7 +878,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     /* background: #FFFBF5; */
     width: 100%;
     height: 400px;
-    
+
     /* padding:40px 40px; */
   }
 
@@ -889,7 +946,8 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     padding: 0px 0px;
     /* margin-left:100px; */
   }
-  .footerLink .link2 li{
+
+  .footerLink .link2 li {
     padding-bottom: 15px;
   }
 </style>
