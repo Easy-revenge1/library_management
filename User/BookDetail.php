@@ -8,8 +8,12 @@ if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
     exit();
 }
 
+if (!isset($_SESSION['operation_status'])) {
+    $_SESSION['operation_status'] = null;
+  
+  }
+
 $bookId = $_GET['id'];
-// $baseURL = "http://localhost/library_management/";
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -114,7 +118,7 @@ if (isset($_POST["submit"])) {
 
             if (mysqli_stmt_execute($submitReview)) {
                 $_SESSION['review_operation'] = true;
-                header("Location: BookDetail.php?id=" . $bookId . "&page=1");
+                // header("Location: BookDetail.php?id=" . $bookId . "&page=1");
                 // exit();
             } else {
                 $_SESSION['review_operation'] = false;
@@ -197,6 +201,9 @@ $relatedBooksResult = mysqli_stmt_get_result($stmtRelatedBooks);
     if (isset($_SESSION["review_operation"])) {
         if ($_SESSION["review_operation"] === true) {
             echo '<script>successToast(' . json_encode("Review Posted") . ')</script>';
+            header("Refresh: 1");
+            $_SESSION['review_operation'] = null;
+            exit();
         } elseif ($_SESSION["review_operation"] === false) {
             echo '<script>failToast(' . json_encode("Post Review Failed") . ')</script>';
         }
