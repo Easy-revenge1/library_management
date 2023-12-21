@@ -54,7 +54,7 @@ if (isset($_POST['done'])) {
   <?php
   if (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === true) {
     echo '<script>successToast(' . json_encode("Your feedback has been sent") . ')</script>';
-    header("Refresh: 1; url=Userprofile.php");
+    header("Refresh: 1");
     $_SESSION['operation_status'] = null;
     exit();
   } elseif ($_SESSION["operation_status"] === false) {

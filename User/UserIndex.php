@@ -53,7 +53,7 @@ $categoryRow = mysqli_query($conn, $categoryBox);
         <div class="introduction"></div>
 
         <div class="intro-text">
-          <span class="text1">ONE LIBRARY  <br><span class="" style="font-size: 16px; padding-left: 170px;">ONELINE DIGITAL LIBRARY</span></span>
+          <span class="text1">ONE LIBRARY  <br><span style="font-size: 16px; padding-left: 170px;">ONLINE DIGITAL LIBRARY</span></span>
         </div>
 
       </div>

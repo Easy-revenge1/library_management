@@ -78,7 +78,7 @@ if (isset($_POST['change'])) {
   <?php
   if (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === true) {
     echo '<script>successToast(' . json_encode("Password Changed, Redirecting...") . ')</script>';
-    header("Refresh: 1; url=Userprofile.php");
+    header("Refresh: 1; url=UserProfile.php");
     $_SESSION['operation_status'] = null;
     exit();
   } elseif ($_SESSION["operation_status"] === false) {
