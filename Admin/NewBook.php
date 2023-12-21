@@ -43,7 +43,7 @@ if (isset($_POST['submit'])) {
       mysqli_stmt_bind_param($stmt, "sssssssss", $book_title, $book_description, $newFilePath1, $newFilePath2, $book_author, $book_public_date, $language_id, $category_id, $date);
 
       if (mysqli_stmt_execute($stmt)) {
-        echo "<script>window.location.href='book.php';</script>";
+        echo "<script>window.location.href='Book.php';</script>";
       } else {
         $error = mysqli_error($conn);
         echo "<script>alert('Failed to Upload, please try again $error');</script>";
