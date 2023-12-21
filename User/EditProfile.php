@@ -95,7 +95,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/semantic.min.css">
     <link rel="icon" href="../logo/favicon.ico" type="image/x-icon">
     <title>Edit Profile</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
@@ -232,7 +232,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
 </html>
 
-<script src="../Fomantic-ui/dist/semantic.min.js"></script>
+<script src="../Fomantic-UI/dist/semantic.min.js"></script>
 <script src="Assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 <script src="Assets/plugins/toastr/toastr.min.js"></script>
 

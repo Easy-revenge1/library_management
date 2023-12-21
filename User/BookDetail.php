@@ -103,7 +103,6 @@ if (isset($_POST["submit"])) {
     $rating = $_POST["rating"];
     $comment = $_POST["comment"];
 
-    // Check if any of the fields are empty
     if (empty($rating) || empty($comment)) {
 
     } else {
@@ -128,7 +127,6 @@ if (isset($_POST["submit"])) {
 if (isset($_GET['review_id']) && isset($_GET['action']) && $_GET['action'] == 'delete') {
     $id = $_GET['review_id'];
 
-    // Fetch the review details to check user_id
     $getReviewQuery = "SELECT * FROM reviews WHERE review_id = ?";
     $getReviewStmt = mysqli_prepare($conn, $getReviewQuery);
     mysqli_stmt_bind_param($getReviewStmt, "i", $id);
@@ -179,11 +177,11 @@ $relatedBooksResult = mysqli_stmt_get_result($stmtRelatedBooks);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/form.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/input.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.min.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/rating.min.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/components/form.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/components/input.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/components/icon.min.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/components/rating.min.css">
     <script src="Assets/plugins/sweetalert2/sweetalert2.all.js"></script>
     <script src="Assets/plugins/toastr/toastr.min.js"></script>
     <script src="Assets/js/SweetAlert.js"></script>
@@ -576,10 +574,10 @@ $relatedBooksResult = mysqli_stmt_get_result($stmtRelatedBooks);
 
 
     </script>
-    <script src="../Fomantic-ui/dist/semantic.min.js"></script>
-    <script src="../Fomantic-ui/dist/components/form.js"></script>
-    <script src="../Fomantic-ui/dist/components/transition.js"></script>
-    <script src="../Fomantic-ui/dist/components/rating.js"></script>
+    <script src="../Fomantic-UI/dist/semantic.min.js"></script>
+    <script src="../Fomantic-UI/dist/components/form.js"></script>
+    <script src="../Fomantic-UI/dist/components/transition.js"></script>
+    <script src="../Fomantic-UI/dist/components/rating.js"></script>
 </body>
 
 </html>

@@ -45,7 +45,7 @@ if (!$categoryResult) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="Css/Utility.css">
     <title>All Book</title>
 
@@ -131,7 +131,7 @@ if (!$categoryResult) {
         </div>
     </div>
 </body>
-<script src="../Fomantic-ui/dist/semantic.min.js"></script>
+<script src="../Fomantic-UI/dist/semantic.min.js"></script>
 
 </html>
 <script>

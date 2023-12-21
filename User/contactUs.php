@@ -25,11 +25,11 @@ if (isset($_POST['done'])) {
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-      echo '<script>alert("success")</script>';
-      // $_SESSION['operation_status'] = true;
+      // echo '<script>alert("success")</script>';
+      $_SESSION['operation_status'] = true;
     } else {
-      echo '<script>alert("fail")</script>';
-      // $_SESSION['operation_status'] = false;
+      // echo '<script>alert("fail")</script>';
+      $_SESSION['operation_status'] = false;
     }
   }
 }
@@ -53,16 +53,12 @@ if (isset($_POST['done'])) {
 <body>
   <?php
   if (isset($_SESSION["operation_status"]) && $_SESSION["operation_status"] === true) {
-    echo '<script>successToast(' . json_encode("Password Changed, Redirecting...") . ')</script>';
+    echo '<script>successToast(' . json_encode("Your feedback has been sent") . ')</script>';
     header("Refresh: 1; url=Userprofile.php");
     $_SESSION['operation_status'] = null;
     exit();
   } elseif ($_SESSION["operation_status"] === false) {
-    echo '<script>failToast(' . json_encode("Password change failed. Please try again.") . ')</script>';
-  } elseif ($_SESSION["operation_status"] === "NewOldDontMatch") {
-    echo '<script>failToast(' . json_encode("New and Confirm Password don't match") . ')</script>';
-  } elseif ($_SESSION["operation_status"] === "OldDontMatch") {
-    echo '<script>failToast(' . json_encode("Old password don't match") . ')</script>';
+    echo '<script>failToast(' . json_encode("Feedback Send Failed. Please try again later.") . ')</script>';
   }
   ?>
   <div class="FirstBoxWhite">
