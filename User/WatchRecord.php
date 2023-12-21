@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
 
 $userId = $_SESSION["user_id"];
 
-$baseURL = "http://localhost/library_management/";
+// $baseURL = "http://localhost/library_management/";
 
 $watchRecord = "SELECT watch_record.*, book.*
 FROM `watch_record`
@@ -32,24 +32,10 @@ $stmt->close();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Book Mark</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/reset.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/site.css">
-
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/container.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/grid.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/header.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/image.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/menu.css">
-
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/divider.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/segment.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/form.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/input.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/button.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/list.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/message.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/components/icon.css">
-    <link rel="stylesheet" type="text/css" href="../Fomantic-ui/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/components/reset.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/components/input.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/components/button.css">
+    <link rel="stylesheet" type="text/css" href="../Fomantic-UI/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="Css/Utility.css">
 </head>
 
@@ -98,9 +84,9 @@ $stmt->close();
 
 </html>
 
-<script src="../Fomantic-ui/dist/semantic.min.js"></script>
-<script src="../Fomantic-ui/dist/components/form.js"></script>
-<script src="../Fomantic-ui/dist/components/transition.js"></script>
+<script src="../Fomantic-UI/dist/semantic.min.js"></script>
+<script src="../Fomantic-UI/dist/components/form.js"></script>
+<script src="../Fomantic-UI/dist/components/transition.js"></script>
 <script>
     $(document).ready(function () {
         $('#resetButton').on('click', function () {

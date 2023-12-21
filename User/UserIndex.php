@@ -7,14 +7,14 @@ include_once("NavigationBar.php");
 $baseURL = "http://localhost/library_management/";
 
 $mostViewBook = "SELECT b.*, COALESCE(COUNT(wr.book_id), 0) AS total_views
-FROM `book` b
-LEFT JOIN `watch_record` wr ON b.`book_id` = wr.`book_id`
-GROUP BY b.`book_id`
+FROM book b
+LEFT JOIN watch_record wr ON b.book_id = wr.book_id
+GROUP BY b.book_id
 ORDER BY total_views DESC;";
 $BookView = mysqli_query($conn, $mostViewBook);
 
 
-$newUpdateBook = "SELECT * FROM `book` ORDER BY `upload_date` DESC";
+$newUpdateBook = "SELECT * FROM book ORDER BY upload_date DESC";
 $NewestBook = mysqli_query($conn, $newUpdateBook);
 
 
@@ -44,17 +44,16 @@ $categoryRow = mysqli_query($conn, $categoryBox);
   <div class="intro">
     <div class="introBigBox">
       <div class="firstIntroBox">
-        <!-- 
+        
         <div clas="starBox">
           <div id="stars"></div>
           <div id="stars2"></div>
-          <div id="stars3"></div>
-        </div> -->
+        </div>
 
         <div class="introduction"></div>
 
         <div class="intro-text">
-          <span class="text1">ONE LIBRARY</span>
+          <span class="text1">ONE LIBRARY  <br><span class="" style="font-size: 16px; padding-left: 170px;">ONELINE DIGITAL LIBRARY</span></span>
         </div>
 
       </div>
@@ -283,7 +282,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
 
 </html>
 
-<script src="../Fomantic-ui/dist/semantic.min.js"></script>
+<script src="../Fomantic-UI/dist/semantic.min.js"></script>
 
 <script>
   // JavaScript
@@ -326,9 +325,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
       });
     });
   });
-</script>
 
-<script>
   $('.bookshelf .image').dimmer({
     on: 'ontouchstart' in document.documentElement ? 'click' : 'hover'
   });
@@ -744,8 +741,9 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     color: transparent;
     font-size: 100px;
     font-weight: 100;
-    font-family: 'Jost', sans-serif;
-    letter-spacing: 10px;
+    /* font-family: 'Jost', sans-serif; */
+    font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+    letter-spacing: 20px;
     padding: 0px 140px;
     position: absolute;
     z-index: 9;
@@ -769,6 +767,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   .intro-design {
     height: 100vh;
     width: 100%;
+    margin-left:;
     z-index: 9;
     position: relative;
   }
@@ -776,7 +775,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
   .intro-elm {
     /* background:#888; */
     height: 100%;
-    width: 100%;
+    width: 60%;
     margin: auto;
   }
 
@@ -796,6 +795,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
     border-radius: 50%;
     filter: brightness(120%);
     object-fit: cover;
+    margin-left: auto;
   }
 
   /* .intro-elm .elm2{
