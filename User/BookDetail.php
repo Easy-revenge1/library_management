@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
 }
 
 $bookId = $_GET['id'];
-$baseURL = "http://localhost/library_management/";
+// $baseURL = "http://localhost/library_management/";
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -215,12 +215,12 @@ $relatedBooksResult = mysqli_stmt_get_result($stmtRelatedBooks);
         <div class="ui grid" style="width:99.7%; margin:auto;">
             <div class="four wide column" id="detailImg">
                 <?php
-                $bookCoverPath = $row["book_cover"];
-                $fileName = basename($bookCoverPath);
-                $bookCoverUrl = $baseURL . 'cover/' . $fileName;
+                // $bookCoverPath = $row["book_cover"];
+                // $fileName = basename($bookCoverPath);
+                // $bookCoverUrl = $baseURL . 'cover/' . $fileName;
 
                 ?>
-                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="ui fluid image" id="bookCover">
+                <img src="<?php echo $bookCoverUrl ?>" alt="Book Cover" class="ui fluid image" id="bookCover">
             </div>
             <div class="twelve wide column">
                 <h1 class="" style="font-size:50px;">
