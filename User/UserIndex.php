@@ -4,7 +4,7 @@ include_once("../db.php");
 include_once("NavigationBar.php");
 
 
-$baseURL = "http://localhost/library_management/";
+// $baseURL = "http://localhost/library_management/";
 
 $mostViewBook = "SELECT b.*, COALESCE(COUNT(wr.book_id), 0) AS total_views
 FROM book b
@@ -132,8 +132,8 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
           <div class="slider mostView" id="bookList">
             <?php while ($row = mysqli_fetch_assoc($BookView)) { ?>
               <?php
-              $bookCoverPath = str_replace('..', '', $row["book_cover"]);
-              $bookCoverUrl = $baseURL . $bookCoverPath;
+              // $bookCoverPath = str_replace('..', '', $row["book_cover"]);
+              // $bookCoverUrl = $baseURL . $bookCoverPath;
               // $bookCoverPath = $row["book_cover"];
               // $bookCoverUrl = $baseURL . $bookCoverPath;
               ?>
@@ -143,7 +143,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
                   <?= $row["book_title"] ?>
                 </p>
                 <button class="hidden-button" onclick="redirectToBookDetails(<?= $row['book_id'] ?>)">View Detail</button>
-                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="book-image">
+                <img src="<?php echo $row['book_cover'] ?>" alt="Book Cover" class="book-image">
               </div>
             <?php } ?>
           </div>
@@ -159,8 +159,8 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
           <div class="slider" id="bookList">
             <?php while ($row = mysqli_fetch_assoc($NewestBook)) { ?>
               <?php
-              $bookCoverPath = str_replace('..', '', $row["book_cover"]);
-              $bookCoverUrl = $baseURL . $bookCoverPath;
+              // $bookCoverPath = str_replace('..', '', $row["book_cover"]);
+              // $bookCoverUrl = $baseURL . $bookCoverPath;
               ?>
               <div class="book-cover">
                 <div class="linear-bg"></div>
@@ -168,7 +168,7 @@ s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
                   <?= $row["book_title"] ?>
                 </p>
                 <button class="hidden-button" onclick="redirectToBookDetails(<?= $row['book_id'] ?>)">View Detail</button>
-                <img src="<?= $bookCoverUrl ?>" alt="Book Cover" class="book-image">
+                <img src="<?php echo $row['book_cover'] ?>" alt="Book Cover" class="book-image">
               </div>
             <?php } ?>
           </div>
