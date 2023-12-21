@@ -196,7 +196,7 @@ $relatedBooksResult = mysqli_stmt_get_result($stmtRelatedBooks);
     <?php
     if (isset($_SESSION["review_operation"])) {
         if ($_SESSION["review_operation"] === true) {
-            // echo '<script>testToast(' . json_encode("Review Posted") . ')</script>';
+            echo '<script>successToast(' . json_encode("Review Posted") . ')</script>';
         } elseif ($_SESSION["review_operation"] === false) {
             echo '<script>failToast(' . json_encode("Post Review Failed") . ')</script>';
         }
@@ -220,7 +220,7 @@ $relatedBooksResult = mysqli_stmt_get_result($stmtRelatedBooks);
                 // $bookCoverUrl = $baseURL . 'cover/' . $fileName;
 
                 ?>
-                <img src="<?php echo $bookCoverUrl ?>" alt="Book Cover" class="ui fluid image" id="bookCover">
+                <img src="<?php echo $row['book_cover'] ?>" alt="Book Cover" class="ui fluid image" id="bookCover">
             </div>
             <div class="twelve wide column">
                 <h1 class="" style="font-size:50px;">

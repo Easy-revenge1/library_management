@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
             if (move_uploaded_file($_FILES['background_picture']['tmp_name'], $backgroundPicUpload)) {
                 // echo "Background file uploaded successfully.";
             } else {
-                echo "Failed to move the uploaded background file.";
+                // echo "Failed to move the uploaded background file.";
             }
         }
     }
@@ -110,14 +110,14 @@ if (isset($_POST['submit'])) {
 
     if (isset($_SESSION["operation_success"]) && $_SESSION["operation_success"] === true) {
         echo '<script>successToast(' . json_encode("Profile Edited, Redirecting...") . ')</script>';
-        header("Refresh: 1; url=Userprofile.php");
+        header("Refresh: 1; url=UserProfile.php");
         exit();
     }
 
     ?>
 
     <!-- <div style="height:25px;"></div> -->
-    <a href="userProfile.php" class="backButton"><i class="arrow left icon"></i></a>
+    <a href="UserProfile.php" class="backButton"><i class="arrow left icon"></i></a>
 
     <form action="EditProfile.php?user_id=<?php echo $user_id ?>" method="POST" enctype="multipart/form-data">
 
