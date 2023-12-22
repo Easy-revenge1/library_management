@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
       $_SESSION['reset_email'] = $email;
       // Send the password reset email
       // $resetLink = "http://localhost/library_management/User/ResetPassword.php?token=$resetToken";
-      $resetLink = "http://onelibrary.studyisperfect.online/User/ForgotPassword.php?token=$resetToken";
+      $resetLink = "http://onelibrary.studyisperfect.online/User/ResetPassword.php?token=$resetToken";
       $subject = "Password Reset";
       $message = '
             <!DOCTYPE html>
