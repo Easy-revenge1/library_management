@@ -72,7 +72,7 @@ if (isset($_POST['submit'])) {
 
         <form action="AdminLogin.php" method="post">
           <div class="input-group mb-3">
-            <input name="admin_name" type="text" class="form-control" placeholder="Username" value="haoer" required>
+            <input name="admin_name" type="text" class="form-control" placeholder="Name" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -80,7 +80,7 @@ if (isset($_POST['submit'])) {
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" name='admin_pass' placeholder="Code" value="123" required>
+            <input type="password" class="form-control" name='admin_pass' placeholder="Code" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
