@@ -140,20 +140,21 @@ if (isset($_POST['submit'])) {
                                     <div class="form-group">
                                         <label for="inputName">Title</label>
                                         <input type="text" id="title" name="title" class="form-control"
-                                            value="<?= htmlspecialchars($row['title']) ?>">
+                                            value="<?= htmlspecialchars($row['title']) ?>" disabled>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="inputName">Email</label>
                                         <input type="text" id="email" name="email" class="form-control"
-                                            value="<?= htmlspecialchars($row['email']) ?>">
+                                            value="<?= htmlspecialchars($row['email']) ?>" disabled>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="inputAuthor">Content</label>
                                         <input type="text" id="content" name="content" class="form-control"
-                                            value="<?= htmlspecialchars($row['content']) ?>"></input>
+                                            value="<?= htmlspecialchars($row['content']) ?>" disabled>
                                     </div>
+
 
                                 </div>
                         </div>
@@ -190,7 +191,7 @@ if (isset($_POST['submit'])) {
         timer: 3000
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var feedbackMessage = <?php echo json_encode($_SESSION['feedback_message'] ?? null); ?>;
         if (feedbackMessage) {
             Toast.fire({
