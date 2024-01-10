@@ -1,7 +1,7 @@
 <?php 
 
-// session_start();
-// date_default_timezone_set('Asia/Kuala_Lumpur');
+session_start();
+date_default_timezone_set('Asia/Kuala_Lumpur');
 
 // $server = "localhost: 3307";
 // $name   = "root";
