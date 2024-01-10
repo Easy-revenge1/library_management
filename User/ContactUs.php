@@ -72,7 +72,7 @@ if (isset($_POST['done'])) {
       <div class="userInfo">
         <p class="ui userTitle header horizontal divider">CONTACT US</p>
 
-        <form action="contactUs.php" method="post">
+        <form action="ContactUs.php" method="post">
 
           <div class="flexBox">
             <div class="lboxcssShort" style="">
