@@ -1,7 +1,7 @@
 <?php 
 
-// session_start();
-// date_default_timezone_set('Asia/Kuala_Lumpur');
+session_start();
+date_default_timezone_set('Asia/Kuala_Lumpur');
 
 // $server = "localhost: 3307";
 // $name   = "root";
@@ -17,7 +17,7 @@
 session_start();
 date_default_timezone_set('Asia/Kuala_Lumpur');
 
-$server = "118.107.205.68";
+$server = "118.107.200.71";
 $name   = "HaoEr";
 $pass   ="M.NqV%+QK-PezGJ[!,8w&5";
 $db     ="OneLibrary";
